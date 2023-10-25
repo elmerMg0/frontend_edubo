@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from '../node_modules/react-router-dom/dist/index'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Dashboard } from './pages/dashboard/Dashboard'
 
 function App() {

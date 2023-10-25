@@ -1,29 +1,35 @@
 import { createSlice , PayloadAction} from '@reduxjs/toolkit'
 
 import { persistLocalStorage } from "../../utilities/localstorage.utility";
+import { User } from '../../models/User';
 
-const initialState = {
+export const UserEmptyState: User  = {
     username: '',
     accessToken: '',
-    periodUser: ''
+    periodUser: {
+        id: 0,
+        state: false
+    },
+    tipo: ''
 }
 
 export const UserKey = 'user';
 const userSlice = createSlice( {
     name: 'user',
-    initialState: localStorage.getItem(UserKey) ? JSON.parse(localStorage.getItem(UserKey)) : initialState,
+    initialState: localStorage.getItem(UserKey) ? JSON.parse(localStorage.getItem(UserKey) as string): UserEmptyState,
+
     reducers: {
-        createUser: (state, action: PayloadAction<number>) => {
+        createUser: (state, action) => {
             persistLocalStorage(UserKey , action.payload)
             return action.payload;
         }, 
-        updateUser: ( state, action: PayloadAction<number>) => {
+        updateUser: ( state, action) => {
             const result = {...state, ...action.payload}
             persistLocalStorage(UserKey, result);
             return result;
         } , 
         resetUser: () => {
-            return initialState;
+            return UserEmptyState;
         }
        }
 })

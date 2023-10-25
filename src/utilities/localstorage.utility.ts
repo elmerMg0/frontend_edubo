@@ -1,4 +1,4 @@
-export const persistLocalStorage = ( key: string, value) => {
+export const persistLocalStorage = <T,> ( key: string, value: T) => {
     localStorage.setItem(key, JSON.stringify(value))
 }
 export const clearLocalStorage = ( key: string) => {
