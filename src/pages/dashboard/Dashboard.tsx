@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import { APISERVICE, PageInfo } from "../../service/api.service";
+import { APISERVICE } from "../../service/api.service";
 import { TableRoads } from "./TableRoads";
+import { PageInfo } from "../../models/models";
 
 
 export interface Road {

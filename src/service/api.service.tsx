@@ -1,15 +1,9 @@
+import { PageInfo } from "../models/models";
 import { Road } from "../pages/dashboard/Dashboard";
 
 const APIURL = import.meta.env.VITE_REACT_APP_API_URL
 
-export type PageInfo = {
-        count: number,
-        next: number,
-        page: number,
-        previus: number,
-        start: number,
-        totalPages: number
-}
+
 type ApiResponse = {
     success: boolean;
     pageInfo: PageInfo

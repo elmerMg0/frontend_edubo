@@ -1,4 +1,3 @@
-import { Table } from "react-bootstrap";
 import { Road } from "./Dashboard";
 
 
@@ -7,7 +6,7 @@ interface Props{
 }
 export function TableRoads ({roads}: Props){
     return (
-        <Table>
+        <table>
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -15,7 +14,8 @@ export function TableRoads ({roads}: Props){
                     <th>Numero de Cursos</th>
                     <th>Estado</th>
                 </tr>
-                <tbody>
+            </thead>
+            <tbody>
                     {
                         roads?.length > 0 ? roads.map(road => {
                             return <tr>
@@ -31,7 +31,6 @@ export function TableRoads ({roads}: Props){
                         </tr>
                     }
                 </tbody>
-            </thead>
-        </Table>
+        </table>
     )
 }

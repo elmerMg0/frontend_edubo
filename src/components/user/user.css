@@ -1,0 +1,41 @@
+:root{
+    --colorMain: #3C8DBB;
+    --colorMainBlack: #367FA6;
+    --colorSecundary: #2D3C42;
+    --colorSecundaryBlack: #222D30;
+    --colorRed: #DA4E3B;
+    --colorRedBlack: #e4412b;
+    --colorWhite: #ffffff;
+    --colorGreen: #00A758;
+}
+.conteiner-user{
+    margin: 50px;
+    width: 100%;
+}
+ .img-user-row{
+    width: 10px;
+    border-radius: 5px;
+ }
+ .img-user-row img{
+    width: 100%;
+    border-radius: 5px;
+}
+.user-btns{
+    display: flex;
+    gap: 10px;
+    justify-content: right;   
+}
+.user-state button {
+    min-width: 80px;
+}
+.modal-category-image{
+    width: 200px;
+}
+.modal-category-image img{
+    width: 100%;
+}
+.eye-password{
+    position: absolute;
+    top: 41px;
+    right: 10px;
+}
