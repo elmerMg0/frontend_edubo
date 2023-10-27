@@ -4,12 +4,14 @@ import { PageInfo } from "../../../models/models";
 let maxPages: number;
 
 interface Props {
-    pageInfo: PageInfo,
-    getData: (page: number) => void
+    pageInfo: PageInfo | null,
+    getData: (page: number, nameFilter: string) => void
 }   
 
 function Pagination ({ pageInfo, getData }: Props) {
-  let { page, next, previus, totalPages } = pageInfo;
+  if(pageInfo === null)return;
+
+  let { page, next, previus, totalPages } = pageInfo
   const pageInfoRef = useRef<PageInfo>();
 
   const [pageNumbers, setPageNumbers] = useState<number[]>([])
@@ -29,12 +31,12 @@ function Pagination ({ pageInfo, getData }: Props) {
   },[pageInfo])
   
   const handlePrevius = () => {
-    getData(previus)
+    getData(previus,'')
     if(page === pageNumbers[0]) handleSwapListLeft();
   }
   
   const handleNext = () => {
-    getData(next)
+    getData(next,'')
     if(page === pageNumbers[pageNumbers.length - 1]) handleSwapListRight();
   };
 
@@ -64,7 +66,7 @@ function Pagination ({ pageInfo, getData }: Props) {
       }
       {
         totalPages > 0 ?  pageNumbers.map((number) => {
-          return <button key={crypto.randomUUID()} className={`pagination-numbers ${page === number ? "page-active": ''}`} onClick={() => getData(number)}>
+          return <button key={crypto.randomUUID()} className={`pagination-numbers ${page === number ? "page-active": ''}`} onClick={() => getData(number, '')}>
               <p>{number}</p>
           </button>
         }):''

@@ -1,3 +1,4 @@
+import { Table } from "react-bootstrap";
 import { Road } from "./Dashboard";
 
 
@@ -6,7 +7,7 @@ interface Props{
 }
 export function TableRoads ({roads}: Props){
     return (
-        <table>
+        <Table>
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -31,6 +32,6 @@ export function TableRoads ({roads}: Props){
                         </tr>
                     }
                 </tbody>
-        </table>
+        </Table>
     )
 }

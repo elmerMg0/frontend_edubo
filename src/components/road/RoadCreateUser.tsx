@@ -6,7 +6,7 @@ import { typesValidation } from "../../../utilities/constans";
 import { EyesIconGlobal } from '../../global/icons/IconsGlobal';
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 
-export default function ModalCreateUser({ show, onHide, createuser, userToUpdate, setUserToUpdate, updateUser }) {
+export default function RoadCreateUser({ show, onHide, createuser, userToUpdate, setUserToUpdate, updateUser }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [nombres, setNombres] = useState({ value: '', estado: 0, errorText: '' })//0 sin accion, 1 valido, 2 error

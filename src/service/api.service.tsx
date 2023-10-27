@@ -1,5 +1,4 @@
-import { PageInfo } from "../models/models";
-import { Road } from "../pages/dashboard/Dashboard";
+import { PageInfo, Road } from "../models/models";
 
 const APIURL = import.meta.env.VITE_REACT_APP_API_URL
 

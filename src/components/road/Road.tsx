@@ -1,21 +1,27 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { APISERVICE } from "../../../services/api.services";
-import ModalCreateUser from "./ModalCreateUser";
-import UserTable from "./UserTable";
-import ModalConfirm from "../../global/modal/ModalConfirm";
+import ModalCreateUser from "./RoadCreateUser";
+import UserTable from "./RoadTable";
 import { toast } from "react-hot-toast";
-import SearchInput from "../../global/search/SearchInput";
 import './user.css'
-import { userServiceNames } from "../../../services/serviceNames";
-import debounce from "just-debounce-it";
-import Loading from "../../global/loader/Loading";
-import { messagesError } from "../../../helpers/messageGlobal";
-import { messagesDangerous } from "../../../utilities/constans";
-import { PageInfo } from "../../models/models";
+import { PageInfo, Road } from "../../models/models";
+import { APISERVICE } from "../../service/api.service";
+import { RoadServiceName } from "../../service/apiServiceNames";
 
-export default function User() {
-  const [users, setUsers] = useState([]);
-  const [pageInfo, setPageInfo] = useState<PageInfo>(null);
+interface AppState {
+  roads: Road[],
+  pageInfo: PageInfo | null,
+}
+const initialStatePageInfo = {
+  page: 0,
+  count: 0,
+  next: 0,
+  previus: 0,
+  start: 0,
+  totalPages: 0
+}
+export default function RoadComponent() {
+  const [roads, setRoads] = useState<AppState['roads']>([]);
+  const [pageInfo, setPageInfo] = useState<AppState['pageInfo']>(null);
   const [modalShow, setModalShow] = useState(false);
   const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [customerToDelete, setCustomerToDelete] = useState({});
@@ -31,9 +37,9 @@ export default function User() {
     try {
       setLoading(true)
       let params = `page=${pageNumber}&name=${name}`;
-      const { success, pageInfo } = await APISERVICE.get(userServiceNames.GET, params);
+      const { success, roads , pageInfo } = await APISERVICE.get(RoadServiceName.GET, params);
       if (success) {
-        setUsers(pageInfo.users);
+        setRoads(roads);
         setPageInfo(pageInfo);
       }
     } catch (error) {
@@ -43,7 +49,7 @@ export default function User() {
     }
   };
 
-  const createuser = async (user: User, image) => {
+ /*  const createuser = async (user: User, image) => {
     try {
       setLoading(true)
       const formData = new FormData();
@@ -64,13 +70,13 @@ export default function User() {
       setLoading(false);
     }
   };
-
-  const deleteUserModal = async (id) => {
-    setShowModalConfirm(true);
-    setCustomerToDelete(id);
+ */
+  const deleteRoadModal = async (id: number) => {
+   /*  setShowModalConfirm(true);
+    setCustomerToDelete(id); */
   };
 
-  const deleteUser = async () => {
+ /*  const deleteUser = async () => {
     try {
       setLoading(true)
       setShowModalConfirm(false);
@@ -89,8 +95,8 @@ export default function User() {
     }
   
   };
-
-  const updateUser = async (body, image) => {
+ */
+ /*  const updateUser = async (body, image) => {
     try {
       setLoading(true);
       let $params = `id=${userUpdate.id}`;
@@ -112,56 +118,56 @@ export default function User() {
     }
   
   };
-
-  const filtercategories = (category) => {
+ */
+ /*  const filtercategories = (category) => {
     setFilters(filters => ({...filters, nombre: category}))
     debouncedGetCategogies(category)
   };
-
-  const debouncedGetCategogies = useCallback( debounce(search => {
+ */
+/*   const debouncedGetCategogies = useCallback( debounce(search => {
     getUsers(pageInfo.page, search)
   },500)
-  ,[])
+  ,[]) */
 
   const clearFilter = () => {
-    setFilters(filters => ({...filters, nombre: ''}))
-    getUsers(pageInfo.page, "");
+    //setFilters(filters => ({...filters, nombre: ''}))
+    //getUsers(pageInfo.page, "");
   }
 
   return (
     <>
       <div className="content-private">
-        <h3 className="title-header">Usuarios</h3>
-        <SearchInput
+        <h3 className="title-header">Ruta de Aprendizaje</h3>
+       {/*  <SearchInput
           setShow={setModalShow}
           filterSomething={filtercategories}
           placeHolder="Nombre de usuario"
           handleClear={clearFilter}
-        />
+        /> */}
         <UserTable
+          roads={roads}
           getUsers={getUsers}
-          users={users}
+          deleteRoad={deleteRoadModal}
           pageInfo={pageInfo}
-          deleteUser={deleteUserModal}
-          setUserUpdate={setUserUpdate}
+          /*setUserUpdate={setUserUpdate}
           setModalShow={setModalShow}
-          loading={loading}
+          loading={loading} */
             />
-        <ModalCreateUser
+       {/*  <ModalCreateUser
           show={modalShow}
           onHide={() => setModalShow(false)}
           createuser={createuser}
           userToUpdate={userUpdate}
           setUserToUpdate={setUserUpdate}
           updateUser={updateUser}
-        />
-        <ModalConfirm
+        /> */}
+       {/*  <ModalConfirm
           show={showModalConfirm}
           onHide={setShowModalConfirm}
           deleteSomething={deleteUser}
           message={messagesDangerous('Usuario')}
-        />
-        {loading &&  <Loading/>}
+        /> */}
+       {/*  {loading &&  <Loading/>} */}
       </div>
     </>
   );

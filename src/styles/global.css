@@ -1,15 +1,50 @@
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
-  
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-  
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-  }
+    --colorMain: #3f7f35;          
+    --colorSecundary: #2f5f28;
+    --colorThird: #1f3f1a;
+    --colorBlackSecundary: #10200d;
+    --colorBlack: #000000;
+    --colorRed: #FF0000;
+}
+
+.content-private{
+  margin: 50px;
+}
+.body{
+  font-family: 'monserat', sans-serif;
+}
+h1,h2,h3,h4,h5{
+  font-weight: 400;
+} 
+th,td{
+  font-weight: 400;
+}
+
+/*  */
+.title-header{
+  color: var(--colorMain);
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+/* Botones */
+.btn{
+  border-radius: 5px;
+}
+.btn-red{
+  border:1px solid var(--colorRed);
+}
+.btn-green{
+  border:1px solid var(--colorRed);
+}
+.btn-main{
+  border:1px solid var(--colorMain);
+  display: none;
+}
