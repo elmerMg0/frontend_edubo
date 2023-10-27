@@ -18,5 +18,20 @@ export const APISERVICE = {
         }
         const data: ApiResponse = await res.json();
         return data;
-    }
+    },
+    post: async <T,>(body: T,url: string, params: string) => {
+        const response = await fetch(`${APIURL +url + params}`,{
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(body)
+        })
+        if(!response.ok){
+            throw(new Error('New error'))
+        }
+
+        const data = await response.json();
+        return data;
+    }   
 }

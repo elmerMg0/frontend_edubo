@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { Road } from "../../models/models";
 import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
+import { ContextRoad, CreateContextType } from "./RoadContext";
 
 interface Props{
   road: Road
@@ -7,9 +9,13 @@ interface Props{
 export default function UserTableRow({
   road,
   /* deleteUser, */
- /*  setUserUpdate */
- /*  setModalShow, */
 }: Props) {
+
+  const contextValue = useContext<CreateContextType | null>(ContextRoad);
+
+  if(!contextValue)return 
+
+  const { setRoadToUpdate, setShowModal } = contextValue
   return (
     <>
       <tr>
@@ -22,8 +28,8 @@ export default function UserTableRow({
           <button
             className="btn btn-main"
             onClick={() => {
-              /* setModalShow(true);
-              setroadUpdate(road); */
+              setShowModal(true);
+              setRoadToUpdate(road);
             }}
           >
             {/* <img src={edit} alt="icon-edit" />{" "} */}

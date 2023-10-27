@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
-import ModalCreateUser from "./RoadCreateUser";
+import React, { useState, useEffect, useCallback, createContext } from "react";
 import UserTable from "./RoadTable";
 import { toast } from "react-hot-toast";
 import './user.css'
 import { PageInfo, Road } from "../../models/models";
 import { APISERVICE } from "../../service/api.service";
 import { RoadServiceName } from "../../service/apiServiceNames";
+import { ModalRoad } from "./ModalRoad";
+import { ContextRoadProvider } from "./RoadContext";
 
 interface AppState {
   roads: Road[],
   pageInfo: PageInfo | null,
+  road: Road | null,
 }
 const initialStatePageInfo = {
   page: 0,
@@ -19,21 +21,22 @@ const initialStatePageInfo = {
   start: 0,
   totalPages: 0
 }
+
+export const ContextRoad = createContext(null);
 export default function RoadComponent() {
   const [roads, setRoads] = useState<AppState['roads']>([]);
   const [pageInfo, setPageInfo] = useState<AppState['pageInfo']>(null);
-  const [modalShow, setModalShow] = useState(false);
   const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [customerToDelete, setCustomerToDelete] = useState({});
-  const [userUpdate, setUserUpdate] = useState({});
+  const [roadToUpdate, setRoadToUpdate] = useState<AppState['road']>(null);
   const [filters, setFilters] = useState({nombre: ''});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getUsers();
+    getRoads();
   }, []);
 
-  const getUsers = async (pageNumber = 1, name=filters.nombre) => {
+  const getRoads = async (pageNumber = 1, name=filters.nombre) => {
     try {
       setLoading(true)
       let params = `page=${pageNumber}&name=${name}`;
@@ -49,20 +52,15 @@ export default function RoadComponent() {
     }
   };
 
- /*  const createuser = async (user: User, image) => {
+  const createRoad = async (road: Road) => {
     try {
       setLoading(true)
-      const formData = new FormData();
-     
-      formData.append("data", JSON.stringify(user));
-      if (image) formData.append("file", user.url_image);
-  
-      const { success, message, code } = await APISERVICE.postWithImage(formData, userServiceNames.CREATE);
+      const { success, message, code } = await APISERVICE.post(road, RoadServiceName.CREATE, '');
       if ( success ) {
         toast.success(message);
-        getUsers(pageInfo.page, filters.nombre);
+        getRoads(pageInfo?.page, filters.nombre);
       }else{
-        toast.error(messagesError(code));
+        //toast.error(messagesError(code));
       }
     } catch (error) {
       
@@ -70,7 +68,7 @@ export default function RoadComponent() {
       setLoading(false);
     }
   };
- */
+
   const deleteRoadModal = async (id: number) => {
    /*  setShowModalConfirm(true);
     setCustomerToDelete(id); */
@@ -83,7 +81,7 @@ export default function RoadComponent() {
       let params = `idUser=${customerToDelete}`;
       const {success, message, code} = await APISERVICE.get(userServiceNames.DISABLE, params);
       if ( success ) {
-        getUsers(pageInfo.page, filters.nombre);
+        getRoads(pageInfo.page, filters.nombre);
         toast.success(message);
       }else{
         toast.error(messagesError(code));
@@ -96,10 +94,10 @@ export default function RoadComponent() {
   
   };
  */
- /*  const updateUser = async (body, image) => {
-    try {
+  const updateRoad = async (body: Road) => {
+ /*    try {
       setLoading(true);
-      let $params = `id=${userUpdate.id}`;
+      let $params = `id=${roadToUpdate.id}`;
       const data = new FormData();
     
       data.append("data", JSON.stringify(body));
@@ -107,7 +105,7 @@ export default function RoadComponent() {
       const {success, message, code} = await APISERVICE.postWithImage(data, userServiceNames.UPDATE, $params);
       if (success) {
         toast.success(message);
-        getUsers(pageInfo.page, filters.nombre);
+        getRoads(pageInfo.page, filters.nombre);
       }else{
         toast.error(messagesError(code));
       }
@@ -115,29 +113,34 @@ export default function RoadComponent() {
       toast.error('Ocurrio un error')
     } finally{
       setLoading(false)
-    }
+    } */
   
   };
- */
+
  /*  const filtercategories = (category) => {
     setFilters(filters => ({...filters, nombre: category}))
     debouncedGetCategogies(category)
   };
  */
 /*   const debouncedGetCategogies = useCallback( debounce(search => {
-    getUsers(pageInfo.page, search)
+    getRoads(pageInfo.page, search)
   },500)
   ,[]) */
 
   const clearFilter = () => {
     //setFilters(filters => ({...filters, nombre: ''}))
-    //getUsers(pageInfo.page, "");
+    //getRoads(pageInfo.page, "");
+  }
+
+  const HandleSetRoadToUpdate = (road: Road) => {
+    setRoadToUpdate(road)
   }
 
   return (
-    <>
+    <ContextRoadProvider>
       <div className="content-private">
         <h3 className="title-header">Ruta de Aprendizaje</h3>
+        
        {/*  <SearchInput
           setShow={setModalShow}
           filterSomething={filtercategories}
@@ -146,22 +149,18 @@ export default function RoadComponent() {
         /> */}
         <UserTable
           roads={roads}
-          getUsers={getUsers}
+          getRoads={getRoads}
           deleteRoad={deleteRoadModal}
           pageInfo={pageInfo}
-          /*setUserUpdate={setUserUpdate}
-          setModalShow={setModalShow}
+          /*setModalShow={setModalShow}
           loading={loading} */
             />
-       {/*  <ModalCreateUser
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          createuser={createuser}
-          userToUpdate={userUpdate}
-          setUserToUpdate={setUserUpdate}
-          updateUser={updateUser}
-        /> */}
-       {/*  <ModalConfirm
+        <ModalRoad
+          createRoad={createRoad}
+          updateRoad={updateRoad}
+          setRoadToUpdate={() => setRoadToUpdate(null)}
+        />
+      {/*   <ModalConfirm
           show={showModalConfirm}
           onHide={setShowModalConfirm}
           deleteSomething={deleteUser}
@@ -169,6 +168,6 @@ export default function RoadComponent() {
         /> */}
        {/*  {loading &&  <Loading/>} */}
       </div>
-    </>
+    </ContextRoadProvider>
   );
 }

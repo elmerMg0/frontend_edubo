@@ -12,6 +12,7 @@
     --colorBlackSecundary: #10200d;
     --colorBlack: #000000;
     --colorRed: #FF0000;
+    --colorGris: #B8B6B5;
 }
 
 .content-private{
@@ -47,4 +48,31 @@ th,td{
 .btn-main{
   border:1px solid var(--colorMain);
   display: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+.input{
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px 15px;
+  border: 1px solid var(--colorGris);
+}
+.select{ 
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: 1px solid var(--colorGris);
+}
+.select:focus{
+  outline: none;
+}
+.f-label{
+  margin: 10px 0px 5px 0px;
+}
+.f-error{
+  border: 1px solid var(--colorRed);
 }

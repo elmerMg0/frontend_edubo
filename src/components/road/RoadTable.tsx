@@ -6,14 +6,14 @@ import { PageInfo, Road } from "../../models/models";
 
 interface Props {
   roads: Road[],
-  getUsers: (page: number, nameFilter: string) => void,
+  getRoads: (page: number, nameFilter: string) => void,
   deleteRoad: (id: number) => void,
   pageInfo: PageInfo | null
 }
 
 export default function UserTable({
   roads,
-  getUsers,
+  getRoads,
   deleteRoad,
   pageInfo,
   /*setUserUpdate,
@@ -26,7 +26,7 @@ export default function UserTable({
           <thead >
             <tr>
               <ThTable name='Nombre' borTopLefRad={10} />
-              <ThTable name='Tipo' />
+              <ThTable name='Descripcion' />
               <ThTable name='Estado' />
               <ThTable name='Accion' borTopRigRad={10}/>
             </tr>
@@ -35,7 +35,7 @@ export default function UserTable({
             {roads?.length > 0 ? (
               roads.map((road) => (
                 <UserTableRow
-                  key = {road.id}
+                  key = {crypto.randomUUID()}
                   road = {road}
                  /*  deleteRoad = {deleteRoad}
                   setUserUpdate = {setUserUpdate}
@@ -54,7 +54,7 @@ export default function UserTable({
         </Table>
         <div className="mt-2">
            {roads?.length > 0 &&
-                  <Pagination pageInfo={pageInfo} getData={getUsers} />
+                  <Pagination pageInfo={pageInfo} getData={getRoads} />
             }
         </div>
     </>

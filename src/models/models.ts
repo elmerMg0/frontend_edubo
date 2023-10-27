@@ -7,7 +7,7 @@ export type PageInfo = {
     totalPages: number
 }   
 export interface Road {
-    id: number,
+    id?: number,
     nombre: string,
     descripcion: string,
     numero_cursos: number,
