@@ -13,3 +13,13 @@ export interface Road {
     numero_cursos: number,
     active: boolean
 }
+
+export interface Course {
+    id?: number,
+    titulo: string,
+    descripcion: string
+    duracion: number
+    nivel: string,
+    ruta_aprendizaje_id?: number,
+    active: boolean
+}

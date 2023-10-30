@@ -46,9 +46,14 @@ label,select{
   font-weight: 400;
   margin-bottom: 10px;
 }
-.title-header__modal{
+.title-header-secundary{
   color: var(--colorThird);
+  font-weight: 500;
+  margin: 0;
+}
+.title-header__modal{
   font-weight: 400;
+  color: var(--colorThird);
   margin: 0;
 }
 

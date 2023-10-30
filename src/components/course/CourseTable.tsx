@@ -1,19 +1,19 @@
 import { Table } from "react-bootstrap";
-import UserTableRow from "./RoadTableRow";
 import { ThTable } from "../global/pagination/ThTable";
 import Pagination from "../global/pagination/Pagination";
-import { PageInfo, Road } from "../../models/models";
+import { Course, PageInfo, Road } from "../../models/models";
+import CourseTableRow from "./CourseTableRow";
 
 interface Props {
-  roads: Road[],
-  getRoads: (page: number, nameFilter: string) => void,
+  courses: Course[],
+  getCourses: (page: number, nameFilter: string) => void,
   deleteRoad: (id: number) => void,
   pageInfo: PageInfo | null
 }
 
-export default function UserTable({
-  roads,
-  getRoads,
+export default function CourseTable({
+  courses,
+  getCourses,
   deleteRoad,
   pageInfo,
   /*setUserUpdate,
@@ -25,19 +25,18 @@ export default function UserTable({
         <Table responsive>
           <thead >
             <tr>
-              <ThTable name='Cursos' borTopLefRad={10} />
-              <ThTable name='Nombre' />
+              <ThTable name='Nombre' borTopLefRad={10} />
               <ThTable name='Descripcion' />
               <ThTable name='Estado' />
               <ThTable name='Accion' justifycontent="center" borTopRigRad={10}/>
             </tr>
           </thead>
           <tbody>
-            {roads?.length > 0 ? (
-              roads.map((road) => (
-                <UserTableRow
+            {courses?.length > 0 ? (
+              courses.map((course) => (
+                <CourseTableRow
                   key = {crypto.randomUUID()}
-                  road = {road}
+                  course = {course}
                  /*  deleteRoad = {deleteRoad}
                   setUserUpdate = {setUserUpdate}
                   setModalShow = {setModalShow} */
@@ -54,8 +53,8 @@ export default function UserTable({
           </tbody>
         </Table>
         <div className="mt-2">
-           {roads?.length > 0 &&
-                  <Pagination pageInfo={pageInfo} getData={getRoads} />
+           {courses?.length > 0 &&
+                  <Pagination pageInfo={pageInfo} getData={getCourses} />
             }
         </div>
     </>

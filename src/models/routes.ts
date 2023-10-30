@@ -1,6 +1,6 @@
 export const PrivateRoutes = {
-    DASHBOARD: 'dashboard',
-    KITCHEN: 'kitchen',
+    ROAD: 'road',
+    COURSE: 'course',
     POS:'lounges',
     PRIVATE: 'private',
     CUSTOMERS: "customers",

@@ -3,7 +3,7 @@ import UserTable from "./RoadTable";
 import { toast } from "react-hot-toast";
 import './user.css'
 import { PageInfo, Road } from "../../models/models";
-import { APISERVICE } from "../../service/api.service";
+import { APISERVICE, AxiosService } from "../../service/api.service";
 import { RoadServiceName } from "../../service/apiServiceNames";
 import { ModalRoad } from "./ModalRoad";
 import { ContextRoadProvider } from "./RoadContext";
@@ -13,14 +13,6 @@ interface AppState {
   roads: Road[],
   pageInfo: PageInfo | null,
   road: Road | null,
-}
-const initialStatePageInfo = {
-  page: 0,
-  count: 0,
-  next: 0,
-  previus: 0,
-  start: 0,
-  totalPages: 0
 }
 
 export const ContextRoad = createContext(null);
@@ -39,14 +31,18 @@ export default function RoadComponent() {
 
 
   const getRoads = async (pageNumber = 1, name=filters.nombre) => {
+    //const params = `name=${name}`
     try {
       setLoading(true)
       let params = `page=${pageNumber}&name=${name}`;
-      const { success, roads , pageInfo } = await APISERVICE.get(RoadServiceName.GET, params);
-      if (success) {
-        setRoads(roads);
-        setPageInfo(pageInfo);
-      }
+      //const response = 
+      //const { success, roads , pageInfo } = await APISERVICE.get(RoadServiceName.GET, params);
+      const response = await AxiosService.get(RoadServiceName.GET, '');
+      if(response){
+          const { roads, pageInfo} = response;
+          setRoads(roads);
+          setPageInfo(pageInfo);
+        }
     } catch (error) {
       
     } finally{
@@ -140,7 +136,7 @@ export default function RoadComponent() {
         
         <SearchInput
           filterSomething={filtercategories}
-          placeHolder="Nombre de usuario"
+          placeHolder="Nombre de la ruta de aprendizaje"
           handleClear={clearFilter}
         />
         <UserTable

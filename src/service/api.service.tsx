@@ -1,4 +1,6 @@
 import { PageInfo, Road } from "../models/models";
+import axios from "axios"
+import { API } from "./connections";
 
 const APIURL = import.meta.env.VITE_REACT_APP_API_URL
 
@@ -49,4 +51,12 @@ export const APISERVICE = {
         return data;
     }
 
+}
+
+export const AxiosService = {
+    get: (url: string, params: string) => {
+        return axios.get(`${APIURL+ url}`, {params: {
+            name: params
+        }});
+    }
 }
