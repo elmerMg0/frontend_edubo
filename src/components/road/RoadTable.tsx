@@ -28,7 +28,7 @@ export default function UserTable({
               <ThTable name='Nombre' borTopLefRad={10} />
               <ThTable name='Descripcion' />
               <ThTable name='Estado' />
-              <ThTable name='Accion' borTopRigRad={10}/>
+              <ThTable name='Accion' justifycontent="center" borTopRigRad={10}/>
             </tr>
           </thead>
           <tbody>

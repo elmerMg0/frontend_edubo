@@ -7,6 +7,7 @@ import { APISERVICE } from "../../service/api.service";
 import { RoadServiceName } from "../../service/apiServiceNames";
 import { ModalRoad } from "./ModalRoad";
 import { ContextRoadProvider } from "./RoadContext";
+import SearchInput from "../global/search/Search";
 
 interface AppState {
   roads: Road[],
@@ -35,6 +36,7 @@ export default function RoadComponent() {
   useEffect(() => {
     getRoads();
   }, []);
+
 
   const getRoads = async (pageNumber = 1, name=filters.nombre) => {
     try {
@@ -94,34 +96,30 @@ export default function RoadComponent() {
   
   };
  */
-  const updateRoad = async (body: Road) => {
- /*    try {
+  const updateRoad = async (body: Road, idRoad: number) => {
+    try {
       setLoading(true);
-      let $params = `id=${roadToUpdate.id}`;
-      const data = new FormData();
-    
-      data.append("data", JSON.stringify(body));
-      if (image) data.append("file", image);
-      const {success, message, code} = await APISERVICE.postWithImage(data, userServiceNames.UPDATE, $params);
+      let params = `idRoad=${idRoad}`;
+      const {success, message, code} = await APISERVICE.post(body, RoadServiceName.UPDATE, params);
       if (success) {
         toast.success(message);
-        getRoads(pageInfo.page, filters.nombre);
+        getRoads(pageInfo?.page, filters.nombre);
       }else{
-        toast.error(messagesError(code));
+        //toast.error(messagesError(code));
       }
     } catch (error) {
       toast.error('Ocurrio un error')
     } finally{
       setLoading(false)
-    } */
+    }
   
   };
 
- /*  const filtercategories = (category) => {
+  const filtercategories = (category: string) => {
     setFilters(filters => ({...filters, nombre: category}))
-    debouncedGetCategogies(category)
+    //debouncedGetCategogies(category)
   };
- */
+
 /*   const debouncedGetCategogies = useCallback( debounce(search => {
     getRoads(pageInfo.page, search)
   },500)
@@ -135,18 +133,16 @@ export default function RoadComponent() {
   const HandleSetRoadToUpdate = (road: Road) => {
     setRoadToUpdate(road)
   }
-
   return (
     <ContextRoadProvider>
       <div className="content-private">
         <h3 className="title-header">Ruta de Aprendizaje</h3>
         
-       {/*  <SearchInput
-          setShow={setModalShow}
+        <SearchInput
           filterSomething={filtercategories}
           placeHolder="Nombre de usuario"
           handleClear={clearFilter}
-        /> */}
+        />
         <UserTable
           roads={roads}
           getRoads={getRoads}
@@ -158,7 +154,6 @@ export default function RoadComponent() {
         <ModalRoad
           createRoad={createRoad}
           updateRoad={updateRoad}
-          setRoadToUpdate={() => setRoadToUpdate(null)}
         />
       {/*   <ModalConfirm
           show={showModalConfirm}

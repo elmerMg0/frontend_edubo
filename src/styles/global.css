@@ -11,8 +11,10 @@
     --colorThird: #1f3f1a;
     --colorBlackSecundary: #10200d;
     --colorBlack: #000000;
-    --colorRed: #FF0000;
+    --colorRed: #DA4E3B;
     --colorGris: #B8B6B5;
+    --colorGrisHard: #696969;
+    --colorBlue: #3c8dbb;
 }
 
 .content-private{
@@ -24,30 +26,70 @@
 h1,h2,h3,h4,h5{
   font-weight: 400;
 } 
+h1,h2,h3,h4,h5,p{
+  margin: 0;
+}
+p{
+  margin: 0;
+  padding: 0;
+}
 th,td{
   font-weight: 400;
+  color: var(--colorGris);
 }
-
-/*  */
+label,select{
+  color: var(--colorGrisHard);
+}
+/* Ttiles */
 .title-header{
   color: var(--colorMain);
   font-weight: 400;
   margin-bottom: 10px;
 }
+.title-header__modal{
+  color: var(--colorThird);
+  font-weight: 400;
+  margin: 0;
+}
+
 
 /* Botones */
-.btn{
+.f-btn{
+  background-color: transparent;
   border-radius: 5px;
 }
-.btn-red{
+
+.btn--padding{
+  padding: 5px;
+}
+.btn--modal{
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 5px;
+  min-width: 80px;  
+
+}
+.btn--minwidth{
+  min-width: 80px;  
+}
+.btn--red{
+  border:1px solid var(--colorRed);
+  color: var(--colorRed);
+}
+.btn--green{
+  color: var(--colorMain);
+  border-radius: 5px;
+  background-color: transparent;
   border:1px solid var(--colorRed);
 }
-.btn-green{
-  border:1px solid var(--colorRed);
-}
-.btn-main{
+.btn--main{
+  color: var(--colorMain);
+  background-color: transparent;
+  border-radius: 5px;
   border:1px solid var(--colorMain);
-  display: none;
+}
+.abc{
+  padding: 10px;
 }
 
 input:focus {
@@ -75,4 +117,28 @@ input:focus {
 }
 .f-error{
   border: 1px solid var(--colorRed);
+}
+
+.d-flex{
+  display: flex;
+  align-items: center;
+}
+
+/* Modal */
+.modal__btns{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;  
+}
+
+/* Formik */
+.f-error{
+ color: var(--colorRed); 
+ border: none;
+ color: var(--colorRed);
+ font-size: .8rem;
+ margin: 5px 0;
+}
+.border-input:focus{
+  border: 1px solid var(--colorThird);
 }

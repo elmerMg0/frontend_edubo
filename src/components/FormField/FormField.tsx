@@ -16,20 +16,20 @@ function defineInputType(type : string, name : string, placeHolder = '', options
     field = <div/>
     switch (type) {
         case "text":
-            field = <Field className='input' name={name} placeholder={placeHolder}/>
+            field = <Field className='input border-input' name={name} placeholder={placeHolder}/>
         break;
         case "number":
-            field = <Field type="number" className='input' name={name} placeholder={placeHolder}/>
+            field = <Field type="number" className='input  border-input' name={name} placeholder={placeHolder}/>
         break;
         case "date":
-            field = <Field type='date' className='input' name={name} placeholder={placeHolder}/>
+            field = <Field type='date' className='input border-input' name={name} placeholder={placeHolder}/>
         break;
         case "password":
-            field = <Field type='password' className='input' name={name} placeholder={placeHolder}/>
+            field = <Field type='password' className='input border-input' name={name} placeholder={placeHolder}/>
         break;
         case "select":
             field = <>
-                        <Field as='select' list="country-list" className='select' name={name} placeholder={placeHolder}>                           
+                        <Field as='select' list="country-list" className='select border-input' name={name} placeholder={placeHolder}>                           
                             {                                                           
                                 options?.map(function(option){
                                     return (
@@ -44,7 +44,7 @@ function defineInputType(type : string, name : string, placeHolder = '', options
         break;
         case "search":
             field = <div className='flexbox-horizontal'>
-                        <Field className='f-field f-field-search' name={name} placeholder={placeHolder} onFocus={()=>setsearchFocused(true)} onBlur={()=>setsearchFocused(false)}/>
+                        <Field className='f-field f-field-search border-input' name={name} placeholder={placeHolder} onFocus={()=>setsearchFocused(true)} onBlur={()=>setsearchFocused(false)}/>
                         <button type='submit' className={`search-btn ${searchFocused ? 'search-btn-focus' : ''}`}>
                             <Search size={22}/>
                         </button>
@@ -56,11 +56,10 @@ function defineInputType(type : string, name : string, placeHolder = '', options
     }
     return field;
 }
-
 const FormField = (props : inputFormProps) => {
     return (
         <div className='flexbox-vertical'>
-            {props.label? <p className='f-label'>{props.label}</p> : <></>}            
+            {props.label? <label className='f-label'>{props.label}</label> : <></>}            
             {defineInputType(props.type, props.name, props.placeHolder, props.selectOptions)}
             <ErrorMessage name={props.name} component="div" className='f-error' />
         </div>

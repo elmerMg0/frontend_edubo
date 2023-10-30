@@ -222,7 +222,7 @@ export function EditIcon({color='#ffffff'}){
 </svg>)
 }
 
-export function AnalyticsIcon ({color=colors.COLORWHITE}){
+export function AnalyticsIcon ({color=colors.COLOR_WHITE}){
   return(<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-brand-google-analytics" width="32" height="32" viewBox="0 0 24 24" strokeWidth="1" stroke={color} fill="none" strokeLinecap="round" strokeLinejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <rect x="10" y="9" width="4" height="12" rx="1.105" />
@@ -231,7 +231,7 @@ export function AnalyticsIcon ({color=colors.COLORWHITE}){
 </svg>  )
 }
 
-export function ChartLineIcon({color=colors.COLORWHITE}){
+export function ChartLineIcon({color=colors.COLOR_WHITE}){
 
   return(<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chart-line" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1" stroke={color} fill="none" strokeLinecap="round" strokeLinejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -274,7 +274,7 @@ export function PlusSampleIcon({color}:{color: string}){
 </svg>)
 }
 
-export function CheckIcon({color = colors.COLORGRIS}:{color: string}){
+export function CheckIcon({color = colors.COLOR_GRIS}:{color: string}){
   return(<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file-check" width="32" height="32" viewBox="0 0 24 24" strokeWidth="1" stroke={color} fill="none" strokeLinecap="round" strokeLinejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <path d="M14 3v4a1 1 0 0 0 1 1h4" />

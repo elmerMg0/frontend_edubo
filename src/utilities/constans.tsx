@@ -7,5 +7,5 @@ export const colors = {
     COLOR_BLACK_SECUNDARY: "#10200d",
     COLOR_MAIN_BLACK: "#000000",
     COLOR_RED: "#FF0000",
-
+    COLOR_GRIS: ' #B8B6B5'
 }

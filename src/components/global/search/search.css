@@ -1,0 +1,35 @@
+ /* Search bar  */
+ .search-bar{
+    display: flex;
+    gap: 10px;
+    margin: 15px 0px;
+}
+.row-table-notExist{
+    text-align: center;
+}
+.btn-close-search{
+    position: absolute;
+    top: 9px;
+    right: 8px;
+}
+
+.content-search{
+    width: 100%;
+    position: relative;
+}
+.btn-new-search{
+    background-color: transparent;
+    border: none;
+    color: var(--colorMain);
+    transition: 0.2s;
+}
+.btn-new-search:hover{
+    transform: scale(1.1);
+}
+.search-btns{
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--colorMain);
+    border-radius: 5px;
+    padding: 0px 5px;
+}

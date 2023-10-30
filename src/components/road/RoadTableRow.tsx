@@ -22,11 +22,11 @@ export default function UserTableRow({
         <td className="col-5">{road.nombre}</td>
         <td className="col-4">{road.descripcion}</td>
         <td className="road-state">
-          <button className={`${road.active ? "btn-main-green": 'btn-main-red'}`}>{road.active}</button>
+          <button className={`${road.active ? "f-btn btn--minwidth btn--main": 'f-btn btn--minwidth btn--red'}`}>{road.active? 'Activo': 'Inactivo'}</button>
         </td>
         <td className="col-2 text-center">
           <button
-            className="btn btn-main"
+            className="f-btn btn--main"
             onClick={() => {
               setShowModal(true);
               setRoadToUpdate(road);
@@ -35,7 +35,7 @@ export default function UserTableRow({
             {/* <img src={edit} alt="icon-edit" />{" "} */}
             <EditIconGlobal />
           </button>{" "}
-          <button /* onClick={() => deleteroad(road.id)} */ className="btn-red">
+          <button /* onClick={() => deleteroad(road.id)} */ className="f-btn btn--red">
             <TrashIconGlobal/>
           </button>
         </td>

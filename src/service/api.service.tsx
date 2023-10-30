@@ -11,12 +11,12 @@ type ApiResponse = {
 };
 
 export const APISERVICE = {
-    get: async (url: string, params: string): Promise<ApiResponse> => {
+    get: async (url: string, params: string) => {
         const res = await fetch(`${APIURL}${url}${params}`);
         if(!res.ok){
             throw new Error('Error http:' + res.status);
         }
-        const data: ApiResponse = await res.json();
+        const data = await res.json();
         return data;
     },
     post: async <T,>(body: T,url: string, params: string) => {
@@ -33,5 +33,20 @@ export const APISERVICE = {
 
         const data = await response.json();
         return data;
-    }   
+    },
+    put: async <T,> (body: T, url: string, params: string) => {
+        const reponse = await fetch(`${APIURL + url + params}`, {
+            method: 'PUT',
+            headers: {
+                "content-type": 'aplicaction/json',
+            },
+            body: JSON.stringify(body)
+        })
+        if(!reponse.ok){
+            throw(new Error('Error'))
+        }
+        const data = await reponse.json()
+        return data;
+    }
+
 }
