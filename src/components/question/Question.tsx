@@ -1,55 +1,59 @@
-import React, { useState, useEffect, useCallback, createContext, useContext } from "react";
-import UserTable from "./RoadTable";
+import React, { useState, useEffect, createContext } from "react";
 import { toast } from "react-hot-toast";
-import './user.css'
-import { PageInfo, Road } from "../../models/models";
+import { PageInfo, Question } from "../../models/models";
 import { APISERVICE, AxiosService } from "../../service/api.service";
-import { RoadServiceName } from "../../service/apiServiceNames";
-import { ModalRoad } from "./ModalRoad";
 import SearchInput from "../global/search/Search";
+import { QuestionServiceName } from "../../service/apiServiceNames";
+import QuestionTable from "./QuestionTable";
+import { ModalQuestion } from "./ModalQuestion";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../redux/store";
 
 interface AppState {
-  roads: Road[],
+  questions: Question[],
   pageInfo: PageInfo | null,
-  road: Road | null,
+  question: Question | null,
 }
 
-export interface CreateContextType{
-  roadToUpdate: Road | null
-  setRoadToUpdate: React.Dispatch<React.SetStateAction<Road | null>>,
+export interface CreateQuestionType{
+  questionToUpdate: Question | null
+  setQuestionToUpdate: React.Dispatch<React.SetStateAction<Question | null>>,
   showModal: boolean,
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ContextRoad = createContext<CreateContextType | null>(null);
+export const ContextQuestion = createContext<CreateQuestionType | null>(null);
 
-export default function RoadComponent() {
-  const [roads, setRoads] = useState<AppState['roads']>([]);
+export default function Question() {
+  const [questions, setquestions] = useState<AppState['questions']>([]);
   const [pageInfo, setPageInfo] = useState<AppState['pageInfo']>(null);
   const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [customerToDelete, setCustomerToDelete] = useState({});
   const [filters, setFilters] = useState({nombre: ''});
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [roadToUpdate, setRoadToUpdate] = useState<AppState['road']>(null)
+  const [questionToUpdate, setQuestionToUpdate] = useState<AppState['question']>(null)
+
+  const classStore = useSelector((store:AppStore) => store.class)
 
   useEffect(() => {
-    getRoads();
+    getQuestions();
   }, []);
 
 
-  const getRoads = async (pageNumber = 1, name=filters.nombre) => {
+  const getQuestions = async (pageNumber = 1, name=filters.nombre) => {
     //const params = `name=${name}`
     try {
       setLoading(true)
       let params = {
+          idClass: classStore.id,
           pageNumber: pageNumber,
           name: name
       };
-      const response = await AxiosService.get(RoadServiceName.GET, params);
+      const response = await AxiosService.get(QuestionServiceName.GET_CLASS_WITH_QUESTIONS, params);
       if(response){
-          const { roads, pageInfo} = response;
-          setRoads(roads);
+          const { questions, pageInfo} = response;
+          setquestions(questions);
           setPageInfo(pageInfo);
         }
     } catch (error) {
@@ -59,13 +63,13 @@ export default function RoadComponent() {
     }
   };
 
-  const createRoad = async (road: Road) => {
+  const createQuestion = async (question: Question) => {
     try {
       setLoading(true)
-      const { success, message, code } = await APISERVICE.post(road, RoadServiceName.CREATE, '');
+      const { success, message, code } = await APISERVICE.post(question, QuestionServiceName.CREATE, '');
       if ( success ) {
         toast.success(message);
-        getRoads(pageInfo?.page, filters.nombre);
+        getQuestions(pageInfo?.page, filters.nombre);
       }else{
         //toast.error(messagesError(code));
       }
@@ -76,7 +80,7 @@ export default function RoadComponent() {
     }
   };
 
-  const deleteRoadModal = async (id: number) => {
+  const deleteQuestionModal = async (id: number) => {
    /*  setShowModalConfirm(true);
     setCustomerToDelete(id); */
   };
@@ -88,7 +92,7 @@ export default function RoadComponent() {
       let params = `idUser=${customerToDelete}`;
       const {success, message, code} = await APISERVICE.get(userServiceNames.DISABLE, params);
       if ( success ) {
-        getRoads(pageInfo.page, filters.nombre);
+        getQuestions(pageInfo.page, filters.nombre);
         toast.success(message);
       }else{
         toast.error(messagesError(code));
@@ -101,14 +105,14 @@ export default function RoadComponent() {
   
   };
  */
-  const updateRoad = async (body: Road, idRoad: number) => {
+  const updateQuestion = async (body: Question, idquestion: number) => {
     try {
       setLoading(true);
-      let params = `idRoad=${idRoad}`;
-      const {success, message, code} = await APISERVICE.post(body, RoadServiceName.UPDATE, params);
+      let params = `idquestion=${idquestion}`;
+      const {success, message, code} = await APISERVICE.post(body, QuestionServiceName.UPDATE, params);
       if (success) {
         toast.success(message);
-        getRoads(pageInfo?.page, filters.nombre);
+        getQuestions(pageInfo?.page, filters.nombre);
       }else{
         //toast.error(messagesError(code));
       }
@@ -126,19 +130,20 @@ export default function RoadComponent() {
   };
 
 /*   const debouncedGetCategogies = useCallback( debounce(search => {
-    getRoads(pageInfo.page, search)
+    getQuestions(pageInfo.page, search)
   },500)
   ,[]) */
 
   const clearFilter = () => {
     //setFilters(filters => ({...filters, nombre: ''}))
-    //getRoads(pageInfo.page, "");
+    //getQuestions(pageInfo.page, "");
   }
 
   return (
-    <ContextRoad.Provider value={{roadToUpdate, setRoadToUpdate, showModal, setShowModal}}>
+    <ContextQuestion.Provider value={{questionToUpdate, setQuestionToUpdate, showModal, setShowModal}}>
       <div className="content-private">
-        <h3 className="title-header">Ruta de Aprendizaje</h3>
+        <h3 className="title-secundary">{classStore.titulo}</h3>
+        <h3 className="title-header">Preguntas</h3>
         
         <SearchInput
           filterSomething={filtercategories}
@@ -146,17 +151,17 @@ export default function RoadComponent() {
           handleClear={clearFilter}
           setShowModal={setShowModal}
         />
-        <UserTable
-          roads={roads}
-          getRoads={getRoads}
-          deleteRoad={deleteRoadModal}
+        <QuestionTable
+          questions={questions}
+          getQuestions={getQuestions}
+          deleteQuestion={deleteQuestionModal}
           pageInfo={pageInfo}
           /*setModalShow={setModalShow}
           loading={loading} */
             />
-        <ModalRoad
-          createRoad={createRoad}
-          updateRoad={updateRoad}
+        <ModalQuestion
+          createQuestion={createQuestion}
+          updateQuestion={updateQuestion}
         />
       {/*   <ModalConfirm
           show={showModalConfirm}
@@ -166,6 +171,6 @@ export default function RoadComponent() {
         /> */}
        {/*  {loading &&  <Loading/>} */}
       </div>
-    </ContextRoad.Provider>
+    </ContextQuestion.Provider>
   );
 }

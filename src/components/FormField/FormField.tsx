@@ -27,6 +27,9 @@ function defineInputType(type : string, name : string, placeHolder = '', options
         case "password":
             field = <Field type='password' className='input border-input' name={name} placeholder={placeHolder}/>
         break;
+        case "file":
+            field = <Field type="file" className='input border-input' name={name} placeHolder={placeHolder} />
+        break;
         case "select":
             field = <>
                         <Field as='select' list="country-list" className='select border-input' name={name} placeholder={placeHolder}>                           

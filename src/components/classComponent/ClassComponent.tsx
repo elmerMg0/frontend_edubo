@@ -35,7 +35,7 @@ export function ClassComponent (){
     const [showModal, setShowModal] = useState(false);
 
 
-    const classStore = useSelector((store:AppStore) => store.class); 
+    const courseStore = useSelector((store:AppStore) => store.course); 
 
     useEffect(() => {
       getCourses();
@@ -47,15 +47,17 @@ export function ClassComponent (){
       try {
         setLoading(true)
         let params = {
-            idClass: classStore.id
+            idCourse: courseStore.id,
+            name: name,
+            page: pageNumber
         }
         //const response = 
         //const { success, courses , pageInfo } = await APISERVICE.get(courseserviceName.GET, params);
         const response = await AxiosService.get(ClassServiceName.GET_COURSE_WITH_CLASSES, params);
         if(response){
-            const { courses } = response;
-            setClases(courses[0].clases);
-            //setPageInfo(pageInfo);
+            const { courses, pageInfo } = response;
+            setClases(courses);
+            setPageInfo(pageInfo);
           }
       } catch (error) {
         
@@ -143,7 +145,7 @@ export function ClassComponent (){
     return (
       <ContextClass.Provider value={{classToUpdate, setClassToUpdate, showModal, setShowModal}}>
         <div className="content-private">
-          <h3 className="title-header-secundary">{classStore.titulo}</h3>
+          <h3 className="title-header-secundary">{courseStore.titulo}</h3>
           <h3 className="title-header">Clases</h3>
           <SearchInput
             filterSomething={filtercategories}

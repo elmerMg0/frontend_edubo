@@ -18,3 +18,10 @@ export const ClassServiceName = {
     UPDATE: 'clase/update/?',
     GET_COURSE_WITH_CLASSES: 'curso/get-course-with-classes/?'
 }
+
+export const QuestionServiceName = {
+    GET: 'pregunta/index/?',
+    CREATE: 'pregunta/create/?',
+    UPDATE: 'pregunta/update/?',
+    GET_CLASS_WITH_QUESTIONS: 'clase/get-class-with-questions/?'
+}

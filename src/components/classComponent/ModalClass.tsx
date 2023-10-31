@@ -93,7 +93,8 @@ export const ModalClass = ({  createClass, updateClass}:Props) => {
         .max(10, tooLongMessage)
         .required(requiredMessage)
         .strict(true),
-    nivel: Yup.string()
+    numero_clase: Yup.number()
+        .required(requiredMessage)
         .min(1,tooLongMessage)
         .max(10,tooLongMessage),
     active: Yup.string()

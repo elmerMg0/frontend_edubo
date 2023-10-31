@@ -5,6 +5,7 @@ import Road from './components/road/Road';
 import './styles/global.css'
 import { PrivateRoutes } from './models/routes';
 import { Course } from './components/course/Course';
+import  Question  from './components/question/Question';
 import { ClassComponent } from './components/classComponent/ClassComponent';
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path={PrivateRoutes.ROAD} element={<Road/>}/>
         <Route path={PrivateRoutes.COURSE} element={<Course/>}/>
         <Route path={PrivateRoutes.CLASS} element={<ClassComponent/>}/>
+        <Route path={PrivateRoutes.QUESTION} element={<Question/>}/>
       </Routes>
     </BrowserRouter>
   )

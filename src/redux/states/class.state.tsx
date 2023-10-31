@@ -7,7 +7,7 @@ const ClassEmptyState = {
     descripcion: "",
     duracion: '',
     active: false,
-    numero_clases: 0
+    numero_clase: 0
 } 
 
 export const ClassKey = 'class';

@@ -33,3 +33,12 @@ export interface Class{
     numero_clase: number  
     curso_id?: number,
 }
+
+export interface Question {
+    id?: number,
+    descripcion: string,
+    respuesta: string,
+    url_image?: string,
+    clase_id?: number,
+    active: boolean
+}
