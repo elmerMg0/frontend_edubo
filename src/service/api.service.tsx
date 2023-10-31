@@ -54,9 +54,7 @@ export const APISERVICE = {
 }
 
 export const AxiosService = {
-    get: (url: string, params: string) => {
-        return axios.get(`${APIURL+ url}`, {params: {
-            name: params
-        }});
-    }
+    get: (url: string, params) => {
+        return axios.get(`${APIURL+ url}`, {params: params});
+    },
 }

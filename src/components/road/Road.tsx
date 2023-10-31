@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, createContext } from "react";
+import React, { useState, useEffect, useCallback, createContext, useContext } from "react";
 import UserTable from "./RoadTable";
 import { toast } from "react-hot-toast";
 import './user.css'
@@ -6,7 +6,6 @@ import { PageInfo, Road } from "../../models/models";
 import { APISERVICE, AxiosService } from "../../service/api.service";
 import { RoadServiceName } from "../../service/apiServiceNames";
 import { ModalRoad } from "./ModalRoad";
-import { ContextRoadProvider } from "./RoadContext";
 import SearchInput from "../global/search/Search";
 
 interface AppState {
@@ -15,15 +14,24 @@ interface AppState {
   road: Road | null,
 }
 
-export const ContextRoad = createContext(null);
+export interface CreateContextType{
+  roadToUpdate: Road | null
+  setRoadToUpdate: React.Dispatch<React.SetStateAction<Road | null>>,
+  showModal: boolean,
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const ContextRoad = createContext<CreateContextType | null>(null);
+
 export default function RoadComponent() {
   const [roads, setRoads] = useState<AppState['roads']>([]);
   const [pageInfo, setPageInfo] = useState<AppState['pageInfo']>(null);
   const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [customerToDelete, setCustomerToDelete] = useState({});
-  const [roadToUpdate, setRoadToUpdate] = useState<AppState['road']>(null);
   const [filters, setFilters] = useState({nombre: ''});
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [roadToUpdate, setRoadToUpdate] = useState<AppState['road']>(null)
 
   useEffect(() => {
     getRoads();
@@ -34,10 +42,13 @@ export default function RoadComponent() {
     //const params = `name=${name}`
     try {
       setLoading(true)
-      let params = `page=${pageNumber}&name=${name}`;
+      let params = {
+          pageNumber: pageNumber,
+          name: name
+      };
       //const response = 
       //const { success, roads , pageInfo } = await APISERVICE.get(RoadServiceName.GET, params);
-      const response = await AxiosService.get(RoadServiceName.GET, '');
+      const response = await AxiosService.get(RoadServiceName.GET, params);
       if(response){
           const { roads, pageInfo} = response;
           setRoads(roads);
@@ -126,11 +137,8 @@ export default function RoadComponent() {
     //getRoads(pageInfo.page, "");
   }
 
-  const HandleSetRoadToUpdate = (road: Road) => {
-    setRoadToUpdate(road)
-  }
   return (
-    <ContextRoadProvider>
+    <ContextRoad.Provider value={{roadToUpdate, setRoadToUpdate, showModal, setShowModal}}>
       <div className="content-private">
         <h3 className="title-header">Ruta de Aprendizaje</h3>
         
@@ -138,6 +146,7 @@ export default function RoadComponent() {
           filterSomething={filtercategories}
           placeHolder="Nombre de la ruta de aprendizaje"
           handleClear={clearFilter}
+          setShowModal={setShowModal}
         />
         <UserTable
           roads={roads}
@@ -159,6 +168,6 @@ export default function RoadComponent() {
         /> */}
        {/*  {loading &&  <Loading/>} */}
       </div>
-    </ContextRoadProvider>
+    </ContextRoad.Provider>
   );
 }

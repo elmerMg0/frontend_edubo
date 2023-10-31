@@ -1,7 +1,7 @@
 export const PrivateRoutes = {
     ROAD: 'road',
     COURSE: 'course',
-    POS:'lounges',
+    CLASS:'class',
     PRIVATE: 'private',
     CUSTOMERS: "customers",
     CATEGORIES: "categories",

@@ -1,7 +1,11 @@
 import { useContext } from "react";
-import { Course, Road } from "../../models/models";
+import { Course } from "../../models/models";
 import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
-import { ContextCourse, ContextCourseType } from "./CourseContext";
+import { ContextCourse, ContextCourseType } from "./Course";
+import { useDispatch } from "react-redux";
+import { PrivateRoutes } from "../../models/routes";
+import { useNavigate } from "react-router-dom";
+import { createCourse } from "../../redux/states/course.state";
 
 interface Props{
   course: Course
@@ -12,19 +16,30 @@ export default function CourseTableRow({
 }: Props) {
 
   const contextValue = useContext< ContextCourseType | null>(ContextCourse);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   if(!contextValue)return 
-
   const { setCourseToUpdate, setShowModal } = contextValue
+
+  const handleShowClases = () => {
+    dispatch(createCourse(course));
+    navigate(`/${PrivateRoutes.CLASS}`)
+  }
   return (
     <>
       <tr>
-        <td className="col-5">{course.titulo}</td>
-        <td className="col-4">{course.descripcion}</td>
-        <td className="road-state">
+        <td className="col-2">
+          <button className="f-btn btn--minwidth btn--main" onClick={handleShowClases}>Ver clases</button>
+        </td>
+        <td>{course.titulo}</td>
+        <td className="col-3">{course.descripcion}</td>
+        <td >{course.duracion}</td>
+        <td >{course.nivel}</td>
+        <td >
           <button className={`${course.active ? "f-btn btn--minwidth btn--main": 'f-btn btn--minwidth btn--red'}`}>{course.active? 'Activo': 'Inactivo'}</button>
         </td>
-        <td className="col-2 text-center">
+        <td style={{whiteSpace: 'nowrap'}}>
           <button
             className="f-btn btn--main"
             onClick={() => {
@@ -32,7 +47,6 @@ export default function CourseTableRow({
               setCourseToUpdate(course);
             }}
           >
-            {/* <img src={edit} alt="icon-edit" />{" "} */}
             <EditIconGlobal />
           </button>{" "}
           <button /* onClick={() => deleteroad(road.id)} */ className="f-btn btn--red">

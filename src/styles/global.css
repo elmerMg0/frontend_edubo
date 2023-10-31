@@ -147,3 +147,7 @@ input:focus {
 .border-input:focus{
   border: 1px solid var(--colorThird);
 }
+
+.modal-body{
+  padding: 0px;
+}

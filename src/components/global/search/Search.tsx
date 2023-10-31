@@ -1,22 +1,18 @@
 import { useContext, useState } from 'react'
 import { colors } from '../../../utilities/constans'
 import { PlusSampleIcon } from '../icons/Icons'
-import { ContextRoad } from '../../road/RoadContext'
 import './search.css'
 
 interface Props{
     filterSomething: (nameFilter: string) => void,
     placeHolder: string,
     handleClear: () => void,
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 }
-const SearchInput = ({ filterSomething, placeHolder, handleClear}: Props) => {
+const SearchInput = ({ filterSomething, placeHolder, handleClear, setShowModal}: Props) => {
 
   const [search, setSearch] = useState('')
-  const contextValues = useContext(ContextRoad);
-
-  if(!contextValues)return
-
-  const {setShowModal} = contextValues
+  
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

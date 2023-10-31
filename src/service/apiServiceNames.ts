@@ -8,5 +8,13 @@ export const RoadServiceName = {
 export const CourseServiceName = {
     GET: 'curso/index/?',
     CREATE: 'curso/create/?',
-    UPDATE: 'curso/update/?'
+    UPDATE: 'curso/update/?',
+    GET_ROADS_WITH_COURSES: 'ruta-aprendizaje/get-roads-with-courses/?'
+}
+
+export const ClassServiceName = {
+    GET: 'clase/index/?',
+    CREATE: 'clase/create/?',
+    UPDATE: 'clase/update/?',
+    GET_COURSE_WITH_CLASSES: 'curso/get-course-with-classes/?'
 }

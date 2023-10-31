@@ -1,18 +1,18 @@
 import { Table } from "react-bootstrap";
 import { ThTable } from "../global/pagination/ThTable";
 import Pagination from "../global/pagination/Pagination";
-import { Course, PageInfo, Road } from "../../models/models";
-import CourseTableRow from "./CourseTableRow";
+import { Class, PageInfo } from "../../models/models";
+import ClassTableRow from "./ClassTableRow";
 
 interface Props {
-  courses: Course[],
+classes: Class[],
   getCourses: (page: number, nameFilter: string) => void,
   deleteRoad: (id: number) => void,
   pageInfo: PageInfo | null
 }
 
-export default function CourseTable({
-  courses,
+export default function ClassTable({
+  classes,
   getCourses,
   deleteRoad,
   pageInfo,
@@ -25,8 +25,7 @@ export default function CourseTable({
         <Table responsive>
           <thead >
             <tr>
-              <ThTable name='Clases' borTopLefRad={10} />
-              <ThTable name='Titulo'/>
+              <ThTable name='Titulo' borTopLefRad={10} />
               <ThTable name='Descripcion' />
               <ThTable name='Duracion' />
               <ThTable name='Nivel' />
@@ -35,11 +34,11 @@ export default function CourseTable({
             </tr>
           </thead>
           <tbody>
-            {courses?.length > 0 ? (
-              courses.map((course) => (
-                <CourseTableRow
+            {classes?.length > 0 ? (
+              classes.map((classValue) => (
+                <ClassTableRow
                   key = {crypto.randomUUID()}
-                  course = {course}
+                  classValue = {classValue}
                  /*  deleteRoad = {deleteRoad}
                   setUserUpdate = {setUserUpdate}
                   setModalShow = {setModalShow} */
@@ -56,7 +55,7 @@ export default function CourseTable({
           </tbody>
         </Table>
         <div className="mt-2">
-           {courses?.length > 0 &&
+           {classes?.length > 0 &&
                   <Pagination pageInfo={pageInfo} getData={getCourses} />
             }
         </div>

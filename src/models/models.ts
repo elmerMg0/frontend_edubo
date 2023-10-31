@@ -18,8 +18,18 @@ export interface Course {
     id?: number,
     titulo: string,
     descripcion: string
-    duracion: number
+    duracion: string
     nivel: string,
     ruta_aprendizaje_id?: number,
     active: boolean
+}
+
+export interface Class{
+    id?: number,
+    titulo: string,
+    descripcion: string,
+    duracion: string,
+    active: boolean,    
+    numero_clase: number  
+    curso_id?: number,
 }

@@ -2,10 +2,10 @@ import { Modal } from "react-bootstrap"
 import FormField from "../FormField/FormField"
 import { Road } from "../../models/models"
 import { Form, Formik } from "formik"
-import { useContext, useEffect, useState } from "react"
-import { ContextRoad, CreateContextType } from "./RoadContext"
+import { useContext } from "react"
 import * as Yup from 'yup';
 import { invalidCoursesNumberMax, invalidCoursesNumberMin, invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../utilities/messagesError"
+import { ContextRoad, CreateContextType } from "./Road"
 
 interface Props{
   createRoad: (road: Road) => void,
@@ -28,8 +28,7 @@ let initialState: InputValues = {
 let initialValues = initialState;
 export const ModalRoad = ({createRoad, updateRoad}:Props) => {
  
-  const contextValue = useContext<CreateContextType | null>(ContextRoad);
-  
+  const contextValue = useContext<CreateContextType | null>(ContextRoad);  
   if(!contextValue)return 
 
   const { showModal, setShowModal, roadToUpdate, setRoadToUpdate} = contextValue

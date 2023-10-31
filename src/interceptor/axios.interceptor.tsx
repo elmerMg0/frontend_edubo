@@ -1,44 +1,37 @@
-import axios, { AxiosRequestConfig } from "axios"
-import { getValidationError } from "../utilities/get-validation-error";
-import toast from "react-hot-toast";
+import axios, { AxiosRequestConfig } from 'axios';
+import toast from 'react-hot-toast';
+import { getValidationError } from '../utilities/get-validation-error';
 
 export const AxiosInterceptor = () => {
-    const updateHeader = (request: AxiosRequestConfig) => {
-        const token = "afdfadfadfbc";   
-        const newHeader = {
-            Authorization: 'Bearer alfjkl2kfjkaslfjldakfj',
-            "Content-Type": "Application/json"
-        }
-        request.headers = newHeader as AxiosRequestConfig['headers'];
-        console.log(request.headers)
-        return request;
+  //saveInLocalStorage(LocalStorageKeys.TOKEN, '123123123123');
+
+  const updateHeader = (request: AxiosRequestConfig) => {
+    //const token = getInLocalStorage(LocalStorageKeys.TOKEN);
+    const token = 'getInLocalStorage(LocalStorageKeys.TOKEN);'
+    const newHeaders = {
+      Authorization: token,
+      'Content-Type': 'application/json'
+    };
+    request.headers = newHeaders;
+    return request;
+  };
+
+  axios.interceptors.request.use((request) => {
+    if (request.url?.includes('assets')) return request;
+    return updateHeader(request);
+  });
+
+  axios.interceptors.response.use(
+    (response) => {
+      console.log('response', response);
+      if(response.data.message.includes('existosamente')){
+        toast.success(response.data.message);
+      }
+      return response.data;
+    },
+    (error) => {
+        toast.error(getValidationError(error.code));
+      return Promise.reject(error);
     }
-
-    /* Request */
-   /*  axios.interceptors.request.use(( request : any) => {
-        if(request.url?.includes('upload'))return request;
-        return updateHeader(request);
-    }) */
-
-    axios.interceptors.request.use(function (config: AxiosRequestConfig) {
-        // Do something before request is sent
-        console.log(config)
-        return updateHeader(config);
-      }, function (error) {
-        // Do something with request error
-        return Promise.reject(error);
-      });
-
-
-    /* Response */
-    axios.interceptors.response.use(
-        (response) => {
-            return response.data
-        },
-        (error) => {
-            toast.error(getValidationError(error.code))
-            return Promise.reject(error)
-        }
-
-    )
- }
+  );
+};

@@ -1,17 +1,17 @@
 import { Modal } from "react-bootstrap"
 import FormField from "../FormField/FormField"
-import { Course } from "../../models/models"
+import { Class, Course } from "../../models/models"
 import { Form, Formik } from "formik"
 import { useContext } from "react"
 import * as Yup from 'yup';
 import { invalidCoursesNumberMax, invalidCoursesNumberMin, invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../utilities/messagesError"
-import { ContextCourse, ContextCourseType } from "./Course"
 import { AppStore } from "../../redux/store"
 import { useSelector } from "react-redux"
+import { ContextClass, ContextClassType } from "./ClassComponent"
 
 interface Props{
-  createCourse: (course: Course) => void,
-  updateCourse: (course: Course, idCourse: number) => void,
+  createClass: (classValue: Class) => void,
+  updateClass: (classValue: Class, idClass: number) => void,
 }
 
 interface InputValues {
@@ -19,8 +19,8 @@ interface InputValues {
   titulo: string,
   descripcion: string
   duracion: string
-  nivel: string,
-  ruta_aprendizaje_id?: number,
+  numero_clase: number,
+  curso_id?: number,
   active: string
 }
 
@@ -28,54 +28,52 @@ let initialState: InputValues = {
   titulo: '',
   descripcion: '',
   duracion: "",
-  nivel: '',
-  ruta_aprendizaje_id: 0,
+  numero_clase: 0,
+  curso_id: 0,
   active: ''
 } 
 let initialValues = initialState;
-export const ModalCourse = ({createCourse, updateCourse}:Props) => {
+export const ModalClass = ({  createClass, updateClass}:Props) => {
  
-  const contextValue = useContext<ContextCourseType | null>(ContextCourse);
-  const road = useSelector((store:AppStore) => store.road); 
+  const contextValue = useContext<ContextClassType | null>(ContextClass);
+  const courseStore = useSelector((store:AppStore) => store.course); 
   if(!contextValue)return 
 
-  const { showModal, setShowModal, courseToUpdate, setCourseToUpdate} = contextValue
+  const { showModal, setShowModal, classToUpdate, setClassToUpdate} = contextValue
 
-    if(courseToUpdate){
+    if(classToUpdate){
+      const { titulo, descripcion, duracion, numero_clase, active} = classToUpdate
       initialValues = {
-        titulo: courseToUpdate.titulo,
-        descripcion: courseToUpdate.descripcion,
-        duracion: courseToUpdate.duracion,
-        nivel: courseToUpdate.active ? '1': '0',
-        ruta_aprendizaje_id: courseToUpdate?.ruta_aprendizaje_id,
-        active: courseToUpdate.active ? '1': '0'
+        titulo: titulo,
+        descripcion: descripcion,
+        duracion: duracion,
+        numero_clase: numero_clase,
+        active: active ? '1': '0'
       }
     }
 
   const handleSend = (values: InputValues) => {
     //actions.setSubmitting(false);
     /* new */
-    const course: Course = {
+    const newClass: Class = {
       titulo: values.titulo,
       descripcion: values.descripcion,
       duracion: values.duracion,
-      nivel: values.nivel,
+      numero_clase: values.numero_clase,
       active: values.active === '1' ? true: false,
-      ruta_aprendizaje_id: road.id
+      curso_id: courseStore.id
     }
-    if(courseToUpdate === null){
-      createCourse(course)
+    if(classToUpdate === null){
+      createClass(newClass)
     }else{
-      updateCourse(course, courseToUpdate.id?? 0);
+      updateClass(newClass, classToUpdate.id?? 0);
     }
-    //setShowModal(false)
-    //setCourseToUpdate(null)
     reset();
   } 
 
   const reset = () => {
     setShowModal(false)
-    setCourseToUpdate(null)
+    setClassToUpdate(null)
     initialValues = initialState
     //setInitialValues(initialState)
   }
@@ -105,7 +103,7 @@ export const ModalCourse = ({createCourse, updateCourse}:Props) => {
 
   return (<Modal show={showModal} centered>
       <Modal.Header>
-        <h5 className="title-header__modal">{courseToUpdate ? "Actualizar nuevo curso": 'Crear nuevo curso'}</h5>
+        <h5 className="title-header__modal">{classToUpdate ? "Actualizar clase": 'Crear nueva clase'}</h5>
       </Modal.Header>
       <Modal.Body>
         <Formik 
@@ -116,8 +114,8 @@ export const ModalCourse = ({createCourse, updateCourse}:Props) => {
           <Form>
             <FormField name='titulo' type='text'  placeHolder="Titulo del curso" label="Titulo"/>
             <FormField name='descripcion' type='text'  placeHolder="Descripcion" label="Descripcion"/>
-            <FormField name='duracion' type='text'  placeHolder="Duracion (Hrs.)" label="Duracion (Hrs.)"/>
-            <FormField name='nivel' type='text'  placeHolder="Nivel del cursos" label="Nivel del Curso"/>
+            <FormField name='duracion' type='text'  placeHolder="Duracion (Min.)" label="Duracion (Min.)"/>
+            <FormField name='numero_clase' type='number'  placeHolder="Numero de clase" label="Numero de clase"/>
             <FormField name='active' type='select' label="Estado" selectOptions={[["d", "Seleccione un estado"],["1", 'Activo'] , ["0", "Inactivo"]]}/>
             <div className="modal__btns mt-3">
               <button className="btn--modal btn--red" onClick={reset} type="button">Cancelar</button>

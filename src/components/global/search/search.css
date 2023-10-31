@@ -9,8 +9,9 @@
 }
 .btn-close-search{
     position: absolute;
-    top: 9px;
+    top: 7px;
     right: 8px;
+    margin: 0;
 }
 
 .content-search{

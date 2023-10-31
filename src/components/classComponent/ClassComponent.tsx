@@ -1,42 +1,42 @@
 import { createContext, useEffect, useState } from "react";
-import CourseTable from "./CourseTable";
-import { ModalCourse } from "./ModalCourse";
-import { Course, PageInfo } from "../../models/models";
+import { Class, Course, PageInfo } from "../../models/models";
 import { APISERVICE, AxiosService } from "../../service/api.service";
-import { CourseServiceName } from "../../service/apiServiceNames";
+import { ClassServiceName } from "../../service/apiServiceNames";
 import toast from "react-hot-toast";
 import SearchInput from "../global/search/Search";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../redux/store";
+import ClassTable from "./ClassTable";
+import { ModalClass } from "./ModalClass";
 
 interface AppState{
-    courses: Course[],
+    classes: Class[],
     pageInfo: PageInfo | null,
-    course: Course | null
+    class: Class | null
 }
-export interface ContextCourseType{
-  courseToUpdate: Course | null
-  setCourseToUpdate: React.Dispatch<React.SetStateAction<Course | null>>,
+export interface ContextClassType{
+  classToUpdate: Class | null
+  setClassToUpdate: React.Dispatch<React.SetStateAction<Class | null>>,
   showModal: boolean,
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ContextCourse = createContext<ContextCourseType | null>(null);
+export const ContextClass = createContext<ContextClassType | null>(null);
 
-export function Course (){
+export function ClassComponent (){
 
-    const [courses, setCourses] = useState<AppState['courses']>([]);
+    const [classes, setClases] = useState<AppState['classes']>([]);
     const [pageInfo, setPageInfo] = useState<AppState['pageInfo']>(null);
     const [showModalConfirm, setShowModalConfirm] = useState(false);
     const [customerToDelete, setCustomerToDelete] = useState({});
-    const [roadToUpdate, setRoadToUpdate] = useState<AppState['course']>(null);
     const [filters, setFilters] = useState({nombre: ''});
     const [loading, setLoading] = useState(false);
-    const [courseToUpdate, setCourseToUpdate] = useState<AppState['course']>(null)
+    const [classToUpdate, setClassToUpdate] = useState<AppState['class']>(null)
     const [showModal, setShowModal] = useState(false);
 
 
-    const road = useSelector((store:AppStore) => store.road); 
+    const classStore = useSelector((store:AppStore) => store.class); 
+
     useEffect(() => {
       getCourses();
     }, []);
@@ -47,14 +47,14 @@ export function Course (){
       try {
         setLoading(true)
         let params = {
-            idRoad: road.id
+            idClass: classStore.id
         }
         //const response = 
         //const { success, courses , pageInfo } = await APISERVICE.get(courseserviceName.GET, params);
-        const response = await AxiosService.get(CourseServiceName.GET_ROADS_WITH_COURSES, params);
+        const response = await AxiosService.get(ClassServiceName.GET_COURSE_WITH_CLASSES, params);
         if(response){
             const { courses } = response;
-            setCourses(courses[0].cursos);
+            setClases(courses[0].clases);
             //setPageInfo(pageInfo);
           }
       } catch (error) {
@@ -64,10 +64,10 @@ export function Course (){
       }
     };
   
-    const createCourse = async (course: Course) => {
+    const createClass = async (course: Class) => {
       try {
         setLoading(true)
-        const { success, message } = await APISERVICE.post(course, CourseServiceName.CREATE, '');
+        const { success, message } = await APISERVICE.post(course, ClassServiceName.CREATE, '');
         if ( success ) {
           toast.success(message);
           getCourses(pageInfo?.page, filters.nombre);
@@ -106,11 +106,11 @@ export function Course (){
     
     };
    */
-    const updateCourse = async (body: Course, idCourse: number) => {
+    const updateClass = async (body: Class, idClass: number) => {
       try {
         setLoading(true);
-        let params = `idCourse=${idCourse}`;
-        const {success, message, code} = await APISERVICE.post(body, CourseServiceName.UPDATE, params);
+        let params = `idClass=${idClass}`;
+        const {success, message} = await APISERVICE.post(body, ClassServiceName.UPDATE, params);
         if (success) {
           toast.success(message);
           getCourses(pageInfo?.page, filters.nombre);
@@ -140,14 +140,11 @@ export function Course (){
       //getCourses(pageInfo.page, "");
     }
   
-    const HandleSetRoadToUpdate = (road: Course) => {
-      setRoadToUpdate(road)
-    }
     return (
-      <ContextCourse.Provider value={{courseToUpdate, setCourseToUpdate, showModal, setShowModal}}>
+      <ContextClass.Provider value={{classToUpdate, setClassToUpdate, showModal, setShowModal}}>
         <div className="content-private">
-          <h3 className="title-header-secundary">{road.nombre}</h3>
-          <h3 className="title-header">Cursos</h3>
+          <h3 className="title-header-secundary">{classStore.titulo}</h3>
+          <h3 className="title-header">Clases</h3>
           <SearchInput
             filterSomething={filtercategories}
             placeHolder="Nombre del curso"
@@ -155,17 +152,17 @@ export function Course (){
             setShowModal={setShowModal}
           />
 
-          <CourseTable
-            courses={courses}
+          <ClassTable
+            classes={classes}
             getCourses={getCourses}
             deleteRoad={deleteRoadModal}
             pageInfo={pageInfo}
             /*setModalShow={setModalShow}
             loading={loading} */
               />
-          <ModalCourse
-            createCourse={createCourse}
-            updateCourse={updateCourse}
+          <ModalClass
+            createClass={createClass}
+            updateClass={updateClass}
           />
        
         {/*   <ModalConfirm
@@ -177,6 +174,6 @@ export function Course (){
          {/*  {loading &&  <Loading/>} */}
         </div>
        
-      </ContextCourse.Provider>
+      </ContextClass.Provider>
     );
 }
