@@ -1,14 +1,16 @@
 import { Modal } from "react-bootstrap"
 import FormField from "../FormField/FormField"
 import { Question, Road } from "../../models/models"
-import { Form, Formik } from "formik"
-import { useContext } from "react"
+import { Field, Form, Formik } from "formik"
+import { ChangeEvent, useContext, useState } from "react"
 import * as Yup from 'yup';
 import { invalidCoursesNumberMax, invalidCoursesNumberMin, invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../utilities/messagesError"
 import { ContextQuestion, CreateQuestionType } from "./Question"
+import { useSelector } from "react-redux"
+import { AppStore } from "../../redux/store"
 
 interface Props{
-  createQuestion: (question: Question) => void,
+  createQuestion: (question: Question, image: File | null) => void,
   updateQuestion: (question: Question, idQuestion: number) => void,
 }
 
@@ -17,7 +19,6 @@ interface InputValues {
   descripcion: string,
   url_image?: string,
   active: string,
-  image?: File | null
 }
 
 let initialState: InputValues = {
@@ -25,7 +26,6 @@ let initialState: InputValues = {
   descripcion: '',
   url_image: "",
   active: '',
-  image: null
 } 
 let initialValues = initialState;
 export const ModalQuestion = ({createQuestion, updateQuestion}:Props) => {
@@ -33,8 +33,9 @@ export const ModalQuestion = ({createQuestion, updateQuestion}:Props) => {
   const contextValue = useContext<CreateQuestionType | null>(ContextQuestion);  
   if(!contextValue)return 
 
+  const classStore = useSelector((store:AppStore) => store.class)
   const { showModal, setShowModal, questionToUpdate, setQuestionToUpdate} = contextValue
-
+  const [image, setImage] = useState<File | null>(null)
   //useEffect(() => {
     if(questionToUpdate){
       initialValues = {
@@ -53,16 +54,14 @@ export const ModalQuestion = ({createQuestion, updateQuestion}:Props) => {
   const handleSend = (values: InputValues) => {
     //actions.setSubmitting(false);
     /* new */
-    console.log(values);
-    return;
     const question: Question = {
       respuesta: values.respuesta,
       descripcion: values.descripcion,
-      url_image: values.url_image,
-      active: values.active === '1' ? true: false
+      active: values.active === '1' ? true: false,
+      clase_id: classStore.id
     }
     if(questionToUpdate === null){
-      createQuestion(question)
+      createQuestion(question, image);
     }else{
       //updateQuestion(question, questionToUpdate.id?? 0);
     }
@@ -74,10 +73,15 @@ export const ModalQuestion = ({createQuestion, updateQuestion}:Props) => {
       active: boolean
     } */
     //reateRoad(values);
-    console.log(values);
-
-    setShowModal(false)
+    reset()
   } 
+
+  const reset = () => {
+    setQuestionToUpdate(null)
+    initialValues = initialState,
+    setImage(null),
+    setShowModal(false);
+  }
 
   const handleClose = () => {
     setShowModal(false)
@@ -121,9 +125,18 @@ export const ModalQuestion = ({createQuestion, updateQuestion}:Props) => {
         .trim(trimMessage) */
 });
 
+
+  const handleManageImage = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files;
+    if (file && file.length > 0) {
+      const selected = file[0];
+      setImage(selected);
+    }
+  }
+
   return (<Modal show={showModal} centered>
       <Modal.Header>
-        <h5 className="title-header__modal">Crear Nueva Ruta de aprendizaje</h5>
+        <h5 className="title-header__modal">{questionToUpdate ? 'Editar Pregunta' : 'Nueva Pregunta'}</h5>
       </Modal.Header>
       <Modal.Body>
         <Formik 
@@ -134,13 +147,12 @@ export const ModalQuestion = ({createQuestion, updateQuestion}:Props) => {
           <Form>
             <FormField name='descripcion' type='text'  placeHolder="Descripcion" label="Descripcion de la pregunta"/>
             <FormField name='respuesta' type='text'  placeHolder="respuesta ruta de aprendizaje" label="Respuesta de la pregunta"/>
-            <FormField name='image' type='file'  placeHolder="" label="Imagen de la resolucion"/>
             <FormField name='active' type='select' label="Estado" selectOptions={[["d", "Seleccione un estado"],["1", 'Activo'] , ["0", "Inactivo"]]}/>
+            <Field className='input-file' name="image" type="file" onChange={handleManageImage}/>
             <div className="modal__btns mt-3">
-              <button className="btn--modal btn--red" onClick={handleClose} type="button">Cancelar</button>
+              <button className="btn--modal btn--red" onClick={reset} type="button">Cancelar</button>
               <button className="btn--modal btn--main" type="submit">Enviar</button>
             </div>
-
           </Form>
         </Formik>
       </Modal.Body>

@@ -7,6 +7,7 @@ import { PrivateRoutes } from './models/routes';
 import { Course } from './components/course/Course';
 import  Question  from './components/question/Question';
 import { ClassComponent } from './components/classComponent/ClassComponent';
+import { ResourceComponent } from './components/resource/Resource';
 function App() {
 
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path={PrivateRoutes.COURSE} element={<Course/>}/>
         <Route path={PrivateRoutes.CLASS} element={<ClassComponent/>}/>
         <Route path={PrivateRoutes.QUESTION} element={<Question/>}/>
+        <Route path={PrivateRoutes.RESOURCE} element={<ResourceComponent/>}/>
       </Routes>
     </BrowserRouter>
   )

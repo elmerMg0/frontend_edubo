@@ -151,3 +151,17 @@ input:focus {
 .modal-body{
   padding: 0px;
 }
+.input-file{
+  display: inline;
+}
+
+/* Paginator */
+.btn-disabled{
+  background-color: var(--colorGris);
+  color: var(--colorWhite);
+  border: var(--colorWhite);
+}
+.paginator-btn.btn-disabled:hover{
+  background-color: var(--colorGris);
+  color: var(--colorWhite);
+}

@@ -42,7 +42,6 @@ export default function Question() {
 
 
   const getQuestions = async (pageNumber = 1, name=filters.nombre) => {
-    //const params = `name=${name}`
     try {
       setLoading(true)
       let params = {
@@ -63,10 +62,13 @@ export default function Question() {
     }
   };
 
-  const createQuestion = async (question: Question) => {
+  const createQuestion = async (body: Question, image: File | null) => {
     try {
       setLoading(true)
-      const { success, message, code } = await APISERVICE.post(question, QuestionServiceName.CREATE, '');
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(body));
+      if(image)formData.append('file', image);
+      const { success, message } = await APISERVICE.posWithImage(formData, QuestionServiceName.CREATE, '');
       if ( success ) {
         toast.success(message);
         getQuestions(pageInfo?.page, filters.nombre);

@@ -4,6 +4,7 @@ export const PrivateRoutes = {
     CLASS:'class',
     PRIVATE: 'private',
     QUESTION: "question",
+    RESOURCE: "resource",
 }
 
 export const PublicRoutes = {

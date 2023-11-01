@@ -40,7 +40,7 @@ export const APISERVICE = {
         const reponse = await fetch(`${APIURL + url + params}`, {
             method: 'PUT',
             headers: {
-                "content-type": 'aplicaction/json',
+                "content-type": 'aplication/json',
             },
             body: JSON.stringify(body)
         })
@@ -51,6 +51,19 @@ export const APISERVICE = {
         return data;
     }
 
+    ,
+    posWithImage: async(body: any, url: string, params: string) => {
+        const response = await fetch(`${APIURL + url + params}`, {
+            method: "POST",
+        /*     headers: {
+                "content-type": "application/json",
+            }, */
+            body: body
+        })      
+        if(!response.ok){
+            throw(new Error('New error'));
+        }
+    }
 }
 
 export const AxiosService = {

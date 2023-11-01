@@ -24,15 +24,16 @@ export default function ClassTableRow({
   const { setClassToUpdate, setShowModal } = contextValue
 
 
-  const handleShowQuestions = () => {
+  const handleShowQuestions = (route: string) => {
     dispatch(createClass(classValue));
-    navigate(`/${PrivateRoutes.QUESTION }`)
+    navigate(`/${route }`)
   }
   return (
     <>
       <tr>
         <td className="col-5">
-          <button className="f-btn btn-min-width btn--main" onClick={handleShowQuestions}>Preguntas</button>
+          <button className="f-btn btn-min-width btn--main" onClick={() =>handleShowQuestions(PrivateRoutes.QUESTION)}>Preguntas</button>
+          <button className="f-btn btn-min-width btn--main" onClick={() =>handleShowQuestions(PrivateRoutes.RESOURCE)}>Recursos</button>
         </td>
         <td className="col-5">{titulo}</td>
         <td className="col-4">{descripcion}</td>

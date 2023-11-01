@@ -25,3 +25,9 @@ export const QuestionServiceName = {
     UPDATE: 'pregunta/update/?',
     GET_CLASS_WITH_QUESTIONS: 'clase/get-class-with-questions/?'
 }
+export const ResourceServiceName = {
+    GET: 'resource/index/?',
+    CREATE: 'resource/create/?',
+    UPDATE: 'resource/update/?',
+    GET_ROADS_WITH_RESOURCES: 'ruta-aprendizaje/get-roads-with-resources/?'
+}

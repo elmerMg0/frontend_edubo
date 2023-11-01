@@ -42,3 +42,10 @@ export interface Question {
     clase_id?: number,
     active: boolean
 }
+export interface Resource {
+    id?: number,
+    descripcion: string,
+    url_video: string,
+    class_id?: number,
+    active: boolean
+}

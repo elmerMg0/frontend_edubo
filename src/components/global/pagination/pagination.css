@@ -60,12 +60,3 @@
     color: var(--colorWhite);
 }
 
-.btn-disabled{
-    background-color: var(--colorGris);
-    color: var(--colorWhite);
-    border: var(--colorWhite);
-}
-.paginator-btn.btn-disabled:hover{
-    background-color: var(--colorGris);
-    color: var(--colorWhite);
-}

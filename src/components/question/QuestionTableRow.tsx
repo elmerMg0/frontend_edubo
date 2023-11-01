@@ -4,7 +4,7 @@ import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ContextQuestion, CreateQuestionType } from "./Question";
-
+const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 interface Props{
   question: Question
 }
@@ -28,6 +28,10 @@ export default function QuestionTableRow({
         <td className="">{question.respuesta}</td>
         <td className="question-state">
           <button className={`${question.active ? "f-btn btn--minwidth btn--main": 'f-btn btn--minwidth btn--red'}`}>{question.active? 'Activo': 'Inactivo'}</button>
+        </td>
+        {/* <td><img src={`${APIURLIMG + question.url_image}`} alt="imagen" /></td> */}
+        <td>
+          <button disabled={!question.url_image} className={`f-btn btn--minwidth ${question.url_image ? 'btn--main': "btn-disabled"}`} onClick={() => window.open(APIURLIMG + question.url_image, '_blank')}>Ver Image</button>
         </td>
         <td className="col-2 text-center">
           <button
