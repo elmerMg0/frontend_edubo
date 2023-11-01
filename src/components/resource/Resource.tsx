@@ -47,11 +47,13 @@ export function ResourceComponent (){
       try {
         setLoading(true)
         let params = {
-            idClass: classStore.id
+            idClass: classStore.id,
+            page: pageNumber,
+            name: name  
         }
         //const response = 
         //const { success, Resources , pageInfo } = await APISERVICE.get(ResourceserviceName.GET, params);
-        const response = await AxiosService.get(ResourceServiceName.GET_ROADS_WITH_RESOURCES, params);
+        const response = await AxiosService.get(ResourceServiceName.GET_CLASS_WITH_RESOURCES, params);
         if(response){
             const { resources, pageInfo } = response;
             setResources(resources);

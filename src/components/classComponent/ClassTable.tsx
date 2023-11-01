@@ -25,7 +25,8 @@ export default function ClassTable({
         <Table responsive>
           <thead >
             <tr>
-              <ThTable name='Titulo' borTopLefRad={10} />
+              <ThTable name='Mas' borTopLefRad={10} />
+              <ThTable name='Titulo' />
               <ThTable name='Descripcion' />
               <ThTable name='Duracion' />
               <ThTable name='Nivel' />

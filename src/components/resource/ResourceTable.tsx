@@ -25,11 +25,8 @@ export default function ResourceTable({
         <Table responsive>
           <thead >
             <tr>
-              <ThTable name='Clases' borTopLefRad={10} />
-              <ThTable name='Titulo'/>
-              <ThTable name='Descripcion' />
-              <ThTable name='Duracion' />
-              <ThTable name='Nivel' />
+              <ThTable name='Descripicon' borTopLefRad={10} />
+              <ThTable name='Url video' />
               <ThTable name='Estado' />
               <ThTable name='Accion' justifycontent="center" borTopRigRad={10}/>
             </tr>

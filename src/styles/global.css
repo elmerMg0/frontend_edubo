@@ -93,6 +93,10 @@ label,select{
   border-radius: 5px;
   border:1px solid var(--colorMain);
 }
+
+.nod-wrap{
+  white-space: no-wrap;
+}
 .abc{
   padding: 10px;
 }
@@ -165,3 +169,4 @@ input:focus {
   background-color: var(--colorGris);
   color: var(--colorWhite);
 }
+

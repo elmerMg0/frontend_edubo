@@ -50,7 +50,7 @@ export const ModalResource = ({createResource, updateResource}:Props) => {
       descripcion: values.descripcion,
       url_video: values.url_video?? '',
       active: values.active === '1' ? true: false,
-      class_id: classStore.id,
+      clase_id: classStore.id,
     }
     if(resourceToUpdate === null){
       createResource(resrouce)
@@ -70,23 +70,16 @@ export const ModalResource = ({createResource, updateResource}:Props) => {
   }
 
   const yupSchema = Yup.object().shape({
-    titulo: Yup.string()
-        .max(50, tooLongMessage)
-        .required(requiredMessage)
-        .strict(true)
-        .trim(trimMessage),
     descripcion: Yup.string()
         .max(80, tooLongMessage)
         .required(requiredMessage)
         .strict(true)
         .trim(trimMessage),
-    duracion: Yup.string()
-        .max(10, tooLongMessage)
+    url_video: Yup.string()
+        .max(100, tooLongMessage)
         .required(requiredMessage)
         .strict(true),
-    nivel: Yup.string()
-        .min(1,tooLongMessage)
-        .max(10,tooLongMessage),
+ 
     active: Yup.string()
         .required(requiredMessage)
         .oneOf(['0', '1'], 'Seleccione un estado')
@@ -104,7 +97,7 @@ export const ModalResource = ({createResource, updateResource}:Props) => {
               >
           <Form>
             <FormField name='descripcion' type='text'  placeHolder="Descripcion" label="Descripcion"/>
-            <FormField name='url_video' type='text'  placeHolder="Nivel del cursos" label="Nivel del Curso"/>
+            <FormField name='url_video' type='text'  placeHolder="Url video" label="Url del video"/>
             <FormField name='active' type='select' label="Estado" selectOptions={[["d", "Seleccione un estado"],["1", 'Activo'] , ["0", "Inactivo"]]}/>
             <div className="modal__btns mt-3">
               <button className="btn--modal btn--red" onClick={reset} type="button">Cancelar</button>

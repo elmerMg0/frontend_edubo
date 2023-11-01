@@ -16,12 +16,10 @@ export default function ResourceTableRow({
   if(!contextValue)return 
   const { setResourceToUpdate, setShowModal } = contextValue
 
-
   return (
     <>
       <tr>
         <td>{resource.descripcion}</td>
-        <td className="col-3">{resource.descripcion}</td>
         <td >{resource.url_video}</td>
         <td >
           <button className={`${resource.active ? "f-btn btn--minwidth btn--main": 'f-btn btn--minwidth btn--red'}`}>{resource.active? 'Activo': 'Inactivo'}</button>
