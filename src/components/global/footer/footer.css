@@ -1,0 +1,19 @@
+footer{
+    background-color: var(--l-colorMain);
+    color: var(--colorWhite);
+    text-align: center;
+    padding: 1rem;
+}
+.footer-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--l-colorGreen);
+}
+.footer-icons{
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

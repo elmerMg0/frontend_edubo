@@ -35,12 +35,26 @@ export function ResourceComponent (){
     const [resourceToUpdate, setResourceToUpdate] = useState<AppState['resource']>(null)
     const [showModal, setShowModal] = useState(false);
 
-
+    const [setVideoData, setSetVideoData] = useState({})
     const classStore = useSelector((store:AppStore) => store.class); 
     useEffect(() => {
       getResources();
+      getVideo()
     }, []);
   
+    const getVideo = () => {
+      const apiKey = 'AIzaSyCJGIXnXUbUlctrvECnVtH1t8PPQXma1tg'
+      const videoId = 'Uszj_k0DGsg';
+      //fetch(`https://www.googleapis.com/youtube/v3/videos?key=${apiKey}&part=snippet&id=${videoId}`)
+      fetch(`GET https://www.googleapis.com/youtube/v3/videos?id=${videoId}&key=${apiKey}&part=snippet`)
+      .then((response) => {
+        setSetVideoData(response);
+        console.log(response)
+      })
+      .catch((error) => {
+        console.error('Error al obtener datos del video:', error);
+      });
+    }
   
     const getResources = async (pageNumber = 1, name=filters.nombre) => {
       //const params = `name=${name}`
@@ -178,7 +192,6 @@ export function ResourceComponent (){
           /> */}
          {/*  {loading &&  <Loading/>} */}
         </div>
-       
       </ContextResource.Provider>
     );
 }

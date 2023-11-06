@@ -10,15 +10,26 @@
     --colorSecundary: #2f5f28;
     --colorThird: #1f3f1a;
     --colorBlackSecundary: #10200d;
-    --colorBlack: #000000;
+    --colorBlack: #08090B;
     --colorRed: #DA4E3B;
     --colorGris: #B8B6B5;
     --colorGrisHard: #696969;
     --colorBlue: #3c8dbb;
+    --colorWhite: #eff3f8;
+    --l-colorMain: #13161C;
+    --l-colorGreen: #0ae98a;
+    --l-colorGreenSecundary: #07c373;
+    --l-colorGreenThird: #CEE5CD;
 }
-
+*,*:before, *:after{
+  box-sizing: inherit;
+}
+html{
+  box-sizing: border-box;
+  
+}
 .content-private{
-  margin: 50px;
+  margin: 20px;
 }
 .body{
   font-family: 'monserat', sans-serif;
@@ -54,7 +65,7 @@ label,select{
 .title-header__modal{
   font-weight: 400;
   color: var(--colorThird);
-  margin: 0;
+  margin: 0;  
 }
 
 
@@ -62,10 +73,11 @@ label,select{
 .f-btn{
   background-color: transparent;
   border-radius: 5px;
+  border: none;
 }
 
 .btn--padding{
-  padding: 5px;
+  padding: 0.25rem 0.5rem;
 }
 .btn--modal{
   border-radius: 5px;
@@ -83,15 +95,11 @@ label,select{
 }
 .btn--green{
   color: var(--colorMain);
-  border-radius: 5px;
-  background-color: transparent;
   border:1px solid var(--colorRed);
 }
-.btn--main{
-  color: var(--colorMain);
-  background-color: transparent;
-  border-radius: 5px;
-  border:1px solid var(--colorMain);
+.btn--l-white{
+  color: var(--l-colorMain);
+  background-color: var(--colorWhite);
 }
 
 .nod-wrap{
