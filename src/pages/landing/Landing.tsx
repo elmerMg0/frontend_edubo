@@ -1,8 +1,8 @@
-import { Icon1Circle } from 'react-bootstrap-icons'
 import { Header } from '../../components/landing/Header'
 import './landing.css'
 import { Carousel } from '../../components/landing/Carousel'
 import { Footer } from '../../components/global/footer/Footer'
+import { RegistrerModal } from '../../components/registerModal/RegisterModal'
 export function Landing() {
     return (
         <div className='landing'>
@@ -58,6 +58,8 @@ export function Landing() {
                     <span className='start-now-parrafo'>*solo necesitas un correo electronico</span>
                 </div>
             </section>
+
+            <RegistrerModal/>
             
             <Footer/>
         </div>

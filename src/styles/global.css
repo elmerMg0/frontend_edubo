@@ -20,6 +20,9 @@
     --l-colorGreen: #0ae98a;
     --l-colorGreenSecundary: #07c373;
     --l-colorGreenThird: #CEE5CD;
+    --l-colorGris: #1c2028;
+    --l-colorGrisSoft: #2c323c;
+    --l-colorGrisSoft2: #a4abb6;
 }
 *,*:before, *:after{
   box-sizing: inherit;
