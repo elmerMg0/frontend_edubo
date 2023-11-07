@@ -1,9 +1,11 @@
 .bg-modal{
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    bottom: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+}
+.active{
+    opacity: 1;
+    visibility: visible;
 }
 .register-modal{
     position: fixed;
@@ -13,6 +15,7 @@
     background-color: var(--l-colorGris);
     border-top-right-radius: 1.5rem;
     border-top-left-radius: 1.5rem;
+    z-index: 20;
 }
 .register-modal-top{
     padding: 3rem 1rem 0.2rem 1rem;
@@ -49,6 +52,7 @@
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
+    color: var(--colorWhite);
 }
 .register-modal-form button{
     background-color: var(--colorWhite);
@@ -67,4 +71,15 @@
 .register-modal-parrafo span{
     color: var(--colorWhite);
     text-decoration: solid underline;
+}
+.modal-backdrop2{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+    position: fixed;
+}
+.f-field-focus{
+    border: 1px solid red;
 }

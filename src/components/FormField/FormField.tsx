@@ -1,6 +1,6 @@
 import { ErrorMessage, Field } from 'formik';
 import { useState } from 'react';
-import { Search } from 'react-bootstrap-icons';
+import { BsSearch } from 'react-icons/bs';
 
 interface inputFormProps{
     type : string;
@@ -49,7 +49,7 @@ function defineInputType(type : string, name : string, placeHolder = '', options
             field = <div className='flexbox-horizontal'>
                         <Field className='f-field f-field-search border-input' name={name} placeholder={placeHolder} onFocus={()=>setsearchFocused(true)} onBlur={()=>setsearchFocused(false)}/>
                         <button type='submit' className={`search-btn ${searchFocused ? 'search-btn-focus' : ''}`}>
-                            <Search size={22}/>
+                            <BsSearch/>
                         </button>
                     </div>
         break;  

@@ -1,7 +1,10 @@
 import { colors } from "../../utilities/constans";
 import { MenuBar } from "../global/icons/Icons";
 
-export function Header() {
+interface Props {
+    toggleModal: () => void;
+}
+export function Header({toggleModal}:Props) {
   return (
     <header className="header-landing">
         <div className="header-landing__content">
@@ -9,7 +12,7 @@ export function Header() {
             <h5>Edubo</h5>
             </div>
             <div className="header-landing__sign">
-                <button className="f-btn btn--padding btn--l-white">Registrarse</button>
+                <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
             </div>
         </div>
         <div className="header-landing__menu">

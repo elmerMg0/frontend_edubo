@@ -3,10 +3,17 @@ import './landing.css'
 import { Carousel } from '../../components/landing/Carousel'
 import { Footer } from '../../components/global/footer/Footer'
 import { RegistrerModal } from '../../components/registerModal/RegisterModal'
+import { FcIcons8Cup } from 'react-icons/fc'
+import { useState } from 'react'
 export function Landing() {
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleModal = () => {
+        setIsOpen(!isOpen);
+    }
     return (
         <div className='landing'>
-            <Header />
+            <Header toggleModal={toggleModal} />
             <section className='hero-content'>
                 {/*  <h1>"Tu Éxito Académico Comienza con Nosotros</h1> */}
                 <h1 className='hero-content-title'>Tu Puerta a la Universidad: <span>
@@ -24,7 +31,7 @@ export function Landing() {
                 <p className='goals-title'>¿Porque funciona edubo ?</p>
                 <div className='goals-card'>
                     <div className='goals-card-icon'>
-                        <Icon1Circle size={50}/>
+                        <FcIcons8Cup size={50}/>
                     </div>
                     <h4 className='goals-card-title'>Personalized learning</h4>
                     <p className='goals-card-parrafo'>Students practice at their own pace, first filling in gaps in their understanding and then accelerating their learning.</p>
@@ -32,7 +39,7 @@ export function Landing() {
 
                 <div className='goals-card'>
                    <div className='goals-card-icon'>
-                        <Icon1Circle size={50}/>
+                        <FcIcons8Cup size={50}/>
                     </div>
                     <h4 className='goals-card-title'>Trusted content</h4>
                     <p className='goals-card-parrafo'>Created by experts, Khan Academy’s library of trusted practice and lessons covers math, science, and more. Always free for learners and teachers. </p>
@@ -40,7 +47,7 @@ export function Landing() {
 
                 <div className='goals-card'>
                     <div className='goals-card-icon'>
-                        <Icon1Circle size={50}/>
+                        <FcIcons8Cup size={50}/>
                     </div>
                     <h4 className='goals-card-title'>Tools to emppover teachers</h4>
                     <p className='goals-card-parrafo'>With Khan Academy, teachers can identify gaps in their students’ understanding, tailor instruction, and meet the needs of every student.</p>
@@ -59,7 +66,7 @@ export function Landing() {
                 </div>
             </section>
 
-            <RegistrerModal/>
+            <RegistrerModal isOpen={isOpen} toggleModal={toggleModal}/>
             
             <Footer/>
         </div>

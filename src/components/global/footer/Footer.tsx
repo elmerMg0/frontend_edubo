@@ -1,5 +1,5 @@
-import { Facebook, Icon0CircleFill, Instagram, Tiktok, Twitter, Youtube } from 'react-bootstrap-icons'
 import './footer.css'
+import { BsFacebook, BsInstagram, BsTiktok, BsTwitter, BsYoutube } from 'react-icons/bs'
 export function Footer(){
     return(
         <footer>
@@ -8,11 +8,11 @@ export function Footer(){
             </div>
 
             <div className='footer-icons'>
-                <Facebook size={22}/>
-                <Instagram size={22}/>
-                <Twitter size={22}/>
-                <Youtube size={22}/>
-                <Tiktok size={22}/>
+                <BsFacebook size={22}/>
+                <BsInstagram size={22}/>
+                <BsTwitter size={22}/>
+                <BsYoutube size={22}/>
+                <BsTiktok size={22}/>
             </div>
             <p>Edubo - Todos los derechos reservados</p>
         </footer>
