@@ -1,7 +1,7 @@
 import './registerModal.css'
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
-import { ErrorMessage, Field, Formik } from 'formik'
+import { ErrorMessage, Field, Formik, Form } from 'formik'
 import * as Yup from 'yup';
 import { requiredMessage } from '../../utilities/messagesError';
 interface InputValues {
@@ -15,10 +15,11 @@ interface Props{
 }
 
 
+
 export function RegistrerModal({isOpen, toggleModal }:Props){
 
     const handleSend = (values: InputValues) => {
-        
+        console.log(values);
     }
 
     const yupSchema = Yup.object().shape({
@@ -27,7 +28,7 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
         password: Yup.string().
                 required(requiredMessage),
     })
-    console.log(isOpen)
+
     return(
         <section className={`bg-modal ${isOpen ? 'active' : ''}`}>
             <div className="modal-backdrop2" onClick={()=>{toggleModal()}}/>
@@ -37,16 +38,12 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
                     <p className='register-modal-title'>Iniciar Sesion</p>
                     <div className='register-modal-social'>
                         <button className='f-btn' >
-                            <span>
                                 <FcGoogle/>
                                 Google                        
-                            </span>
                         </button>
                         <button className='f-btn'>
-                            <span>
                                 <BsFacebook/>
                                 Facebook                        
-                            </span>
                         </button>
                     </div>
 
@@ -57,7 +54,7 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
                         onSubmit={(values: InputValues) => handleSend(values)}
                         validationSchema={yupSchema}
                         >
-                        <form className='register-modal-form'>
+                        <Form className='register-modal-form'>
                             <label htmlFor="email">Correo Electronico</label>
                             <Field name="email" type="email" placeholder="Correo Electronico"/>
                             <ErrorMessage name="email" component="div" className='f-error' />
@@ -65,7 +62,7 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
                             <Field name="password" type="password" placeholder="Contrasenia"/>
                             <ErrorMessage name="password" component="div" className='f-error' />
                             <button className='f-btn' type='submit'>Iniciar Sesion</button>
-                        </form>
+                        </Form>
                     </Formik>
                 </div>
                 <div className='register-modal-signup'>
