@@ -10,9 +10,11 @@ import { ClassComponent } from './components/classComponent/ClassComponent';
 import { ResourceComponent } from './components/resource/Resource';
 import { Header } from './pages/header/Header';
 import { Landing } from './pages/landing/Landing';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 function App() {
 
   return (
+    <GoogleOAuthProvider clientId='872507899630-q445df1c11hgjh6i5o8rbl9l64lqbqdv.apps.googleusercontent.com'>
     <BrowserRouter>
     <Routes>
         <Route path='/' element={<Landing/>}/>
@@ -27,6 +29,7 @@ function App() {
       </Routes>
     </Header> */}
     </BrowserRouter>
+    </GoogleOAuthProvider>
   )
 }
 
