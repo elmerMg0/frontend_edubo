@@ -15,7 +15,6 @@ interface Props{
 }
 
 
-
 export function RegistrerModal({isOpen, toggleModal }:Props){
 
     const handleSend = (values: InputValues) => {

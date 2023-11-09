@@ -13,7 +13,11 @@ export function Landing() {
     }
     return (
         <div className='landing'>
-            <Header toggleModal={toggleModal} />
+            <Header>
+                <div className="header-landing__sign">
+                    <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
+                </div>
+            </Header>
             <section className='hero-content'>
                 {/*  <h1>"Tu Éxito Académico Comienza con Nosotros</h1> */}
                 <h1 className='hero-content-title'>Tu Puerta a la Universidad: <span>

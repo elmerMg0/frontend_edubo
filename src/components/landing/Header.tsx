@@ -1,27 +1,38 @@
 import { colors } from "../../utilities/constans";
 import { MenuBar } from "../global/icons/Icons";
+import { UserMenu } from "../home/UserMenu";
 
 interface Props {
-    toggleModal: () => void;
+    children: React.ReactNode
 }
-export function Header({toggleModal}:Props) {
+const autenticated = false;
+const menu = () => {
+    return (
+        <div className="header-landing__menu">
+        <a>
+        <button className="f-btn btn--white">
+            <MenuBar color={colors.COLOR_WHITE}/>                
+        </button>
+        </a>
+    </div>
+    )
+}
+export function Header({ children }:Props) {
   return (
     <header className="header-landing">
         <div className="header-landing__content">
             <div className="header-landing__logo">
             <h5>Edubo</h5>
             </div>
-            <div className="header-landing__sign">
-                <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
-            </div>
+            {
+                children
+            }
         </div>
-        <div className="header-landing__menu">
-            <a>
-            <button className="f-btn btn--white">
-                <MenuBar color={colors.COLOR_WHITE}/>                
-            </button>
-            </a>
-        </div>
+       {
+           autenticated ? 
+             menu():
+             <UserMenu/>
+            }
     </header>
   )
 }

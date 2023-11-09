@@ -1,21 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { Dashboard } from './pages/dashboard/Dashboard'
-import Road from './components/road/Road';
 import './styles/global.css'
-import { PrivateRoutes } from './models/routes';
-import { Course } from './components/course/Course';
-import  Question  from './components/question/Question';
-import { ClassComponent } from './components/classComponent/ClassComponent';
-import { ResourceComponent } from './components/resource/Resource';
-import { Header } from './pages/header/Header';
 import { Landing } from './pages/landing/Landing';
+import { Home } from './pages/home/Home';
+import { PrivateRoutes } from './models/routes';
 function App() {
 
   return (
     <BrowserRouter>
     <Routes>
         <Route path='/' element={<Landing/>}/>
+        <Route path={PrivateRoutes.HOME} element={<Home/>}/>
     </Routes>
    {/*  <Header>
       <Routes>

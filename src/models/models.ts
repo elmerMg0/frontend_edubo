@@ -21,7 +21,8 @@ export interface Course {
     duracion: string
     nivel: string,
     ruta_aprendizaje_id?: number,
-    active: boolean
+    active: boolean,
+    url_image?: string
 }
 
 export interface Class{

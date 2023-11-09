@@ -23,6 +23,7 @@
     --l-colorGris: #1c2028;
     --l-colorGrisSoft: #2c323c;
     --l-colorGrisSoft2: #a4abb6;
+    --l-colorHome:  #1E2229
 }
 *,*:before, *:after{
   box-sizing: inherit;
