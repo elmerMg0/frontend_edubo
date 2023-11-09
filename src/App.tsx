@@ -4,9 +4,11 @@ import './styles/global.css'
 import { Landing } from './pages/landing/Landing';
 import { Home } from './pages/home/Home';
 import { PrivateRoutes } from './models/routes';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 function App() {
 
   return (
+    <GoogleOAuthProvider clientId='872507899630-q445df1c11hgjh6i5o8rbl9l64lqbqdv.apps.googleusercontent.com'>
     <BrowserRouter>
     <Routes>
         <Route path='/' element={<Landing/>}/>
@@ -22,6 +24,7 @@ function App() {
       </Routes>
     </Header> */}
     </BrowserRouter>
+    </GoogleOAuthProvider>
   )
 }
 
