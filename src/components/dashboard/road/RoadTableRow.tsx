@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { Road } from "../../models/models";
-import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
+import { Road } from "../../../models/models";
+import { EditIconGlobal, TrashIconGlobal } from "../../global/icons/IconsGloba";
 import { useNavigate } from "react-router-dom";
-import { PrivateRoutes } from "../../models/routes";
+import { PrivateRoutes } from "../../../models/routes";
 import { useDispatch } from "react-redux";
-import { createRoad } from "../../redux/states/road.state";
+import { createRoad } from "../../../redux/states/road.state";
 import { ContextRoad, CreateContextType } from "./Road";
 
 interface Props{

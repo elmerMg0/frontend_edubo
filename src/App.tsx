@@ -5,6 +5,7 @@ import { Landing } from './pages/landing/Landing';
 import { Home } from './pages/home/Home';
 import { PrivateRoutes } from './models/routes';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Course } from './components/course/Course';
 function App() {
 
   return (
@@ -13,6 +14,7 @@ function App() {
     <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path={PrivateRoutes.HOME} element={<Home/>}/>
+        <Route path={`${PrivateRoutes.CURSOS}/${PrivateRoutes.TECNOLOGIA}`} element={<Course/>}/>
     </Routes>
    {/*  <Header>
       <Routes>

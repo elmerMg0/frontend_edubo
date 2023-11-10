@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Resource } from "../../models/models";
-import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
+import { Resource } from "../../../models/models";
+import { EditIconGlobal, TrashIconGlobal } from "../../global/icons/IconsGloba";
 import { ContextResource, ContextResourceType } from "./Resource";
 
 interface Props{

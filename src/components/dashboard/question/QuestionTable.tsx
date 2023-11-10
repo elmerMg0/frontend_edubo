@@ -1,20 +1,20 @@
 import { Table } from "react-bootstrap";
-import UserTableRow from "./RoadTableRow";
-import { ThTable } from "../global/pagination/ThTable";
-import Pagination from "../global/pagination/Pagination";
-import { PageInfo, Road } from "../../models/models";
+import { ThTable } from "../../global/pagination/ThTable";
+import Pagination from "../../global/pagination/Pagination";
+import { PageInfo, Question } from "../../../models/models";
+import QuestionTableRow from "./QuestionTableRow";
 
 interface Props {
-  roads: Road[],
-  getRoads: (page: number, nameFilter: string) => void,
-  deleteRoad: (id: number) => void,
+  questions: Question[],
+  getQuestions: (page: number, nameFilter: string) => void,
+  deleteQuestion: (id: number) => void,
   pageInfo: PageInfo | null
 }
 
-export default function UserTable({
-  roads,
-  getRoads,
-  deleteRoad,
+export default function QuestionTable({
+  questions,
+  getQuestions,
+  deleteQuestion,
   pageInfo,
   /*setUserUpdate,
   setModalShow,
@@ -25,20 +25,20 @@ export default function UserTable({
         <Table responsive>
           <thead >
             <tr>
-              <ThTable name='Cursos' borTopLefRad={10} />
-              <ThTable name='Nombre' />
-              <ThTable name='Descripcion' />
+              <ThTable name='Descripcion' borTopLefRad={10} />
+              <ThTable name='Respuesta' />
               <ThTable name='Estado' />
+              <ThTable name='Ver Imagen' />
               <ThTable name='Accion' justifycontent="center" borTopRigRad={10}/>
             </tr>
           </thead>
           <tbody>
-            {roads?.length > 0 ? (
-              roads.map((road) => (
-                <UserTableRow
+            {questions?.length > 0 ? (
+              questions.map((question) => (
+                <QuestionTableRow
                   key = {crypto.randomUUID()}
-                  road = {road}
-                 /*  deleteRoad = {deleteRoad}
+                  question = {question}
+                 /*  deleteQuestion = {deleteQuestion}
                   setUserUpdate = {setUserUpdate}
                   setModalShow = {setModalShow} */
                 />
@@ -54,8 +54,8 @@ export default function UserTable({
           </tbody>
         </Table>
         <div className="mt-2">
-           {roads?.length > 0 &&
-                  <Pagination pageInfo={pageInfo} getData={getRoads} />
+           {questions?.length > 0 &&
+                  <Pagination pageInfo={pageInfo} getData={getQuestions} />
             }
         </div>
     </>

@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Question } from "../../models/models";
-import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
+import { Question } from "../../../models/models";
+import { EditIconGlobal, TrashIconGlobal } from "../../global/icons/IconsGloba";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ContextQuestion, CreateQuestionType } from "./Question";

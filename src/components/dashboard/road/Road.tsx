@@ -2,11 +2,11 @@ import React, { useState, useEffect, useCallback, createContext, useContext } fr
 import UserTable from "./RoadTable";
 import { toast } from "react-hot-toast";
 import './user.css'
-import { PageInfo, Road } from "../../models/models";
-import { APISERVICE, AxiosService } from "../../service/api.service";
-import { RoadServiceName } from "../../service/apiServiceNames";
+import { PageInfo, Road } from "../../../models/models";
+import { APISERVICE, AxiosService } from "../../../service/api.service";
+import { RoadServiceName } from "../../../service/apiServiceNames";
 import { ModalRoad } from "./ModalRoad";
-import SearchInput from "../global/search/Search";
+import SearchInput from "../../global/search/Search";
 
 interface AppState {
   roads: Road[],

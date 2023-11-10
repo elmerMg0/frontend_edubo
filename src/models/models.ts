@@ -16,13 +16,17 @@ export interface Road {
 
 export interface Course {
     id?: number,
-    titulo: string,
+    name: string,
     descripcion: string
     duracion: string
     nivel: string,
     ruta_aprendizaje_id?: number,
     active: boolean,
-    url_image?: string
+    url_image?: string,
+    subtitle?: string,
+    you_learn?: string,
+    create_ts?: string,
+    informacion?: string
 }
 
 export interface Class{
@@ -47,6 +51,6 @@ export interface Resource {
     id?: number,
     descripcion: string,
     url_video: string,
-    class_id?: number,
+    clase_id?: number,
     active: boolean
 }

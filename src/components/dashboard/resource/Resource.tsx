@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import ResourceTable from "./ResourceTable";
-import { Resource, PageInfo } from "../../models/models";
-import { APISERVICE, AxiosService } from "../../service/api.service";
+import { Resource, PageInfo } from "../../../models/models";
+import { APISERVICE, AxiosService } from "../../../service/api.service";
 import toast from "react-hot-toast";
-import SearchInput from "../global/search/Search";
+import SearchInput from "../../global/search/Search";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../redux/store";
-import { ResourceServiceName } from "../../service/apiServiceNames";
+import { AppStore } from "../../../redux/store";
+import { ResourceServiceName } from "../../../service/apiServiceNames";
 import { ModalResource } from "./ModalResource";
 
 interface AppState{

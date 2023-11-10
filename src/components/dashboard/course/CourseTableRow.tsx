@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { Course } from "../../models/models";
-import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
+import { Course } from "../../../models/models";
+import { EditIconGlobal, TrashIconGlobal } from "../../global/icons/IconsGloba";
 import { ContextCourse, ContextCourseType } from "./Course";
 import { useDispatch } from "react-redux";
-import { PrivateRoutes } from "../../models/routes";
+import { PrivateRoutes } from "../../../models/routes";
 import { useNavigate } from "react-router-dom";
-import { createCourse } from "../../redux/states/course.state";
+import { createCourse } from "../../../redux/states/course.state";
 
 interface Props{
   course: Course

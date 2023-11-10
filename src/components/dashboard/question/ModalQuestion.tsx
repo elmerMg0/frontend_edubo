@@ -1,13 +1,13 @@
 import { Modal } from "react-bootstrap"
-import FormField from "../FormField/FormField"
-import { Question, Road } from "../../models/models"
 import { Field, Form, Formik } from "formik"
 import { ChangeEvent, useContext, useState } from "react"
 import * as Yup from 'yup';
-import { invalidCoursesNumberMax, invalidCoursesNumberMin, invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../utilities/messagesError"
+import { invalidCoursesNumberMax, invalidCoursesNumberMin, invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../../utilities/messagesError"
 import { ContextQuestion, CreateQuestionType } from "./Question"
 import { useSelector } from "react-redux"
-import { AppStore } from "../../redux/store"
+import { AppStore } from "../../../redux/store"
+import { Question } from "../../../models/models";
+import FormField from "../../FormField/FormField";
 
 interface Props{
   createQuestion: (question: Question, image: File | null) => void,

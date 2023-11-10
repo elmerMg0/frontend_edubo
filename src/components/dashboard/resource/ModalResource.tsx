@@ -1,11 +1,11 @@
 import { Modal } from "react-bootstrap"
-import FormField from "../FormField/FormField"
-import { Resource } from "../../models/models"
+import FormField from "../../FormField/FormField"
+import { Resource } from "../../../models/models"
 import { Form, Formik } from "formik"
 import { useContext } from "react"
 import * as Yup from 'yup';
-import { invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../utilities/messagesError"
-import { AppStore } from "../../redux/store"
+import { invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../../utilities/messagesError"
+import { AppStore } from "../../../redux/store"
 import { useSelector } from "react-redux"
 import { ContextResource, ContextResourceType } from "./Resource"
 

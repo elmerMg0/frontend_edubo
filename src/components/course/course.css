@@ -1,0 +1,135 @@
+.course{
+    background-color: var(--l-colorMain);
+}
+.course-info{
+    padding: 3rem 1rem;
+}
+.course-img img{
+    width: 100%;
+    height: auto;
+}
+.course-title{
+    color: var(--colorWhite);
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.course-subtitle{
+    color: var(--colorGris);
+}
+.course-profit ul{
+    list-style: none;
+    padding: 0;
+}
+.course-profit ul li{
+    color: var(--colorGris);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.75rem;
+    line-height: 1.4rem;
+}
+.course-profit ul li::before{
+    background: url(https://edteam-media.s3.amazonaws.com/web/utils/svg/list/check-list-green.svg);
+    width: 0.875rem;
+    height: 0.875rem;
+    content: '';
+    display: block;
+}
+.course-profit p{
+    color: var(--colorWhite);
+}
+.course-date{
+    display: flex;
+    color: var(--colorGris);
+    gap: 0.5rem;
+    align-items: center;
+}
+.course-date span{
+    display: flex;
+    gap: 0.2rem;
+    margin: 0;
+    align-items: center;
+    font-size: 0.9rem;
+}
+.course-feature-item{
+    border-right: 1px solid var(--colorGris);
+    height: 0.65rem;
+    padding-right: 0.5rem;
+}
+.course-btn{
+    background-color: var(--colorWhite);
+    align-items: center;
+    width: 50%;
+    margin-top: 1.5rem;
+    padding: 0.4rem 0.75rem;
+}
+.course-b-btn{
+    color: var(--colorGris);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+/* Clases */
+.course-classes{
+    background-color: var(--colorBlack);
+    padding: 2rem 1rem;
+}
+.course-classes-title{
+    color: var(--colorWhite);
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+.course-classes-container{
+    border-radius: 10px;
+}
+.class-card{
+    padding: 1rem 1rem;
+    background-color: var(--l-colorMain);
+    border-bottom: 1px solid var(--colorBlack);
+}
+.class-card:nth-child(1){
+    border-left: 2px solid var(--l-colorGreenSecundary);
+}
+.class-card button{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.3rem;
+}
+.class-card-title{
+    color: var(--colorWhite);
+    font-weight: 600;
+}   
+.class-card-description{
+    color: var(--colorGris);
+    font-size: 0.875rem;
+}
+
+/* About */
+.course-about{
+    background-color: var(--colorBlack);
+    padding: 1rem 1rem 3rem 1rem;
+}
+.course-about-title{
+    font-size: 1.25rem;
+    color: var(--colorWhite);
+    padding: 1rem 0;
+}
+.course-about-content{
+    color: var(--colorGris);
+    background-color: var(--l-colorMain);
+    padding: 1rem 1rem;
+    border-radius: 10px;
+    border-left: 2px solid var(--l-colorGreenSecundary);
+}
+.course-about-description p{
+    margin: 0;
+    font-size: 0.875rem;
+}
+.course-about-description{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    line-height: 1.8;
+}

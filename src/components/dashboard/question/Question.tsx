@@ -1,13 +1,13 @@
 import React, { useState, useEffect, createContext } from "react";
 import { toast } from "react-hot-toast";
-import { PageInfo, Question } from "../../models/models";
-import { APISERVICE, AxiosService } from "../../service/api.service";
-import SearchInput from "../global/search/Search";
-import { QuestionServiceName } from "../../service/apiServiceNames";
+import { PageInfo, Question } from "../../../models/models";
+import { APISERVICE, AxiosService } from "../../../service/api.service";
+import SearchInput from "../../global/search/Search";
+import { QuestionServiceName } from "../../../service/apiServiceNames";
 import QuestionTable from "./QuestionTable";
 import { ModalQuestion } from "./ModalQuestion";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../redux/store";
+import { AppStore } from "../../../redux/store";
 
 interface AppState {
   questions: Question[],

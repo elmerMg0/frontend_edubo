@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { Class } from "../../models/models";
-import { EditIconGlobal, TrashIconGlobal } from "../global/icons/IconsGloba";
 import { ContextClass, ContextClassType } from "./ClassComponent";
-import { PrivateRoutes } from "../../models/routes";
-import { createClass } from "../../redux/states/class.state";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Class } from "../../../models/models";
+import { createClass } from "../../../redux/states/class.state";
+import { PrivateRoutes } from "../../../models/routes";
+import { EditIconGlobal, TrashIconGlobal } from "../../global/icons/IconsGloba";
 
 interface Props{
   classValue: Class

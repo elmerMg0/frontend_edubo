@@ -1,19 +1,19 @@
 import { Table } from "react-bootstrap";
-import { ThTable } from "../global/pagination/ThTable";
-import Pagination from "../global/pagination/Pagination";
-import { Resource, PageInfo } from "../../models/models";
-import ResourceTableRow from "./ResourceTableRow";
+import ClassTableRow from "./ClassTableRow";
+import { ThTable } from "../../global/pagination/ThTable";
+import { Class, PageInfo } from "../../../models/models";
+import Pagination from "../../global/pagination/Pagination";
 
 interface Props {
-  resources: Resource[],
-  getResources: (page: number, nameFilter: string) => void,
+classes: Class[],
+  getCourses: (page: number, nameFilter: string) => void,
   deleteRoad: (id: number) => void,
   pageInfo: PageInfo | null
 }
 
-export default function ResourceTable({
-  resources,
-  getResources,
+export default function ClassTable({
+  classes,
+  getCourses,
   deleteRoad,
   pageInfo,
   /*setUserUpdate,
@@ -25,18 +25,21 @@ export default function ResourceTable({
         <Table responsive>
           <thead >
             <tr>
-              <ThTable name='Descripicon' borTopLefRad={10} />
-              <ThTable name='Url video' />
+              <ThTable name='Mas' borTopLefRad={10} />
+              <ThTable name='Titulo' />
+              <ThTable name='Descripcion' />
+              <ThTable name='Duracion' />
+              <ThTable name='Nivel' />
               <ThTable name='Estado' />
               <ThTable name='Accion' justifycontent="center" borTopRigRad={10}/>
             </tr>
           </thead>
           <tbody>
-            {resources?.length > 0 ? (
-              resources.map((Resource) => (
-                <ResourceTableRow
+            {classes?.length > 0 ? (
+              classes.map((classValue) => (
+                <ClassTableRow
                   key = {crypto.randomUUID()}
-                  resource = {Resource}
+                  classValue = {classValue}
                  /*  deleteRoad = {deleteRoad}
                   setUserUpdate = {setUserUpdate}
                   setModalShow = {setModalShow} */
@@ -53,8 +56,8 @@ export default function ResourceTable({
           </tbody>
         </Table>
         <div className="mt-2">
-           {resources?.length > 0 &&
-                  <Pagination pageInfo={pageInfo} getData={getResources} />
+           {classes?.length > 0 &&
+                  <Pagination pageInfo={pageInfo} getData={getCourses} />
             }
         </div>
     </>

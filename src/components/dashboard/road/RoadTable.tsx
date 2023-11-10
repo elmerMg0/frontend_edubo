@@ -1,19 +1,19 @@
 import { Table } from "react-bootstrap";
-import { ThTable } from "../global/pagination/ThTable";
-import Pagination from "../global/pagination/Pagination";
-import { Course, PageInfo, Road } from "../../models/models";
-import CourseTableRow from "./CourseTableRow";
+import UserTableRow from "./RoadTableRow";
+import { ThTable } from "../../global/pagination/ThTable";
+import Pagination from "../../global/pagination/Pagination";
+import { PageInfo, Road } from "../../../models/models";
 
 interface Props {
-  courses: Course[],
-  getCourses: (page: number, nameFilter: string) => void,
+  roads: Road[],
+  getRoads: (page: number, nameFilter: string) => void,
   deleteRoad: (id: number) => void,
   pageInfo: PageInfo | null
 }
 
-export default function CourseTable({
-  courses,
-  getCourses,
+export default function UserTable({
+  roads,
+  getRoads,
   deleteRoad,
   pageInfo,
   /*setUserUpdate,
@@ -25,21 +25,19 @@ export default function CourseTable({
         <Table responsive>
           <thead >
             <tr>
-              <ThTable name='Clases' borTopLefRad={10} />
-              <ThTable name='Titulo'/>
+              <ThTable name='Cursos' borTopLefRad={10} />
+              <ThTable name='Nombre' />
               <ThTable name='Descripcion' />
-              <ThTable name='Duracion' />
-              <ThTable name='Nivel' />
               <ThTable name='Estado' />
               <ThTable name='Accion' justifycontent="center" borTopRigRad={10}/>
             </tr>
           </thead>
           <tbody>
-            {courses?.length > 0 ? (
-              courses.map((course) => (
-                <CourseTableRow
+            {roads?.length > 0 ? (
+              roads.map((road) => (
+                <UserTableRow
                   key = {crypto.randomUUID()}
-                  course = {course}
+                  road = {road}
                  /*  deleteRoad = {deleteRoad}
                   setUserUpdate = {setUserUpdate}
                   setModalShow = {setModalShow} */
@@ -56,8 +54,8 @@ export default function CourseTable({
           </tbody>
         </Table>
         <div className="mt-2">
-           {courses?.length > 0 &&
-                  <Pagination pageInfo={pageInfo} getData={getCourses} />
+           {roads?.length > 0 &&
+                  <Pagination pageInfo={pageInfo} getData={getRoads} />
             }
         </div>
     </>

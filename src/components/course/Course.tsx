@@ -1,182 +1,122 @@
-import { createContext, useEffect, useState } from "react";
-import CourseTable from "./CourseTable";
-import { ModalCourse } from "./ModalCourse";
-import { Course, PageInfo } from "../../models/models";
-import { APISERVICE, AxiosService } from "../../service/api.service";
+import { useEffect, useState } from "react";
+import { Header } from "../landing/Header";
+import './course.css'
+import { AxiosService } from "../../service/api.service";
 import { CourseServiceName } from "../../service/apiServiceNames";
-import toast from "react-hot-toast";
-import SearchInput from "../global/search/Search";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../redux/store";
+import { Class, Course } from "../../models/models";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { BsBarChartLine } from "react-icons/bs";
+import { Footer } from "../global/footer/Footer";
 
-interface AppState{
-    courses: Course[],
-    pageInfo: PageInfo | null,
-    course: Course | null
-}
-export interface ContextCourseType{
-  courseToUpdate: Course | null
-  setCourseToUpdate: React.Dispatch<React.SetStateAction<Course | null>>,
-  showModal: boolean,
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
+const idCOurse = 1;
+
+interface AppState {
+    course: Course | null, 
+    class: Class []
 }
 
-export const ContextCourse = createContext<ContextCourseType | null>(null);
+const monthNames = [
+    'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+];
 
 export function Course (){
+    const [course, setCourse] = useState<AppState['course']>(null)
+    const [classes, setClasses] = useState<AppState['class']>([])
 
-    const [courses, setCourses] = useState<AppState['courses']>([]);
-    const [pageInfo, setPageInfo] = useState<AppState['pageInfo']>(null);
-    const [showModalConfirm, setShowModalConfirm] = useState(false);
-    const [customerToDelete, setCustomerToDelete] = useState({});
-    const [roadToUpdate, setRoadToUpdate] = useState<AppState['course']>(null);
-    const [filters, setFilters] = useState({nombre: ''});
-    const [loading, setLoading] = useState(false);
-    const [courseToUpdate, setCourseToUpdate] = useState<AppState['course']>(null)
-    const [showModal, setShowModal] = useState(false);
-
-
-    const road = useSelector((store:AppStore) => store.road); 
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
-      getCourses();
-    }, []);
-  
-  
-    const getCourses = async (pageNumber = 1, name=filters.nombre) => {
-      //const params = `name=${name}`
-      try {
-        setLoading(true)
-        let params = {
-            idRoad: road.id
-        }
-        //const response = 
-        //const { success, courses , pageInfo } = await APISERVICE.get(courseserviceName.GET, params);
-        const response = await AxiosService.get(CourseServiceName.GET_ROADS_WITH_COURSES, params);
-        if(response){
-            const { courses } = response;
-            setCourses(courses[0].cursos);
-            //setPageInfo(pageInfo);
-          }
-      } catch (error) {
-        
-      } finally{
-        setLoading(false);
-      }
-    };
-  
-    const createCourse = async (course: Course) => {
-      try {
-        setLoading(true)
-        const { success, message } = await APISERVICE.post(course, CourseServiceName.CREATE, '');
-        if ( success ) {
-          toast.success(message);
-          getCourses(pageInfo?.page, filters.nombre);
-        }else{
-          //toast.error(messagesError(code));
-        }
-      } catch (error) {
-        
-      } finally{
-        setLoading(false);
-      }
-    };
-  
-    const deleteRoadModal = async (id: number) => {
-     /*  setShowModalConfirm(true);
-      setCustomerToDelete(id); */
-    };
-  
-   /*  const deleteUser = async () => {
-      try {
-        setLoading(true)
-        setShowModalConfirm(false);
-        let params = `idUser=${customerToDelete}`;
-        const {success, message, code} = await APISERVICE.get(userServiceNames.DISABLE, params);
-        if ( success ) {
-          getCourses(pageInfo.page, filters.nombre);
-          toast.success(message);
-        }else{
-          toast.error(messagesError(code));
-        }
-      } catch (error) {
-        toast.error('Ocurrio un error')
-      } finally{
-        setLoading(false)
-      }
-    
-    };
-   */
-    const updateCourse = async (body: Course, idCourse: number) => {
-      try {
-        setLoading(true);
-        let params = `idCourse=${idCourse}`;
-        const {success, message, code} = await APISERVICE.post(body, CourseServiceName.UPDATE, params);
-        if (success) {
-          toast.success(message);
-          getCourses(pageInfo?.page, filters.nombre);
-        }else{
-          //toast.error(messagesError(code));
-        }
-      } catch (error) {
-        toast.error('Ocurrio un error')
-      } finally{
-        setLoading(false)
-      }
-    
-    };
-  
-    const filtercategories = (category: string) => {
-      setFilters(filters => ({...filters, nombre: category}))
-      //debouncedGetCategogies(category)
-    };
-  
-  /*   const debouncedGetCategogies = useCallback( debounce(search => {
-      getCourses(pageInfo.page, search)
-    },500)
-    ,[]) */
-  
-    const clearFilter = () => {
-      //setFilters(filters => ({...filters, nombre: ''}))
-      //getCourses(pageInfo.page, "");
-    }
-  
-    const HandleSetRoadToUpdate = (road: Course) => {
-      setRoadToUpdate(road)
+        getCourseInfo()
+    },[])
+
+    const getCourseInfo = async () => {
+            try {
+              setLoading(true)
+              let params = {
+                  idCourse: idCOurse
+              }
+              //const response = 
+              //const { success, courses , pageInfo } = await APISERVICE.get(courseserviceName.GET, params);
+              const response = await AxiosService.get(CourseServiceName.COURSE, params);
+              if(response){
+                  const { data} = response;
+                  setCourse(data.course);
+                  setClasses(data.classes)
+                  //setPageInfo(pageInfo);
+                }
+            } catch (error) {
+              
+            } finally{
+              setLoading(false);
+            }
     }
     return (
-      <ContextCourse.Provider value={{courseToUpdate, setCourseToUpdate, showModal, setShowModal}}>
-        <div className="content-private">
-          <h3 className="title-header-secundary">{road.nombre}</h3>
-          <h3 className="title-header">Cursos</h3>
-          <SearchInput
-            filterSomething={filtercategories}
-            placeHolder="Nombre del curso"
-            handleClear={clearFilter}   
-            setShowModal={setShowModal}
-          />
+        <div className="course">
+            <Header>
+                <p>lo</p>
+            </Header>
 
-          <CourseTable
-            courses={courses}
-            getCourses={getCourses}
-            deleteRoad={deleteRoadModal}
-            pageInfo={pageInfo}
-            /*setModalShow={setModalShow}
-            loading={loading} */
-              />
-          <ModalCourse
-            createCourse={createCourse}
-            updateCourse={updateCourse}
-          />
-       
-        {/*   <ModalConfirm
-            show={showModalConfirm}
-            onHide={setShowModalConfirm}
-            deleteSomething={deleteUser}
-            message={messagesDangerous('Usuario')}
-          /> */}
-         {/*  {loading &&  <Loading/>} */}
+            <div className="course-img">
+                    <img src={`${APIURLIMG + course?.url_image}`} alt="" />
+            </div>
+
+            <section className="course-info">
+             
+                <h1 className="course-title">{course?.name}</h1>
+                <p className="course-subtitle">{course?.subtitle}</p>
+
+                <div className="course-profit">
+                    <p>Que aprenderas?</p>
+                    <ul className="test" dangerouslySetInnerHTML={{ __html: course?.you_learn }} />
+                </div>
+
+
+                <div className="course-date">
+                    <span className="course-feature-item">
+                        <FaRegCalendarAlt/>
+                        <span>
+                            {monthNames[course?.create_ts?.slice(5,7)-1]}{" "}
+                            {course?.create_ts.slice(8,10)}
+                        </span>
+                    </span>
+                    <span>
+                        <BsBarChartLine/>
+                        {course?.nivel}
+                    </span>
+                    {/* Btn comprar */}
+                        
+                </div>
+                <button className="f-btn course-btn">Proximamente</button>
+                <p className="course-b-btn">*Prueba la experiencia Edubo</p>
+            </section>
+
+            <section className="course-classes">
+                <h2 className="course-classes-title">Temario del curso</h2>
+                <div className="course-classes-container">
+                {
+                    classes?.length > 0 ? classes.map((clase: Class) => (
+                        <div className="class-card" key={clase.id}>
+                            <button className="f-btn">
+                                <span className="class-card-title">{clase.numero_clase + ". " + clase.titulo}</span>
+                                <span className="class-card-description">{clase.descripcion}</span>
+                            </button>
+                        </div>  
+                    ))
+                    :
+                    ''
+                }
+                </div>
+            </section>
+
+            <article className="course-about">
+                <div className="course-about-content">
+
+                <h2 className="course-about-title">Acerca de este curso</h2>
+                <div className="course-about-description" dangerouslySetInnerHTML={{ __html: course?.informacion }} />
+                </div>
+            </article>
+
+            <Footer/>
         </div>
-       
-      </ContextCourse.Provider>
-    );
+    )
 }

@@ -1,42 +1,42 @@
 import { createContext, useEffect, useState } from "react";
-import { Class, Course, PageInfo } from "../../models/models";
-import { APISERVICE, AxiosService } from "../../service/api.service";
-import { ClassServiceName } from "../../service/apiServiceNames";
+import CourseTable from "./CourseTable";
+import { ModalCourse } from "./ModalCourse";
+import { Course, PageInfo } from "../../../models/models";
+import { APISERVICE, AxiosService } from "../../../service/api.service";
+import { CourseServiceName } from "../../../service/apiServiceNames";
 import toast from "react-hot-toast";
-import SearchInput from "../global/search/Search";
+import SearchInput from "../../global/search/Search";
 import { useSelector } from "react-redux";
-import { AppStore } from "../../redux/store";
-import ClassTable from "./ClassTable";
-import { ModalClass } from "./ModalClass";
+import { AppStore } from "../../../redux/store";
 
 interface AppState{
-    classes: Class[],
+    courses: Course[],
     pageInfo: PageInfo | null,
-    class: Class | null
+    course: Course | null
 }
-export interface ContextClassType{
-  classToUpdate: Class | null
-  setClassToUpdate: React.Dispatch<React.SetStateAction<Class | null>>,
+export interface ContextCourseType{
+  courseToUpdate: Course | null
+  setCourseToUpdate: React.Dispatch<React.SetStateAction<Course | null>>,
   showModal: boolean,
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const ContextClass = createContext<ContextClassType | null>(null);
+export const ContextCourse = createContext<ContextCourseType | null>(null);
 
-export function ClassComponent (){
+export function Course (){
 
-    const [classes, setClases] = useState<AppState['classes']>([]);
+    const [courses, setCourses] = useState<AppState['courses']>([]);
     const [pageInfo, setPageInfo] = useState<AppState['pageInfo']>(null);
     const [showModalConfirm, setShowModalConfirm] = useState(false);
     const [customerToDelete, setCustomerToDelete] = useState({});
+    const [roadToUpdate, setRoadToUpdate] = useState<AppState['course']>(null);
     const [filters, setFilters] = useState({nombre: ''});
     const [loading, setLoading] = useState(false);
-    const [classToUpdate, setClassToUpdate] = useState<AppState['class']>(null)
+    const [courseToUpdate, setCourseToUpdate] = useState<AppState['course']>(null)
     const [showModal, setShowModal] = useState(false);
 
 
-    const courseStore = useSelector((store:AppStore) => store.course); 
-
+    const road = useSelector((store:AppStore) => store.road); 
     useEffect(() => {
       getCourses();
     }, []);
@@ -47,17 +47,15 @@ export function ClassComponent (){
       try {
         setLoading(true)
         let params = {
-            idCourse: courseStore.id,
-            name: name,
-            page: pageNumber
+            idRoad: road.id
         }
         //const response = 
         //const { success, courses , pageInfo } = await APISERVICE.get(courseserviceName.GET, params);
-        const response = await AxiosService.get(ClassServiceName.GET_COURSE_WITH_CLASSES, params);
+        const response = await AxiosService.get(CourseServiceName.GET_ROADS_WITH_COURSES, params);
         if(response){
-            const { courses, pageInfo } = response;
-            setClases(courses);
-            setPageInfo(pageInfo);
+            const { courses } = response;
+            setCourses(courses[0].cursos);
+            //setPageInfo(pageInfo);
           }
       } catch (error) {
         
@@ -66,10 +64,10 @@ export function ClassComponent (){
       }
     };
   
-    const createClass = async (course: Class) => {
+    const createCourse = async (course: Course) => {
       try {
         setLoading(true)
-        const { success, message } = await APISERVICE.post(course, ClassServiceName.CREATE, '');
+        const { success, message } = await APISERVICE.post(course, CourseServiceName.CREATE, '');
         if ( success ) {
           toast.success(message);
           getCourses(pageInfo?.page, filters.nombre);
@@ -108,11 +106,11 @@ export function ClassComponent (){
     
     };
    */
-    const updateClass = async (body: Class, idClass: number) => {
+    const updateCourse = async (body: Course, idCourse: number) => {
       try {
         setLoading(true);
-        let params = `idClass=${idClass}`;
-        const {success, message} = await APISERVICE.post(body, ClassServiceName.UPDATE, params);
+        let params = `idCourse=${idCourse}`;
+        const {success, message, code} = await APISERVICE.post(body, CourseServiceName.UPDATE, params);
         if (success) {
           toast.success(message);
           getCourses(pageInfo?.page, filters.nombre);
@@ -142,11 +140,14 @@ export function ClassComponent (){
       //getCourses(pageInfo.page, "");
     }
   
+    const HandleSetRoadToUpdate = (road: Course) => {
+      setRoadToUpdate(road)
+    }
     return (
-      <ContextClass.Provider value={{classToUpdate, setClassToUpdate, showModal, setShowModal}}>
+      <ContextCourse.Provider value={{courseToUpdate, setCourseToUpdate, showModal, setShowModal}}>
         <div className="content-private">
-          <h3 className="title-header-secundary">{courseStore.titulo}</h3>
-          <h3 className="title-header">Clases</h3>
+          <h3 className="title-header-secundary">{road.nombre}</h3>
+          <h3 className="title-header">Cursos</h3>
           <SearchInput
             filterSomething={filtercategories}
             placeHolder="Nombre del curso"
@@ -154,17 +155,17 @@ export function ClassComponent (){
             setShowModal={setShowModal}
           />
 
-          <ClassTable
-            classes={classes}
+          <CourseTable
+            courses={courses}
             getCourses={getCourses}
             deleteRoad={deleteRoadModal}
             pageInfo={pageInfo}
             /*setModalShow={setModalShow}
             loading={loading} */
               />
-          <ModalClass
-            createClass={createClass}
-            updateClass={updateClass}
+          <ModalCourse
+            createCourse={createCourse}
+            updateCourse={updateCourse}
           />
        
         {/*   <ModalConfirm
@@ -176,6 +177,6 @@ export function ClassComponent (){
          {/*  {loading &&  <Loading/>} */}
         </div>
        
-      </ContextClass.Provider>
+      </ContextCourse.Provider>
     );
 }

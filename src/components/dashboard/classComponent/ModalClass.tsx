@@ -1,13 +1,13 @@
 import { Modal } from "react-bootstrap"
-import FormField from "../FormField/FormField"
-import { Class, Course } from "../../models/models"
 import { Form, Formik } from "formik"
 import { useContext } from "react"
 import * as Yup from 'yup';
-import { invalidCoursesNumberMax, invalidCoursesNumberMin, invalidNumber, requiredMessage, tooLongMessage, trimMessage } from "../../utilities/messagesError"
-import { AppStore } from "../../redux/store"
 import { useSelector } from "react-redux"
 import { ContextClass, ContextClassType } from "./ClassComponent"
+import { Class } from "../../../models/models";
+import { AppStore } from "../../../redux/store";
+import { requiredMessage, tooLongMessage, trimMessage } from "../../../utilities/messagesError";
+import FormField from "../../FormField/FormField";
 
 interface Props{
   createClass: (classValue: Class) => void,

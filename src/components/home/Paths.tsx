@@ -9,10 +9,13 @@ interface Props{
 
 export function Paths({roads}: Props){
     
+
+    const handleGetCourse = () => {}
+
     return (
         <div className="roads">
             {roads?.map((road: RoadWithCourses) => (
-                <article className="road-card">
+                <article className="road-card" key={road.id}>
                     <div className="road-card-info">
                         <span>Ruta</span>
                     </div>
@@ -23,7 +26,7 @@ export function Paths({roads}: Props){
                       {
                         road.cursos?.length > 0 ? road.cursos.slice(0,2).map((course: Course) => {
                             return(
-                                <section className="course-card">
+                                <section className="course-card" key={course.id}>
                                     <img src="https://static.platzi.com/media/achievements/1393-88e062fc-31f2-4e1e-9cd9-d9bd96e6a319.png" alt="" />
                                     <p className="roads-card-parrafo">{course.titulo}</p>
 
@@ -39,7 +42,7 @@ export function Paths({roads}: Props){
                         <p className="road-card-nrocouses">+{road.numero_cursos - 2} cursos mas</p>
                     </section>
                 
-                    <button className="f-btn btn-road-start">Iniciar Ruta</button>
+                    <button className="f-btn btn-road-start" onClick={handleGetCourse}>Iniciar Ruta</button>
                 </article>
             ))}
         </div>
