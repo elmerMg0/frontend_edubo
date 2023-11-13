@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router"
 import { Course, Road } from "../../models/models"
+import { PrivateRoutes } from "../../models/routes"
 
 interface RoadWithCourses extends Road{
     cursos: Course[]
@@ -8,9 +10,11 @@ interface Props{
 }
 
 export function Paths({roads}: Props){
-    
+    const navigate = useNavigate()
 
-    const handleGetCourse = () => {}
+    const handleGetCourse = (road: RoadWithCourses) => {
+        navigate(`/${PrivateRoutes.RUTAS}/${road.id}-${road.slug}`)
+    }
 
     return (
         <div className="roads">
@@ -28,7 +32,7 @@ export function Paths({roads}: Props){
                             return(
                                 <section className="course-card" key={course.id}>
                                     <img src="https://static.platzi.com/media/achievements/1393-88e062fc-31f2-4e1e-9cd9-d9bd96e6a319.png" alt="" />
-                                    <p className="roads-card-parrafo">{course.titulo}</p>
+                                    <p className="roads-card-parrafo">{course.name}</p>
 
                                 </section>
                             )
@@ -42,7 +46,7 @@ export function Paths({roads}: Props){
                         <p className="road-card-nrocouses">+{road.numero_cursos - 2} cursos mas</p>
                     </section>
                 
-                    <button className="f-btn btn-road-start" onClick={handleGetCourse}>Iniciar Ruta</button>
+                    <button className="f-btn btn-road-start" onClick={() => handleGetCourse(road)}>Iniciar Ruta</button>
                 </article>
             ))}
         </div>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { Road } from "../../models/models"
 import { AxiosService } from "../../service/api.service"
 import { ArrowRight } from "../global/icons/Icons"
+import { Link } from "react-router-dom"
+import { PrivateRoutes } from "../../models/routes"
 
 interface AppState {
     roads: Road[]
@@ -35,7 +37,7 @@ export function Carousel(){
 
                 {   
                     roads?.length > 0 ? roads?.map((road, index) => (
-                        <a>
+                        <Link key={road.id} to={`${PrivateRoutes.RUTAS}/${road.id}-${road.slug}`}>
                             <div className="carousel-card" key={index}>
                             
                             <div>
@@ -51,7 +53,7 @@ export function Carousel(){
                             <ArrowRight/>
                             </span>
                             </div>
-                        </a>
+                        </Link>
                     )): "No hay rutas de aprendizaje"
                 }
                 </div>

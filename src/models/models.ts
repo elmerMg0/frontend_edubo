@@ -11,7 +11,8 @@ export interface Road {
     nombre: string,
     descripcion: string,
     numero_cursos: number,
-    active: boolean
+    active: boolean,
+    slug?: string
 }
 
 export interface Course {
@@ -26,7 +27,8 @@ export interface Course {
     subtitle?: string,
     you_learn?: string,
     create_ts?: string,
-    informacion?: string
+    informacion?: string,
+    slug?: string
 }
 
 export interface Class{
@@ -53,4 +55,14 @@ export interface Resource {
     url_video: string,
     clase_id?: number,
     active: boolean
+}
+
+export interface Subject {
+    id?: number,
+    title:string
+    is_public: boolean,
+    slug: string,
+    class_id?: number,
+    duration: string,
+    video_url?: string
 }

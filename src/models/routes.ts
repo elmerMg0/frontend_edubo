@@ -1,5 +1,6 @@
 export const PrivateRoutes = {
     ROAD: 'road',
+    RUTAS: 'rutas',
     COURSE: 'course',
     CLASS:'class',
     PRIVATE: 'private',

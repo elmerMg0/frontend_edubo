@@ -15,15 +15,15 @@ export function Home (){
     const getPaths = async () => {
         const url = 'ruta-aprendizaje/get-roads-with-courses/?'
         const params = {
-            idRoad: ''
+            idRoad: '',
+            nameRoad: ''
         }
         const  res = await AxiosService.get(url, params);
         if(res.success){
             setRoads(res.courses) 
         }
     }
-    console.log(roads)
-
+    
     return (
         <div className="home">
             <Header>    

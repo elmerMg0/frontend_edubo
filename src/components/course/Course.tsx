@@ -3,17 +3,21 @@ import { Header } from "../landing/Header";
 import './course.css'
 import { AxiosService } from "../../service/api.service";
 import { CourseServiceName } from "../../service/apiServiceNames";
-import { Class, Course } from "../../models/models";
+import { Class, Course, Subject } from "../../models/models";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { BsBarChartLine } from "react-icons/bs";
 import { Footer } from "../global/footer/Footer";
+import { Classes } from "./Classes";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 const idCOurse = 1;
 
+export interface ClassWithSubject extends Class{
+    subjects: Subject[]
+}
 interface AppState {
     course: Course | null, 
-    class: Class []
+    classes: ClassWithSubject[]
 }
 
 const monthNames = [
@@ -22,7 +26,7 @@ const monthNames = [
 
 export function Course (){
     const [course, setCourse] = useState<AppState['course']>(null)
-    const [classes, setClasses] = useState<AppState['class']>([])
+    const [classes, setClasses] = useState<AppState['classes']>([])
 
     const [loading, setLoading] = useState(false)
     useEffect(() => {
@@ -90,24 +94,8 @@ export function Course (){
                 <p className="course-b-btn">*Prueba la experiencia Edubo</p>
             </section>
 
-            <section className="course-classes">
-                <h2 className="course-classes-title">Temario del curso</h2>
-                <div className="course-classes-container">
-                {
-                    classes?.length > 0 ? classes.map((clase: Class) => (
-                        <div className="class-card" key={clase.id}>
-                            <button className="f-btn">
-                                <span className="class-card-title">{clase.numero_clase + ". " + clase.titulo}</span>
-                                <span className="class-card-description">{clase.descripcion}</span>
-                            </button>
-                        </div>  
-                    ))
-                    :
-                    ''
-                }
-                </div>
-            </section>
-
+            <Classes classes={classes}/>
+        
             <article className="course-about">
                 <div className="course-about-content">
 

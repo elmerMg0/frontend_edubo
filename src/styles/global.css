@@ -32,6 +32,10 @@ html{
   box-sizing: border-box;
   
 }
+a{
+  border: none;
+  text-decoration: none;
+}
 .content-private{
   margin: 20px;
 }

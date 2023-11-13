@@ -1,0 +1,16 @@
+.subject-resource{
+    background-color: var(--colorBlack);
+    padding: 1rem;
+}
+.subject-resource-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--colorGris);
+}
+.subject-resource-card{
+    padding: 1rem;
+    color: var(--colorGris);
+    border-radius: 10px;
+    background-color: var(--l-colorGris);
+}
