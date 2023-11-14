@@ -1,0 +1,46 @@
+import { AiOutlineLock } from "react-icons/ai"
+import { Subject } from "../../models/models"
+import { Link, useParams } from "react-router-dom"
+import { PrivateRoutes } from "../../models/routes";
+import { useEffect } from "react";
+
+interface Props {
+    subjects: Subject[],
+    isOpen: boolean,
+    classId: number | undefined,
+    progress: String[]
+}
+export function SubjectList({ subjects, isOpen, classId, progress }: Props) {
+    const {path, idCourse, idSubject, idClass } = useParams();
+
+   
+
+    const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;
+
+
+    return (
+        <div className={`class-card-subjects ${isOpen ? 'active' : ''}`}>
+            <ul>
+                {
+                    subjects?.length > 0 ? subjects?.map((subject) => {
+                        return (
+                            <li key={subject.id} className={`subject-list-item ${progress.some((item: any) => item.subject_id === subject.id) ? 'active' : ''}`}>
+                                <Link className="w-100" style={{ textDecoration: 'none' }} to={`${basePath}${classId}/${subject.slug}`}>
+                                    <button className={`f-btn subject-btn ${(subject.slug == idSubject && subject.clase_id == idClass) ? 'active' : ''}`}>
+                                        <span className="class-card-title">
+                                            <AiOutlineLock />
+                                            <span>{subject.title}</span>
+                                        </span>
+                                        <span>{subject.duration.slice(3, 8)}</span>
+                                    </button>
+                                </Link>
+                            </li>
+                        )
+                    })
+                        :
+                        ''
+                }
+            </ul>
+        </div>
+    )
+}

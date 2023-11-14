@@ -185,6 +185,7 @@
     color: var(--colorGris);
     font-size: 0.875rem;
     justify-content: space-between;
+    text-align: left;
 }
 
 .class-card-title{

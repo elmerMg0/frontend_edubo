@@ -81,8 +81,60 @@
 }
 .subject-btns-line button{
     color: var(--colorGris);
+    width: 100%;
 }
 .subject-btns-line button.flag{
     color: var(--l-colorGreen);
     border-bottom: 1px solid var(--l-colorGreen);
+}
+.classmain-card{
+    border: solid var(--colorGris);
+    background-color: var(--l-colorGris);
+    border-width: 1px 1px 2px;
+    padding: 1rem;
+    text-align: left;
+}
+.course-classesmain-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+/* Subject List Vertical */
+.subject-list-item{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.subject-list-item li a{
+    text-decoration: none;
+}
+.subject-list-item::before{
+    content: "";
+    flex: none;
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: var(--colorGris);
+    border-radius: 50%;
+    z-index: 1;
+}
+.subject-list-item.active::before{
+    background-color: var(--l-colorGreenSecundary);
+}
+.subject-list-item::after{
+    content: "";
+    top: 1rem;
+    left: 5px;
+    position: absolute;
+    width: 2px;
+    height: 150%;
+    background-color: var(--colorGris);
+}
+.subject-list-item.active::after{
+    background-color: var(--l-colorGreenSecundary);
+}
+.subject-list-item:last-child::after{
+    display: none;
+}
+.subject-btn.active span{
+    color: var(--l-colorGreenSecundary);
 }

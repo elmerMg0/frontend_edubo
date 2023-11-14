@@ -62,7 +62,7 @@ export interface Subject {
     title:string
     is_public: boolean,
     slug: string,
-    class_id?: number,
+    clase_id?: number,
     duration: string,
     video_url?: string
 }

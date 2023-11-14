@@ -8,9 +8,10 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import { BsBarChartLine } from "react-icons/bs";
 import { Footer } from "../global/footer/Footer";
 import { Classes } from "./Classes";
+import { useParams } from "react-router";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
-const idCOurse = 1;
+//const idCOurse = 1;
 
 export interface ClassWithSubject extends Class{
     subjects: Subject[]
@@ -29,6 +30,8 @@ export function Course (){
     const [classes, setClasses] = useState<AppState['classes']>([])
 
     const [loading, setLoading] = useState(false)
+    const { idCourse } = useParams()
+
     useEffect(() => {
         getCourseInfo()
     },[])
@@ -37,7 +40,7 @@ export function Course (){
             try {
               setLoading(true)
               let params = {
-                  idCourse: idCOurse
+                idCourse: idCourse?.split('-')[0]
               }
               //const response = 
               //const { success, courses , pageInfo } = await APISERVICE.get(courseserviceName.GET, params);

@@ -17,8 +17,8 @@ function App() {
         <Route path='/' element={<Landing/>}/>
         <Route path={`${PrivateRoutes.RUTAS}`} element={<Home/>}/>
         <Route path={`${PrivateRoutes.RUTAS}/:path`} element={<Path/>}/>
-        <Route path={`${PrivateRoutes.RUTAS}/:path/:course`} element={<Course/>}/>
-        <Route path={`${PrivateRoutes.RUTAS}/:path/:course/:idClass/:idSubject`} element={<Subject/>}/>
+        <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse`} element={<Course/>}/>
+        <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse/:idClass/:idSubject`} element={<Subject/>}/>
     </Routes>
    {/*  <Header>
       <Routes>

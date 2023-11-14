@@ -16,7 +16,7 @@ export function Subject({subjects, isOpen, classId}:Props){
                 subjects?.length > 0 ? subjects?.map((subject) => {
                     return(
                         <li key={subject.id}>
-                            <Link to={`${classId}/${subject.slug}`}>
+                            <Link style={{textDecoration: 'none'}} to={`${classId}/${subject.slug}`}>
                                 <button className="f-btn">
                                     <span className="class-card-title">
                                         <AiOutlineLock/>
