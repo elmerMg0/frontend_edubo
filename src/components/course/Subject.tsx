@@ -6,9 +6,9 @@ import { PrivateRoutes } from "../../models/routes"
 interface Props{
     subjects: Subject[],
     isOpen: boolean,
-    classId: number | undefined
+    nroClase: number | undefined
 }
-export function Subject({subjects, isOpen, classId}:Props){
+export function Subject({subjects, isOpen, nroClase}:Props){
     return(
         <div className={`class-card-subjects ${isOpen ? 'active': ''}`}>
             <ul>
@@ -16,7 +16,7 @@ export function Subject({subjects, isOpen, classId}:Props){
                 subjects?.length > 0 ? subjects?.map((subject) => {
                     return(
                         <li key={subject.id}>
-                            <Link style={{textDecoration: 'none'}} to={`${classId}/${subject.slug}`}>
+                            <Link style={{textDecoration: 'none'}} to={`${nroClase}/${subject.slug}`}>
                                 <button className="f-btn">
                                     <span className="class-card-title">
                                         <AiOutlineLock/>

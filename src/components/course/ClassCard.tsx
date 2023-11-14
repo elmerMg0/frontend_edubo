@@ -27,7 +27,7 @@ export function ClassCard({ clase }: Props) {
                 <span className="class-card-description">{clase.descripcion}</span>
             </button>
 
-            <Subject subjects={clase.subjects} isOpen={isOpen} classId={clase.id} />
+            <Subject subjects={clase.subjects} isOpen={isOpen} nroClase={clase.numero_clase} />
         </div>
     )
 }

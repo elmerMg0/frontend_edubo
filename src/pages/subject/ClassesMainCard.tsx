@@ -13,10 +13,10 @@ export function ClassMainCard({ clase, progress }: Props) {
     const { idClass } = useParams();
 
     useEffect(() => {
-        if( Number(idClass) === clase.id){
-            toggleSubjects()
+        if( Number(idClass) === clase.numero_clase){
+            toggleSubjects();
         }
-    },[])
+    },[idClass])
 
     const toggleSubjects = () => {
         setIsOpen(!isOpen)
@@ -36,7 +36,7 @@ export function ClassMainCard({ clase, progress }: Props) {
                 <span className="class-card-description">{clase.descripcion}</span>
             </button>
 
-            <SubjectList subjects={clase.subjects} isOpen={isOpen} classId={clase.id} progress={progress}/>
+            <SubjectList subjects={clase.subjects} isOpen={isOpen} nroClass={clase.numero_clase} progress={progress}/>
         </div>
     )
 }

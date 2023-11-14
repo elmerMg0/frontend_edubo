@@ -2,15 +2,14 @@ import { AiOutlineLock } from "react-icons/ai"
 import { Subject } from "../../models/models"
 import { Link, useParams } from "react-router-dom"
 import { PrivateRoutes } from "../../models/routes";
-import { useEffect } from "react";
 
 interface Props {
     subjects: Subject[],
     isOpen: boolean,
-    classId: number | undefined,
-    progress: String[]
+    progress: String[],
+    nroClass: number
 }
-export function SubjectList({ subjects, isOpen, classId, progress }: Props) {
+export function SubjectList({ subjects, isOpen, progress, nroClass}: Props) {
     const {path, idCourse, idSubject, idClass } = useParams();
 
    
@@ -25,8 +24,8 @@ export function SubjectList({ subjects, isOpen, classId, progress }: Props) {
                     subjects?.length > 0 ? subjects?.map((subject) => {
                         return (
                             <li key={subject.id} className={`subject-list-item ${progress.some((item: any) => item.subject_id === subject.id) ? 'active' : ''}`}>
-                                <Link className="w-100" style={{ textDecoration: 'none' }} to={`${basePath}${classId}/${subject.slug}`}>
-                                    <button className={`f-btn subject-btn ${(subject.slug == idSubject && subject.clase_id == idClass) ? 'active' : ''}`}>
+                                <Link className="w-100" style={{ textDecoration: 'none' }} to={`${basePath}${nroClass}/${subject.slug}`}>
+                                    <button className={`f-btn subject-btn ${(subject.slug === idSubject && nroClass === Number(idClass)) ? 'active' : ''}`}>
                                         <span className="class-card-title">
                                             <AiOutlineLock />
                                             <span>{subject.title}</span>

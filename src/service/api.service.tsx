@@ -1,8 +1,8 @@
 import { PageInfo, Road } from "../models/models";
 import axios from "axios"
-import { API } from "./connections";
 
 const APIURL = import.meta.env.VITE_REACT_APP_API_URL
+const APIURLAUTH = import.meta.env.VITE_APP_API_URL_AUTH
 
 
 type ApiResponse = {
@@ -63,7 +63,24 @@ export const APISERVICE = {
         if(!response.ok){
             throw(new Error('New error'));
         }
-    }
+    },
+    getInfoUser: async  ( params: string ) => {
+        try{
+          const response =  await fetch(`${APIURLAUTH}?access_token=${params}`, {
+            headers: {
+                Authorization: `Bearer ${params}`,
+                Accept: 'application/json'
+            }
+          })
+          if(!response.ok){
+          }
+          const data = await response.json();
+          return data;
+    
+        }catch(error){
+          console.error(error);
+        }
+      }
 }
 
 export const AxiosService = {
