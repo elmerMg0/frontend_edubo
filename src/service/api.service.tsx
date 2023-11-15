@@ -84,7 +84,7 @@ export const APISERVICE = {
 }
 
 export const AxiosService = {
-    get: (url: string, params) => {
+    get: (url: string, params: any) => {
         return axios.get(`${APIURL+ url}`, {params: params});
     },
 }

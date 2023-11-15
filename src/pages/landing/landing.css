@@ -4,8 +4,21 @@
     align-items: center;
 }
 .header-landing h5{
-    color: var(--l-colorGreen);
+    color: var(--colorGris);
     margin: 0;
+}
+.header-landing__img{
+    width: 1.7rem;
+    height: auto;
+}
+.header-landing__logo{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.header-landing__logo img{
+    width: 100%;
+    height: auto;
 }
 .l-btn--green{
     background-color: var(colorMain);

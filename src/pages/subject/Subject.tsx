@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router"
 import { AxiosService } from "../../service/api.service";
 import { Header } from "../../components/landing/Header";
 import ReactPlayer from "react-player";
-import { Course, Subject } from "../../models/models";
+import { Course, Professsor, Subject } from "../../models/models";
 import './subject.css'
 import { BsEye, BsHeart, BsHeartFill } from "react-icons/bs";
 import { FcStart } from "react-icons/fc";
@@ -13,15 +13,19 @@ import { Resource } from "../../components/subject/Resource";
 import { ClassesMain } from './ClassesMain'
 import { PrivateRoutes } from "../../models/routes";
 import { ClassWithSubject } from "../../components/course/Course";
+import { Link } from "react-router-dom";
+import { Footer } from "../../components/global/footer/Footer";
+import { HeaderRigth } from "../../components/global/headerRight/HeaderRIght";
 interface AppState {
     infoSubject: Subject | null,
     infoCourse: Course | null,
     btnline: TypeBtns,
     progress: string[],
     classes: ClassWithSubject[],
+    professor: Professsor | null,
     likeList: {
         subject_id: number
-    }[]
+    }[],
 }
 enum TypeBtns {
     SYLLABUS = 'syllabus',
@@ -55,6 +59,8 @@ export function Subject() {
 
     const viewRef = useRef(0);
     const likesRef = useRef(0);
+    const professorRef = useRef<AppState['professor']>(null);
+
     const navigate = useNavigate();
 
     const views: TypesBtns = {
@@ -79,7 +85,7 @@ export function Subject() {
             idSubject: id,
             idStudent: 8
         }
-        const response = await AxiosService.get(url, params)
+        const response = AxiosService.get(url, params);
     }
 
     const getInfo = async () => {
@@ -106,13 +112,15 @@ export function Subject() {
             .then(res => {
                 setinfoCourse(res[0].data.course)
                 setClasses(res[0].data.classes)
+                professorRef.current = res[0].data.professor
+
                 setInfoSubject(res[1].data.subject)
                 viewRef.current = res[1].data.views; 
                 likesRef.current = res[1].data.likes;
-
+                updateProgres(res[1].data.subject.id)
+                
                 setProgress(res[2].data.progress)
                 setLikeList(res[2].data.likeList)
-                updateProgres(res[1].data.subject.id)
             })
     }
 
@@ -157,9 +165,7 @@ export function Subject() {
         if(indexValue >= 0){ 
             likesRef.current = likesRef.current - 1;
             const copy = structuredClone(likeList);
-            console.log(likeList);
             const newList = copy.splice(indexValue, 0);
-            console.log(newList)
             setLikeList(newList);
         }else{
             if(infoSubject?.id){
@@ -177,11 +183,26 @@ export function Subject() {
         //update quantity likes yiaa
     }
 
-    console.log(likeList)
+    const volumeConfig = {
+        youtube: {
+          playerVars: {
+            controls: 1,
+            modestbranding: 1,
+            loop: 1,
+            fs: 1,
+            rel: 0,
+            autohide: 0,
+            showinfo: 0,
+            disablekb: 0,
+            enablejsapi: 1,
+            iv_load_policy: 3,
+          },
+        },
+      };
+      
     return (
         <div className="subject">
             <Header>
-                <p>lo</p>
             </Header>
 
             <section>
@@ -193,20 +214,20 @@ export function Subject() {
                         height='100%'
                         playing={true}
                         onEnded={handleNext}
-                        controls
+                        controls={true}
+                      
                     />
                 </div>
             </section>
+
             <div className="controls-player">
-                <button className="f-btn">
-                    <span onClick={handleLike}>
-                        {
-                            likeList.some(value => value.subject_id === infoSubject?.id) ? 
-                            <BsHeartFill/>
-                            : 
-                            <BsHeart />
-                        }
-                    </span>
+                <button className="f-btn" onCanPlay={handleLike}>
+                    {
+                        likeList.some(value => value.subject_id === infoSubject?.id) ? 
+                        <BsHeartFill style={{color: 'red'}}/>
+                        : 
+                        <BsHeart/>
+                    }
                     <span>{likesRef.current}</span>
                 </button>
                 <button className="f-btn">
@@ -214,8 +235,10 @@ export function Subject() {
                     <span>Rep. Automatica</span>
                 </button>
                 <button className="f-btn" onClick={handlePrevius}>
-                    <MdSkipPrevious />
-                    Anterior
+                      <MdSkipPrevious />
+                    <span>
+                        Anterior
+                    </span>
                 </button>
                 <button className="f-btn" onClick={handleNext}>
                     <MdSkipNext />
@@ -226,33 +249,36 @@ export function Subject() {
             <div className="subject-info">
                 <h2>{infoSubject?.title}</h2>
                 <div className="subject-info-sub">
-                    <BsEye />
+                    <BsEye style={{ width: '0.8rem', height: '0.8rem' }} />
                     <p>{viewRef.current} Vistas</p>
-                    <p>{infoCourse?.name}</p>
+                    <Link to={`/${PrivateRoutes.RUTAS}/${path}/${idCourse}`} style={{ textDecoration: 'none' }}>
+                     <p>{infoCourse?.name}</p>
+                    </Link>
                 </div>
                 <div className="subject-info-teacher">
                     <div className="subject-info-teacher-content">
-                        <img className="" src="https://picsum.photos/200" alt="" />
-                        <p className="my-0 mr-2">Teacher name</p>
+                        <img className="" src={professorRef.current?.url_image} alt="" />
+                        <p className="my-0 mr-2">{professorRef.current?.firstname} {professorRef.current?.lastname}</p>
                     </div>
                     <FaRegFlag />
                 </div>
             </div>
 
             <div className="subject-btns-line">
-                <button className={`f-btn ${btnSelected === TypeBtns.RESOURCE ? 'flag' : ''} `} onClick={() => setBtnSelected(TypeBtns.RESOURCE)}>
+                <button className={` ${btnSelected === TypeBtns.RESOURCE ? 'flag' : ''} `} onClick={() => setBtnSelected(TypeBtns.RESOURCE)}>
                     Recursos
                 </button>
-                <button className={`f-btn ${btnSelected == TypeBtns.SYLLABUS ? 'flag' : ''}`} onClick={() => setBtnSelected(TypeBtns.SYLLABUS)}>
-                    <span> Temario </span>
+                <button  className={` ${btnSelected == TypeBtns.SYLLABUS ? 'flag' : ''}`} onClick={() => setBtnSelected(TypeBtns.SYLLABUS)}>
+                    <p  style={{paddingBottom: '0.2rem', margin: '0'}}> Temario </p>
                  </button>
-                <button className={`f-btn ${btnSelected === TypeBtns.CONTRIBUTION ? 'flag' : ''}`} onClick={() => setBtnSelected(TypeBtns.CONTRIBUTION)}>
+                <button  className={` ${btnSelected === TypeBtns.CONTRIBUTION ? 'flag' : ''}`} onClick={() => setBtnSelected(TypeBtns.CONTRIBUTION)}>
                     Aportes
                 </button>
             </div>
 
             {CurrentView}
 
+            <Footer/>
         </div>
 
     )

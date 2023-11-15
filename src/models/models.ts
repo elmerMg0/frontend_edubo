@@ -66,3 +66,11 @@ export interface Subject {
     duration: string,
     video_url?: string
 }
+export interface Professsor{
+    id?:number,
+    firstname: string,
+    lastname: string,
+    biography: string,
+    nickname: string
+    url_image: string
+}

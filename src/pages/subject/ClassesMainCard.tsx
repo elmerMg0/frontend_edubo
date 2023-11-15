@@ -15,6 +15,8 @@ export function ClassMainCard({ clase, progress }: Props) {
     useEffect(() => {
         if( Number(idClass) === clase.numero_clase){
             toggleSubjects();
+        }else{
+            setIsOpen(false)
         }
     },[idClass])
 

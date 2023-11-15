@@ -60,7 +60,6 @@ export function Course (){
     return (
         <div className="course">
             <Header>
-                <p>lo</p>
             </Header>
 
             <div className="course-img">
