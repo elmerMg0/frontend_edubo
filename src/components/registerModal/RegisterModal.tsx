@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import { requiredMessage } from '../../utilities/messagesError';
 import { useGoogleLogin } from '@react-oauth/google';
 import { APISERVICE } from '../../service/api.service';
+import { useNavigate } from 'react-router';
+import { PrivateRoutes } from '../../models/routes';
 interface InputValues {
     email: string,
     password: string
@@ -20,6 +22,7 @@ interface Props{
 
 export function RegistrerModal({isOpen, toggleModal }:Props){
 
+    const navigate = useNavigate();
     const handleSend = (values: InputValues) => {
         console.log(values);
        
@@ -28,51 +31,12 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
     const logIn = async (access_token: string) => {
         const url = 'usuario/login'
         const response = await APISERVICE.post({access_token}, url, '')
-        console.log(response)
-    }
-
-
-    const getInfo = async (user) => {
-        console.log(user)
-        const params = `${user.access_token}`
-        const data = await APISERVICE.getInfoUser(params)
-        console.log(data)
-
-        if(data){
-          //setLoading(true)
-          try {
-            const url = 'usuario/login';
-          const body = {
-            username: data.email,
-            password: data.email
-          }
-        /*   const body = {
-            username: 'r.manchego@umss.edu',
-            password: 'r.manchego@umss.edu'
-          } */
-          const { success, accessToken, rol, id, message} = await APISERVICE.post(url, '', body)
-          if( success ){
-           /*  const infoTeacher = {
-              teacherInfo: {
-                access_token: accessToken,
-                rol: rol,
-                id: id
-              }
-            }
-            setToken(accessToken);
-            dispatch(updateTeacherInfo(infoTeacher))
-            dispatch(createUser(infoTeacher['teacherInfo']))
-            navigate(`/${PrivateRoutes.HOMETEACHER}`) */
-          }else{
-            //mensaje de error
-            //toast.error(message)
-          }
-          } catch (error) {
-            //toast.error('Ocurrio un error')
-          } finally{
-            //setLoading(false);
-          }
-          
+        if(response ){
+          /* get credencialt para el user */
+          /* Encrypt token */
+          document.cookie = 'token=' + response.data.accessToken
+          navigate(`${PrivateRoutes.RUTAS}`)
+          console.group(response)
         }
     }
 
