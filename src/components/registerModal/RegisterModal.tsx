@@ -9,6 +9,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { APISERVICE } from '../../service/api.service';
 import { useNavigate } from 'react-router';
 import { PrivateRoutes } from '../../models/routes';
+import CryptoJS from "crypto-js";
 interface InputValues {
     email: string,
     password: string
@@ -28,13 +29,25 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
        
     }
 
+     const decryptString = (encryptedString: string, key: string) => {
+        const decrypted = CryptoJS.AES.decrypt(encryptedString, key);
+        return decrypted.toString(CryptoJS.enc.Utf8);
+      };
+      
+      const encryptString = (string: string, key: string) => {
+        const encrypted = CryptoJS.AES.encrypt(string, key);
+        return encrypted.toString();
+      };
+      
+
     const logIn = async (access_token: string) => {
         const url = 'usuario/login'
         const response = await APISERVICE.post({access_token}, url, '')
         if(response ){
           /* get credencialt para el user */
           /* Encrypt token */
-          document.cookie = 'token=' + response.data.accessToken
+          const tokenEncrypt = encryptString(response.data.accessToken, 'a')
+          document.cookie = 'token=' + tokenEncrypt;
           navigate(`${PrivateRoutes.RUTAS}`)
           console.group(response)
         }
