@@ -9,3 +9,5 @@ export const colors = {
     COLOR_RED: "#FF0000",
     COLOR_GRIS: ' #B8B6B5'
 }
+
+export const bussinesName = 'Edubo'

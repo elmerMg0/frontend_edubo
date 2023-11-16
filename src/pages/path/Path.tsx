@@ -31,8 +31,9 @@ export function Path() {
         }
         const res = await AxiosService.get(url, params);
         if (res.success) {
-            setRoad(res.courses[0])
-            setCourses(res.courses[0].cursos)
+            console.log(res)
+            setRoad(res.data.pathInfo)
+            setCourses(res.data.courses)
         }
     }
 
@@ -43,11 +44,19 @@ export function Path() {
 
             <section className="home-welcome">
                 <h2 className="home-welcome-title">{road?.nombre}</h2>
-                <p className="home-welcome-parrafo">{road?.descripcion}</p>
+                <p className="home-welcome-parrafo">{road?.subtitle}</p>
                 <div className="home-welcome-img">
-                    <img src="https://edteam-media.s3.amazonaws.com/campaigns/conversion/course-minibanner-picture.webp" alt="" />
+                    <img src={road?.url_image} alt="" />
                 </div>
+                <p className="home-welcome-parrafo">
+                  Estos cursos son solo el comienzo de tu viaje hacia una educación superior que te preparará para enfrentar los desafíos del mundo tecnológico moderno
+                </p>
+                <p className="home-welcome-parrafo">
+                   Nuestra oferta académica incluye:
+                </p>
+
             </section>
+
 
             <div className="path-courses">
                 <ul>
@@ -57,7 +66,8 @@ export function Path() {
                                 <Link to={`/${PrivateRoutes.RUTAS}/${path}/${course.id + '-' + course.slug}`} key={course.id}>
                                     <li className="card-course">
                                         <div className="card-course-img">
-                                            <img src={`${APIURLIMG + course?.url_image}`} alt="" />
+                                           {/*  <img src={`${APIURLIMG + course?.url_image}`} alt="" /> */}
+                                            <img src={`${course?.url_image}`} alt="" />
                                         </div>
                                         <div className="card-course-info">
                                             <h4>{course.name}</h4>

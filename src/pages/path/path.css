@@ -2,7 +2,7 @@
     background-color: var(--l-colorMain);
 }
 .home-welcome{
-    padding: 3rem 1rem;
+    padding: 3rem 1rem 1rem 1rem;
 }
 .home-welcome-title{
     color: var(--colorWhite);
@@ -91,7 +91,7 @@
     border-width: 1px 1px 2px;
 }
 .path-courses{
-    padding: 3rem 1rem;
+    padding: 0.5rem 1rem 3rem 1rem;
 }
 .path-courses ul a {
     text-decoration: none;

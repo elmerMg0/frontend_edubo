@@ -3,8 +3,9 @@ import './landing.css'
 import { Carousel } from '../../components/landing/Carousel'
 import { Footer } from '../../components/global/footer/Footer'
 import { RegistrerModal } from '../../components/registerModal/RegisterModal'
-import { FcIcons8Cup } from 'react-icons/fc'
+import { FcFlowChart, FcGlobe, FcIcons8Cup, FcPositiveDynamic } from 'react-icons/fc'
 import { useState } from 'react'
+import { bussinesName } from '../../utilities/constans'
 export function Landing() {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -20,41 +21,41 @@ export function Landing() {
             </Header>
             <section className='hero-content'>
                 {/*  <h1>"Tu Éxito Académico Comienza con Nosotros</h1> */}
-                <h1 className='hero-content-title'>Tu Puerta a la Universidad: <span>
-                    Aprende e Ingresa con Nosotros
+                <h1 className='hero-content-title'>Tu viaje hacia la universidad comienza aquí.<span>
+                    Aprende con Nosotros
                 </span>
                 </h1>
                 <p className='hero-content-parrafo'>
                 Prepárate para la universidad con cursos en línea especializados y recursos interactivos de calidad.
                 </p>
 
-                <button className='f-btn btn--get-start'>Iniciar ahora</button>
+                <button className='f-btn btn--get-start' onClick={()=>toggleModal()}>Iniciar ahora</button>
             </section>
 
             <section className='goals'>
                 <p className='goals-title'>¿Porque funciona edubo ?</p>
                 <div className='goals-card'>
                     <div className='goals-card-icon'>
-                        <FcIcons8Cup size={50}/>
+                        <FcFlowChart size={50}/>
                     </div>
-                    <h4 className='goals-card-title'>Personalized learning</h4>
-                    <p className='goals-card-parrafo'>Students practice at their own pace, first filling in gaps in their understanding and then accelerating their learning.</p>
+                    <h4 className='goals-card-title'>Flexibilidad de Aprendizaje</h4>
+                    <p className='goals-card-parrafo'>La educación en línea permite a los estudiantes aprender a su propio ritmo, adaptándose a velocidades individuales y estilos de aprendizaje</p>
                 </div>
 
                 <div className='goals-card'>
                    <div className='goals-card-icon'>
-                        <FcIcons8Cup size={50}/>
+                      <FcGlobe size={50}/>
                     </div>
-                    <h4 className='goals-card-title'>Trusted content</h4>
-                    <p className='goals-card-parrafo'>Created by experts, Khan Academy’s library of trusted practice and lessons covers math, science, and more. Always free for learners and teachers. </p>
+                    <h4 className='goals-card-title'>Acceso Continuo y Ubicuo</h4>
+                    <p className='goals-card-parrafo'>Disponible las 24 horas, los 7 días de la semana, la educación en línea elimina barreras geográficas y de tiempo, brindando acceso constante y flexible desde cualquier ubicación.</p>
                 </div>
 
                 <div className='goals-card'>
                     <div className='goals-card-icon'>
-                        <FcIcons8Cup size={50}/>
+                        <FcPositiveDynamic size={50}/>
                     </div>
-                    <h4 className='goals-card-title'>Tools to emppover teachers</h4>
-                    <p className='goals-card-parrafo'>With Khan Academy, teachers can identify gaps in their students’ understanding, tailor instruction, and meet the needs of every student.</p>
+                    <h4 className='goals-card-title'>Aprendizaje Interactivo y Personalizado</h4>
+                    <p className='goals-card-parrafo'>Recursos interactivos en línea catapultan la participación activa. Multimedia y simulaciones no solo hacen el aprendizaje atractivo, sino que se adaptan a diversos estilos de aprendizaje de manera personalizada.</p>
                 </div>
 
             </section>
@@ -63,9 +64,9 @@ export function Landing() {
 
             <section className='start-now'>
                 <h2 className='start-now-title'>No postergues más tu educación, ¡tu futuro te está esperando!</h2>
-                <p className='start-now-parrafo'>Un nuevo empleo, mejor salario, mayor calidad de vida, ¡todo lo puedes conseguir con educación! Es el momento de lograr lo que siempre has querido.</p>
+                <p className='start-now-parrafo'>Dedicados a proporcionar contenido educativo de calidad, preparando a los estudiantes para la universidad.</p>
                 <div>
-                    <button className='f-btn btn--get-start mb-2'>Comienza a estudiar gratis</button>
+                    <button className='f-btn btn--get-start mb-2' onClick={()=>toggleModal()}>Comienza a estudiar gratis</button>
                     <span className='start-now-parrafo'>*solo necesitas un correo electronico</span>
                 </div>
             </section>

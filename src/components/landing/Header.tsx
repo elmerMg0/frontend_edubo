@@ -5,7 +5,7 @@ import image from '../../assets/img/logoedubo1.png'
 interface Props {
     children: React.ReactNode
 }
-const autenticated = false;
+const autenticated = document.cookie.length > 0;
 const Menu = () => {
     return (
         <div className="header-landing__menu">

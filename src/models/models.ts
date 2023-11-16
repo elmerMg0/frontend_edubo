@@ -12,7 +12,9 @@ export interface Road {
     descripcion: string,
     numero_cursos: number,
     active: boolean,
-    slug?: string
+    slug?: string,
+    subtitle?: string,
+    url_image?: string
 }
 
 export interface Course {

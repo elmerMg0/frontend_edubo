@@ -37,7 +37,7 @@ export function Carousel(){
 
                 {   
                     roads?.length > 0 ? roads?.map((road, index) => (
-                        <Link key={road.id} to={`${PrivateRoutes.RUTAS}/${road.id}-${road.slug}`}>
+                        <Link style={{ textDecoration: 'none' }} key={road.id} to={`${PrivateRoutes.RUTAS}/${road.id}-${road.slug}`}>
                             <div className="carousel-card" key={index}>
                             
                             <div>
