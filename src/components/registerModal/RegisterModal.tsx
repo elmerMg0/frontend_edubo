@@ -10,6 +10,7 @@ import { APISERVICE } from '../../service/api.service';
 import { useNavigate } from 'react-router';
 import { PrivateRoutes } from '../../models/routes';
 import CryptoJS from "crypto-js";
+import { useState } from 'react';
 interface InputValues {
     email: string,
     password: string
@@ -22,10 +23,22 @@ interface Props{
 
 
 export function RegistrerModal({isOpen, toggleModal }:Props){
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('')
 
     const navigate = useNavigate();
-    const handleSend = (values: InputValues) => {
-        console.log(values);
+    const handleSend = async (values: InputValues) => {
+        setError('')
+        setLoading(true)
+        const url = 'usuario/login-user'
+        const response = await APISERVICE.post(values, url, '')
+        if(response.success){
+            navigate(`${PrivateRoutes.RUTAS}`)
+        }else{  
+            setError(response.message);
+        }
+        setLoading(false)
+        console.log(response.message);
        
     }
 
@@ -34,10 +47,10 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
         return decrypted.toString(CryptoJS.enc.Utf8);
       };
       
-      const encryptString = (string: string, key: string) => {
+    const encryptString = (string: string, key: string) => {
         const encrypted = CryptoJS.AES.encrypt(string, key);
         return encrypted.toString();
-      };
+    };
       
 
     const logIn = async (access_token: string) => {
@@ -102,6 +115,7 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
                             <Field name="password" type="password" placeholder="Contrasenia"/>
                             <ErrorMessage name="password" component="div" className='f-error' />
                             <button className='f-btn' type='submit'>Iniciar Sesion</button>
+                            {error !== '' && <p style={{textAlign: 'center'}} className='f-error'>{error}</p>}
                         </Form>
                     </Formik>
                 </div>

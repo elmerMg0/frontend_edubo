@@ -59,7 +59,7 @@
 .register-modal-form button{
     background-color: var(--colorWhite);
     padding: 0.4rem ;
-    margin: 1.5rem 0px 1.5rem 0px;
+    margin: 1.5rem 0px 1rem 0px;
 }
 .register-modal-signup{
     text-align: center;
