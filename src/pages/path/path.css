@@ -9,15 +9,15 @@
     text-align: center;
     margin-bottom: 1rem;
 }
-.home-welcome-parrafo{
+.path-welcome-parrafo{
     color: var(--colorGris);
     text-align: center;
     font-size: 0.85rem;
-    margin-bottom: 3rem;
 }
-.home-welcome-img{
+.path-welcome-img{
+    margin-bottom: 1rem;
 }
-.home-welcome-img img{
+.path-welcome-img img{
     width: 100%;
     height: 100%;
 }

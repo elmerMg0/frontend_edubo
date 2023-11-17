@@ -4,18 +4,20 @@ import { AxiosService } from "../../service/api.service"
 import { ArrowRight } from "../global/icons/Icons"
 import { Link } from "react-router-dom"
 import { PrivateRoutes } from "../../models/routes"
+import SkeletonGlobal from "../global/skeleton/SkeletonGlobal"
 
 interface AppState {
     roads: Road[]
 }
 export function Carousel(){
     const [roads, setRoads] = useState<AppState['roads']>([])
-
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         getRoads()
     },[])
 
     const getRoads = async () => {
+        setLoading(true)
         const url = 'ruta-aprendizaje/index/?'
         const params = {
             name: ''
@@ -25,39 +27,45 @@ export function Carousel(){
         if(res.success){
             setRoads(res.roads) 
         }
+        setLoading(false)
     }
-    console.log(roads)
 
     return(
         <section className="section-carousel">
             <h2 className="section-carousel-title">Potencia lo que ya sabes</h2>
             <p className="section-carousel-parrafo">Elige una ruta de aprendizaje y sigue un orden de cursos sobre temas o áreas específicas, de forma ágil y guiada.</p>
-            <div className="carousel-container">
-                <div className="carousel">
-
-                {   
-                    roads?.length > 0 ? roads?.map((road, index) => (
-                        <Link style={{ textDecoration: 'none' }} key={road.id} to={`${PrivateRoutes.RUTAS}/${road.id}-${road.slug}`}>
-                            <div className="carousel-card" key={index}>
-                            
-                            <div>
-                                <div className="carousel-card-info">
-                                    <span>Ruta</span>
-                                    <span>{road.numero_cursos} Cursos</span>
+            
+            {   
+                !loading ? 
+                <div className="carousel-container">
+                    <div className="carousel">
+                        {
+                        roads?.length > 0 ? roads?.map((road, index) => (
+                            <Link style={{ textDecoration: 'none' }} key={road.id} to={`${PrivateRoutes.RUTAS}/${road.id}-${road.slug}`}>
+                                <div className="carousel-card" key={index}>
+                                
+                                <div>
+                                    <div className="carousel-card-info">
+                                        <span>Ruta</span>
+                                        <span>{road.numero_cursos} Cursos</span>
+                                    </div>
+                                    <h3 className="carousel-card-title">{road.nombre}</h3>
+                                    <p className="carousel-card-parrafo"> {road.descripcion} </p>
                                 </div>
-                                <h3 className="carousel-card-title">{road.nombre}</h3>
-                                <p className="carousel-card-parrafo"> {road.descripcion} </p>
-                            </div>
-                            
-                            <span   className="carousel-card-link">Ir a ruta
-                            <ArrowRight/>
-                            </span>
-                            </div>
-                        </Link>
-                    )): "No hay rutas de aprendizaje"
-                }
+                                
+                                <span   className="carousel-card-link">Ir a ruta
+                                <ArrowRight/>
+                                </span>
+                                </div>
+                            </Link>
+                        )): "No hay rutas"
+                        }
+                        </div>
                 </div>
-            </div>
+            :
+            <SkeletonGlobal width="100%" height="300px" borderRadius="10px" cards={1}/>
+            }
+
         </section>
     )
 }

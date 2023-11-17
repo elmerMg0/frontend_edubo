@@ -106,7 +106,7 @@
 /* Subject List Vertical */
 .subject-list-item{
     display: flex;
-    align-items: center;
+    align-items: start;
     position: relative;
 }
 .subject-list-item li a{
@@ -126,11 +126,12 @@
 }
 .subject-list-item::after{
     content: "";
-    top: 1rem;
+    top: .5rem;
     left: 5px;
     position: absolute;
     width: 2px;
-    height: 150%;
+    height: 120%;
+    text-align: start;
     background-color: var(--colorGris);
 }
 .subject-list-item.active::after{

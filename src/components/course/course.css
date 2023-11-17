@@ -120,10 +120,7 @@
     text-align: left;
     gap: 0.3rem;
 }
-.class-card-title{
-    color: var(--colorWhite);
-    font-weight: 600;
-}   
+
 .class-card-description{
     color: var(--colorGris);
     font-size: 0.875rem;
@@ -191,6 +188,8 @@
 .class-card-title{
     display: flex;
     gap: 0.5rem;
-    align-items: center;
+    align-items: start;
     font-weight: 400;
+    color: var(--colorWhite);
+    font-weight: 600;
 }
