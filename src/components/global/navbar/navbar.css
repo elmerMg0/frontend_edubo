@@ -1,0 +1,50 @@
+.navigation{
+    position: fixed;
+    background-color:var(--l-colorMain);
+    transition: 0.3s;
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100dvh;
+}
+.navigation ul{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    align-items: center;
+    list-style: none;
+    justify-content: center;
+    height: 100dvh;
+}
+
+.navigation ul li{
+    padding: 1rem 1rem;    
+    transition: color 0.2s;
+    border-radius: 0.2rem;
+    min-width: 70px;
+    z-index: 31;
+}
+.navigation ul li a:hover, .navigation ul li button:hover{
+    color: var(--l-colorGreen);
+}
+.navigation ul li a{
+    z-index: 31;
+    color: var(--colorWhite);
+    text-decoration: none;
+}
+.navigation ul li button{
+    color: var(--colorWhite);
+}
+
+.navigation.active{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    visibility: visible;
+    opacity: 1;
+}
+
+  

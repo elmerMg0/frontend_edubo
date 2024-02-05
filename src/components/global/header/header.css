@@ -1,0 +1,48 @@
+/* Header */
+.header{
+    display: flex;
+    align-items: center;
+    position: sticky;
+    background-color: var(--l-colorMain);
+    top: 0;
+    z-index: 30;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem;
+}
+.header h5{
+    color: var(--colorGris);
+    margin: 0;
+}
+.header__img{
+    width: 1.7rem;
+    height: auto;
+}
+.header-logo{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 20;
+}
+.header__img img{
+    width: 100%;
+    height: auto;
+}
+.l-btn--green{
+    background-color: var(colorMain);
+}
+.header__content{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.4rem;
+    padding: 1rem 1rem 1rem 1rem;
+}
+.landing{
+    background-color: var(--l-colorMain);
+}   
+
+.header-sign{
+    display: flex;
+    align-items: center;
+}

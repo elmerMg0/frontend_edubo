@@ -1,0 +1,84 @@
+.bg-modal{
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s;
+}
+.bg-modal.active{
+    opacity: 1;
+    visibility: visible;
+}
+.register-modal{
+    position: fixed;
+    bottom: 0;
+    color: var(--colorWhite);
+    width: 100%;
+    background-color: var(--l-colorGris);
+    border-top-right-radius: 1.5rem;
+    border-top-left-radius: 1.5rem;
+    z-index: 20;
+}
+.register-modal-top{
+    padding: 2rem 1rem 0.2rem 1rem;
+}
+.register-modal-title{
+    font-weight: 700;
+}
+.register-modal-social{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: 1.2rem;
+}
+.register-modal-social button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    background-color: var(--l-colorGrisSoft);
+    padding: 0.5rem 1.5rem;
+    color: var(--colorWhite);
+}
+.register-modal-form{
+    display: flex;
+    flex-direction: column;
+}
+.register-modal-form label{
+    color: var(--colorWhite);
+    font-size: 0.91rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0.3rem;
+}   
+.register-modal-form input{
+    background-color: var(--l-colorGrisSoft);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    color: var(--colorWhite);
+}
+
+.register-modal-form button{
+    background-color: var(--colorWhite);
+    padding: 0.4rem ;
+    margin: 1.5rem 0px 1rem 0px;
+}
+.register-modal-signup{
+    text-align: center;
+    background-color: var(--l-colorMain);
+    padding: 1rem 0px 0.5rem 0px;
+}
+.register-modal-parrafo{
+    font-size: 0.9rem;
+    color: var(--l-colorGrisSoft2);
+}  
+.register-modal-parrafo span{
+    color: var(--colorWhite);
+    text-decoration: solid underline;
+}
+.modal-backdrop2{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    top: 0;
+    position: fixed;
+}
