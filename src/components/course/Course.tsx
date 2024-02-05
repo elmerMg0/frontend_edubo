@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header } from "../landing/Header";
+import { Header } from "../global/header/Header";
 import './course.css'
 import { AxiosService } from "../../service/api.service";
 import { CourseServiceName } from "../../service/apiServiceNames";
@@ -9,9 +9,9 @@ import { BsBarChartLine } from "react-icons/bs";
 import { Footer } from "../global/footer/Footer";
 import { Classes } from "./Classes";
 import { useParams } from "react-router";
+import Skeleton from "react-loading-skeleton";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
-//const idCOurse = 1;
 
 export interface ClassWithSubject extends Class{
     subjects: Subject[]
@@ -20,10 +20,6 @@ interface AppState {
     course: Course | null, 
     classes: ClassWithSubject[]
 }
-
-const monthNames = [
-    'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
-];
 
 export function Course (){
     const [course, setCourse] = useState<AppState['course']>(null)
@@ -34,22 +30,21 @@ export function Course (){
 
     useEffect(() => {
         getCourseInfo()
+        window.scrollTo(0, 0);
     },[])
 
     const getCourseInfo = async () => {
             try {
               setLoading(true)
               let params = {
-                idCourse: idCourse?.split('-')[0]
+                idCourse: idCourse?.split('-')[0],
+                isActive: true,
               }
-              //const response = 
-              //const { success, courses , pageInfo } = await APISERVICE.get(courseserviceName.GET, params);
               const response = await AxiosService.get(CourseServiceName.COURSE, params);
               if(response){
-                  const { data} = response;
+                  const { data } = response;
                   setCourse(data.course);
                   setClasses(data.classes)
-                  //setPageInfo(pageInfo);
                 }
             } catch (error) {
               
@@ -57,9 +52,34 @@ export function Course (){
               setLoading(false);
             }
     }
+
+    if(loading){
+        return <div className="course">
+            <Skeleton height={'300px'}/>
+            <div className="course-info">
+                <Skeleton height={'30px'} width={'30%'}/>
+                <Skeleton height={'50px'}/>
+                <br/>
+                <Skeleton height={'20px'} width={'50%'}/>
+                <Skeleton height={'20px'} width={'30%'}/>
+                <Skeleton height={'20px'} width={'50%'}/>
+                <Skeleton height={'20px'} width={'40%'}/>
+                <Skeleton height={'20px'} width={'50%'}/>
+                <Skeleton height={'20px'} width={'50%'}/>
+                <br/>
+                <Skeleton height={'250px'}/>
+                
+            </div>
+        </div>
+    }
+
+    const getMotnth = (date: string | undefined) => {
+        if(!date) return 1;
+        return date.slice(5,7);
+    }
     return (
         <div className="course">
-            <Header>
+            <Header setIsOpen={() => {}}>
             </Header>
 
             <div className="course-img">
@@ -73,7 +93,7 @@ export function Course (){
 
                 <div className="course-profit">
                     <p>Que aprenderas?</p>
-                    <ul className="test" dangerouslySetInnerHTML={{ __html: course?.you_learn }} />
+                    <ul className="test" dangerouslySetInnerHTML={{ __html: course?.you_learn ?? '' }} />
                 </div>
 
 
@@ -81,7 +101,7 @@ export function Course (){
                     <span className="course-feature-item">
                         <FaRegCalendarAlt/>
                         <span>
-                            {monthNames[course?.create_ts?.slice(5,7)-1]}{" "}
+                            {getMotnth(course?.create_ts)}{" "}
                             {course?.create_ts.slice(8,10)}
                         </span>
                     </span>
@@ -102,7 +122,7 @@ export function Course (){
                 <div className="course-about-content">
 
                 <h2 className="course-about-title">Acerca de este curso</h2>
-                <div className="course-about-description" dangerouslySetInnerHTML={{ __html: course?.informacion }} />
+                <div className="course-about-description" dangerouslySetInnerHTML={{ __html: course?.informacion ?? '' }} />
                 </div>
             </article>
 

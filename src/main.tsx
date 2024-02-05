@@ -6,13 +6,16 @@ import { AxiosInterceptor } from './interceptor/axios.interceptor';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { Toaster } from 'react-hot-toast';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 AxiosInterceptor();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>  
     <React.StrictMode>
-    <App />
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+        <App />
+    </SkeletonTheme>
     <Toaster/>
     </React.StrictMode>
   </Provider>

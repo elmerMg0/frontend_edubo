@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router';
 import { PrivateRoutes } from '../../models/routes';
 import CryptoJS from "crypto-js";
 import { useState } from 'react';
+import { encryptString } from '../../utilities/utilities';
+import { setCookie } from '../../utilities/cookies';
 interface InputValues {
     email: string,
     password: string
@@ -42,16 +44,6 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
        
     }
 
-     const decryptString = (encryptedString: string, key: string) => {
-        const decrypted = CryptoJS.AES.decrypt(encryptedString, key);
-        return decrypted.toString(CryptoJS.enc.Utf8);
-      };
-      
-    const encryptString = (string: string, key: string) => {
-        const encrypted = CryptoJS.AES.encrypt(string, key);
-        return encrypted.toString();
-    };
-      
 
     const logIn = async (access_token: string) => {
         const url = 'usuario/login'
@@ -60,7 +52,9 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
           /* get credencialt para el user */
           /* Encrypt token */
           const tokenEncrypt = encryptString(response.data.accessToken, 'a')
-          document.cookie = 'token=' + tokenEncrypt;
+          setCookie('token', tokenEncrypt, 2)
+          setCookie('userId', response.data.id, 2)
+          //document.cookie = 'token=' + tokenEncrypt;
           navigate(`${PrivateRoutes.RUTAS}`)
           console.group(response)
         }

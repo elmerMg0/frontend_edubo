@@ -97,10 +97,14 @@
     background-color: var(--l-colorMain);
     border-bottom: 1px solid var(--colorBlack);
 }
+.class-card button{
+    width: 100%;
+}
 .class-card-header{
     display: flex;    
     justify-content: space-between;
     width: 100%;
+
 }
 .class-card-icon{
     color: var(--colorWhite);

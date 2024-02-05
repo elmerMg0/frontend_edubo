@@ -283,7 +283,7 @@ export function CheckIcon({color = colors.COLOR_GRIS}:{color: string}){
 </svg>)
 }
 export function LogOutIcon ({color}: {color: string}){
-  return(<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-logout" width="32" height="32" viewBox="0 0 24 24" stroke-width="1" stroke={color} fill="none" stroke-linecap="round" stroke-linejoin="round">
+  return(<svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-logout" width="32" height="32" viewBox="0 0 24 24" strokeWidth="1" stroke={color} fill="none" strokeLinecap="round" strokeLinejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
   <path d="M9 12h12l-3 -3" />
@@ -306,7 +306,7 @@ export function CheckIconPayment (){
 }
 
 export function MenuBar({color}:{color: string}){
-  return( <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" className="open" color="var(--secondary)" style={{color: `${color}`}} height="30" width="30" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>)
+  return( <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" className="open" color="var(--secondary)" style={{color: `${color}`}} height="30" width="30" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>)
 }
 
 export function ArrowRight(){

@@ -4,7 +4,7 @@ import { AxiosService } from "../../service/api.service"
 import { ArrowRight } from "../global/icons/Icons"
 import { Link } from "react-router-dom"
 import { PrivateRoutes } from "../../models/routes"
-import SkeletonGlobal from "../global/skeleton/SkeletonGlobal"
+import Skeleton from "react-loading-skeleton"
 
 interface AppState {
     roads: Road[]
@@ -23,9 +23,8 @@ export function Carousel(){
             name: ''
         }
         const  res = await AxiosService.get(url, params);
-        console.log(res)
-        if(res.success){
-            setRoads(res.roads) 
+        if(res){
+            setRoads(res.data.roads) 
         }
         setLoading(false)
     }
@@ -63,7 +62,7 @@ export function Carousel(){
                         </div>
                 </div>
             :
-            <SkeletonGlobal width="100%" height="300px" borderRadius="10px" cards={1}/>
+            <Skeleton height="300px"/>
             }
 
         </section>

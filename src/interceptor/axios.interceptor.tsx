@@ -23,8 +23,7 @@ export const AxiosInterceptor = () => {
 
   axios.interceptors.response.use(
     (response) => {
-      console.log('response', response);
-      if(response.data.message.includes('existosamente')){
+      if(response?.data.message.includes('existosamente')){
         toast.success(response.data.message);
       }
       return response.data;

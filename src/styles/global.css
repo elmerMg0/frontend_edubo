@@ -186,3 +186,14 @@ input:focus {
   color: var(--colorWhite);
 }
 
+/* Ttitle  */
+.title-section-subject{
+  color: var(--colorWhite);
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.img-icon{
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+}

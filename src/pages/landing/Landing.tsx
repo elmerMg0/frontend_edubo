@@ -1,11 +1,10 @@
-import { Header } from '../../components/landing/Header'
+import { Header } from '../../components/global/header/Header'
 import './landing.css'
 import { Carousel } from '../../components/landing/Carousel'
 import { Footer } from '../../components/global/footer/Footer'
 import { RegistrerModal } from '../../components/registerModal/RegisterModal'
-import { FcFlowChart, FcGlobe, FcIcons8Cup, FcPositiveDynamic } from 'react-icons/fc'
+import { FcFlowChart, FcGlobe, FcPositiveDynamic } from 'react-icons/fc'
 import { useState } from 'react'
-import { bussinesName } from '../../utilities/constans'
 export function Landing() {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -13,12 +12,14 @@ export function Landing() {
         setIsOpen(!isOpen);
     }
     return (
+        <>
+            <Header setIsOpen={() => setIsOpen(!isOpen)}>
+            <div className="header-landing__sign">
+                <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
+            </div>
+             </Header>
         <div className='landing'>
-            <Header>
-                <div className="header-landing__sign">
-                    <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
-                </div>
-            </Header>
+         
             <section className='hero-content'>
                 {/*  <h1>"Tu Éxito Académico Comienza con Nosotros</h1> */}
                 <h1 className='hero-content-title'>Tu viaje hacia la universidad comienza aquí.<span>
@@ -70,11 +71,10 @@ export function Landing() {
                     <span className='start-now-parrafo'>*solo necesitas un correo electronico</span>
                 </div>
             </section>
-
-            <RegistrerModal isOpen={isOpen} toggleModal={toggleModal}/>
-            
-            <Footer/>
         </div>
+            <RegistrerModal isOpen={isOpen} toggleModal={toggleModal}/>
+            <Footer/>
+        </>
     )
 
 }

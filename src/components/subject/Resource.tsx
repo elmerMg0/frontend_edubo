@@ -1,13 +1,21 @@
+import { Resource } from '../../models/models'
 import './subject.css'
-export function Resource(){
+
+interface Props {
+    resources: Resource[]
+}
+export function ResourceComponent({ resources }:Props) {
     return (
         <section className='subject-resource'>
-            <p className='subject-resource-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque provident assumenda libero possimus explicabo esse deserunt incidunt nam, a aliquam voluptas porro eaque asperiores veniam perspiciatis reiciendis, quo inventore deleniti?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque provident assumenda libero possimus explicabo esse deserunt incidunt nam, a aliquam voluptas porro eaque asperiores veniam perspiciatis reiciendis, quo inventore deleniti?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque provident assumenda libero possimus explicabo esse deserunt incidunt nam, a aliquam voluptas porro eaque asperiores veniam perspiciatis reiciendis, quo inventore deleniti?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque provident assumenda libero possimus explicabo esse deserunt incidunt nam, a aliquam voluptas porro eaque asperiores veniam perspiciatis reiciendis, quo inventore deleniti?</p>
-            <h4>Archivos de la clase</h4>
-            <h4>Lectural recomendadas</h4>
+            <h2 className='title-section-subject'>Recursos de curso</h2>
+            {
+                resources?.length > 0 ? resources.map((resource: Resource) => (
+                    <div key={resource.id} className="subject-resource-card" dangerouslySetInnerHTML={{ __html: resource.descripcion }} />
+                ))
+                
+                :
+                <p>No hay recursos</p>
+            }
         </section>
     )
 }

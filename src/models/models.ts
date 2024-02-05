@@ -14,7 +14,11 @@ export interface Road {
     active: boolean,
     slug?: string,
     subtitle?: string,
-    url_image?: string
+    url_image?: string,
+    carrers?: string,
+    duration?: string,
+    period?: string,
+    admission_mode?: string
 }
 
 export interface Course {
@@ -27,8 +31,8 @@ export interface Course {
     active: boolean,
     url_image?: string,
     subtitle?: string,
-    you_learn?: string,
-    create_ts?: string,
+    you_learn: string,
+    create_ts: string,
     informacion?: string,
     slug?: string
 }
@@ -49,7 +53,8 @@ export interface Question {
     respuesta: string,
     url_image?: string,
     clase_id?: number,
-    active: boolean
+    active: boolean,
+    subtitle?: string,
 }
 export interface Resource {
     id?: number,
@@ -66,7 +71,8 @@ export interface Subject {
     slug: string,
     clase_id?: number,
     duration: string,
-    video_url?: string
+    video_url?: string,
+    type: string
 }
 export interface Professsor{
     id?:number,
@@ -75,4 +81,20 @@ export interface Professsor{
     biography: string,
     nickname: string
     url_image: string
+}
+
+export interface Comment{
+    id?: number,
+    comment_text: string,
+    usuario_id: number,
+    subject_id: number
+    num_likes: number
+    num_comments: number
+}
+
+export interface Response{
+    id?: number,
+    description: string,
+    url_image: string,
+    slug: string
 }
