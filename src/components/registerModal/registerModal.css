@@ -12,12 +12,12 @@
     bottom: 0;
     color: var(--colorWhite);
     width: 100%;
-    background-color: var(--l-colorGris);
     border-top-right-radius: 1.5rem;
     border-top-left-radius: 1.5rem;
     z-index: 20;
 }
 .register-modal-top{
+    background-color: var(--l-colorGris);
     padding: 2rem 1rem 0.2rem 1rem;
 }
 .register-modal-title{
@@ -81,4 +81,16 @@
     z-index: 10;
     top: 0;
     position: fixed;
+}
+
+@media(min-width: 768px){
+    .register-modal{
+        max-width: 559px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .register-modal-top{
+        padding: 2rem 2rem 0.2rem 2rem;
+    }
 }

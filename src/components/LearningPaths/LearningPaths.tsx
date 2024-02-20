@@ -18,7 +18,7 @@ export function LearningPaths (){
     },[])
     
     const getPaths = async () => {
-        const url = 'ruta-aprendizaje/get-roads/?'
+        const url = 'api/get-roads/?'
         const params = {
             idRoad: path?.split("-")[0] ? path?.split("-")[0] : '',
             nameRoad: ''
@@ -33,7 +33,7 @@ export function LearningPaths (){
             <Header setIsOpen={() => {}}>    
             </Header>
 
-            <section className="home-welcome">
+            <section className="home-welcome-ld">
                 <h2 className="home-welcome-title">Rutas de Aprendizaje</h2>
                 <p className="home-welcome-parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
                 <span>

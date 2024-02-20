@@ -9,7 +9,6 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { APISERVICE } from '../../service/api.service';
 import { useNavigate } from 'react-router';
 import { PrivateRoutes } from '../../models/routes';
-import CryptoJS from "crypto-js";
 import { useState } from 'react';
 import { encryptString } from '../../utilities/utilities';
 import { setCookie } from '../../utilities/cookies';
@@ -40,8 +39,7 @@ export function RegistrerModal({isOpen, toggleModal }:Props){
             setError(response.message);
         }
         setLoading(false)
-        console.log(response.message);
-       
+        loading;
     }
 
 

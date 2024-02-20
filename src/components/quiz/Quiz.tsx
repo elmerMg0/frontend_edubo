@@ -39,10 +39,11 @@ function Quiz() {
 
   useEffect(() => {
     getInfo();
+    loading
   }, []);
   const getInfo = async () => {
-    const url1 = "curso/course/?";
-    const url2 = "subject/quiz/?";
+    const url1 = "api/course/?";
+    const url2 = "api/quiz/?";
     const params = {
       idCourse: idCourse?.split("-")[0],
     };
@@ -81,6 +82,7 @@ function Quiz() {
   }
 
   const nextClass = () => {
+    /* Validar si es la ultima clase y el ultimo quiz */
     
     const lastValue: Class = classes.reduce((arr: Class, val: Class) => {
       if (val.numero_clase > arr.numero_clase) {
@@ -88,14 +90,11 @@ function Quiz() {
       }
       return arr;
     }, classes[0]);
-    console.log(classes, idClass, lastValue)
 
     if(lastValue.numero_clase > Number(idClass)){
       navigate(`${basePath}${Number(idClass) + 1}/1`)
     }
-    /* if(){
-
-    } */
+  
   }
 
   const Views: any = {

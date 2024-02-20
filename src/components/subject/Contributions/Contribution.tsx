@@ -29,10 +29,11 @@ function Contribution({ btnSelected }: Props) {
   const idStudent = getCookie("userId");
   useEffect(() => {
     if (btnSelected === TypeBtns.CONTRIBUTION) getComments();
-    () => {
-      console.log("component will unmount");
-    };
   }, [btnSelected]);
+
+  useEffect(() => {
+     getComments();
+  }, []);
 
   const getComments = async () => {
     const params = {
@@ -41,7 +42,7 @@ function Contribution({ btnSelected }: Props) {
     };
     try {
       setLoading(true);
-      const response = await AxiosService.get("comment/get-comments", params);
+      const response = await AxiosService.get("api/get-comments", params);
       if (response) {
         setComments(response.data.comments);
         setLikeList(response.data.commentLikesList);
@@ -76,13 +77,12 @@ function Contribution({ btnSelected }: Props) {
       num_comments: 0,
       comment_id: idComment,
     };
-    const response = await APISERVICE.post(body, "comment/create", "");
+    const response = await APISERVICE.post(body, "api/create", "");
     if (response.success) {
       getComments();
       setIsOpenEdit(false);
     }
   };
-
   return (
     <div className="contribution">
       <h2 className="title-section-subject">Comentarios</h2>

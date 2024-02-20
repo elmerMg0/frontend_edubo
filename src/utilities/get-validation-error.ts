@@ -1,7 +1,6 @@
 import { TypeWithKey } from "../models/type-with-key"
 
 export const getValidationError = ( errorCode: any) => {
-    console.log(errorCode)
     const codeMatcher: TypeWithKey<string> = {
         required: 'This field is required',
         min: 'Excedd the minumun amount',

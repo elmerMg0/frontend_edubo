@@ -1,4 +1,3 @@
-import { ClassCard } from "../../components/course/ClassCard"
 import { ClassWithSubject } from "../../components/course/Course"
 import { ClassMainCard } from "./ClassesMainCard"
 

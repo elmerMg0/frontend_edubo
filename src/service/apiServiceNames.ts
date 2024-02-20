@@ -1,4 +1,3 @@
-const APIURL = import.meta.env.VITE_REACT_APP_API_URL
 
 export const RoadServiceName = {
     GET: 'ruta-aprendizaje/index/?',
@@ -7,7 +6,7 @@ export const RoadServiceName = {
 }
 export const CourseServiceName = {
     GET: 'curso/index/?',
-    COURSE: 'curso/course/?',
+    COURSE: 'api/course/?',
     CREATE: 'curso/create/?',
     UPDATE: 'curso/update/?',
     GET_ROADS_WITH_COURSES: 'ruta-aprendizaje/get-roads-with-courses/?'

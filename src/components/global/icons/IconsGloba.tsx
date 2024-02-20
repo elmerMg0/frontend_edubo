@@ -13,12 +13,12 @@ export function TrashIconGlobal(){
 }
 export function TablesIconGlobal(){
     return(
-        <TablesIcon color={colors.COLORGREEN}/>
+        <TablesIcon color={colors.COLOR_RED}/>
     )
 }
 
 export function EyesIconGlobal(){
     return(
-        <EyesIcon color={colors.COLORMAIN}/>
+        <EyesIcon color={colors.COLOR_MAIN}/>
     )
 }

@@ -1,6 +1,6 @@
 import { AiOutlineLock } from "react-icons/ai"
 import { Subject } from "../../models/models"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { PrivateRoutes } from "../../models/routes";
 import { FaRegCirclePlay } from "react-icons/fa6";
 
@@ -16,8 +16,6 @@ export function SubjectList({ subjects, isOpen, progress, nroClass}: Props) {
     const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;
 
     const openClass = ( type: string, slug: string) => {
-        console.log(type)
-
         if(type === 'video'){
             navigate(`${basePath}${nroClass}/${slug}`)
         }else{

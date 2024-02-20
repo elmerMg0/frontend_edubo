@@ -24,10 +24,15 @@
     --l-colorGris: #1c2028;
     --l-colorGrisSoft: #2c323c;
     --l-colorGrisSoft2: #a4abb6;
-    --l-colorHome:  #1E2229
+    --l-colorHome:  #1E2229;
+    /*font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
 }
 *,*:before, *:after{
   box-sizing: inherit;
+ /*  color-scheme: light dark; */
 }
 html{
   box-sizing: border-box;

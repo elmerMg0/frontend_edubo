@@ -30,10 +30,11 @@ export function Landing() {
                 Prepárate para la universidad con cursos en línea especializados y recursos interactivos de calidad.
                 </p>
 
-                <button className='f-btn btn--get-start' onClick={()=>toggleModal()}>Iniciar ahora</button>
+                <button style={{maxWidth: '250px'}} className='f-btn btn--get-start' onClick={()=>toggleModal()}>Iniciar ahora</button>
             </section>
 
             <section className='goals'>
+                <div className='goals-container'>
                 <p className='goals-title'>¿Porque funciona edubo ?</p>
                 <div className='goals-card'>
                     <div className='goals-card-icon'>
@@ -58,7 +59,7 @@ export function Landing() {
                     <h4 className='goals-card-title'>Aprendizaje Interactivo y Personalizado</h4>
                     <p className='goals-card-parrafo'>Recursos interactivos en línea catapultan la participación activa. Multimedia y simulaciones no solo hacen el aprendizaje atractivo, sino que se adaptan a diversos estilos de aprendizaje de manera personalizada.</p>
                 </div>
-
+                </div>
             </section>
 
             <Carousel/>
@@ -66,8 +67,8 @@ export function Landing() {
             <section className='start-now'>
                 <h2 className='start-now-title'>No postergues más tu educación, ¡tu futuro te está esperando!</h2>
                 <p className='start-now-parrafo'>Dedicados a proporcionar contenido educativo de calidad, preparando a los estudiantes para la universidad.</p>
-                <div>
-                    <button className='f-btn btn--get-start mb-2' onClick={()=>toggleModal()}>Comienza a estudiar gratis</button>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <button style={{maxWidth: '300px'}} className='f-btn btn--get-start mb-2' onClick={()=>toggleModal()}>Comienza a estudiar gratis</button>
                     <span className='start-now-parrafo'>*solo necesitas un correo electronico</span>
                 </div>
             </section>

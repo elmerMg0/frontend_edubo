@@ -16,7 +16,7 @@ export const AxiosInterceptor = () => {
     return request;
   };
 
-  axios.interceptors.request.use((request) => {
+  axios.interceptors.request.use((request: any) => {
     if (request.url?.includes('assets')) return request;
     return updateHeader(request);
   });

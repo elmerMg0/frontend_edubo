@@ -18,11 +18,8 @@ export function Carousel(){
 
     const getRoads = async () => {
         setLoading(true)
-        const url = 'ruta-aprendizaje/index/?'
-        const params = {
-            name: ''
-        }
-        const  res = await AxiosService.get(url, params);
+        const url = 'api/learning-paths/'
+        const  res = await AxiosService.get(url, '');
         if(res){
             setRoads(res.data.roads) 
         }

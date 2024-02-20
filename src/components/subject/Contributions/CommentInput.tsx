@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RiSendPlaneLine } from "react-icons/ri";
 

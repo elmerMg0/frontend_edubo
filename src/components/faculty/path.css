@@ -3,6 +3,9 @@
 }
 .home-welcome{
     padding: 2rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .home-welcome-title{
     color: var(--colorWhite);
@@ -161,3 +164,46 @@
     width: 0.875rem;
     height: 0.875rem;
 }
+
+@media(min-width: 768px){
+    .home-welcome{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .path-courses{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .path-courses ul{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .path-info{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .card-course-img{
+        width: 100%;
+        height: 324px;
+    }
+    .path-courses ul a li p{
+        font-size: 0.85rem;
+    }
+    .path-welcome-parrafo{
+        font-size: 0.95rem;
+    }
+
+    .path-info h4{
+        font-size: 1.1rem;
+    }
+    .path-info ul li{
+        font-size: 1rem;
+    }
+    .path-info{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        font-size: .95rem;
+    }
+}   
