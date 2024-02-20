@@ -68,7 +68,7 @@ function Comments({ comment, likeList, send, updateLikeState, comments}: Props) 
       idStudent: 8,
     };
     updateLikeState(newListComments, newListCommentLikes);
-    AxiosService.get("comment/update-likes", params);
+    AxiosService.get("api/update-likes", params);
   };
 
   const toggleReply = (idComment: number | undefined) => {

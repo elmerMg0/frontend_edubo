@@ -89,7 +89,7 @@ export function Subject() {
   }, [idSubject, idClass]);
 
   const updateProgres = async (id: any) => {
-    const url = "clase/update-progress";
+    const url = "api/update-progress";
     const params = {
       idSubject: id,
       idStudent,
@@ -98,9 +98,9 @@ export function Subject() {
   };
 
   const getInfo = async () => {
-    const url1 = "curso/course/?";
+    const url1 = "api/course/?";
     const url2 = "subject/get-subject/?";
-    const url3 = "clase/get-class-progress";
+    const url3 = "api/get-class-progress";
     const params = {
       idCourse: idCourse?.split("-")[0],
     };
@@ -173,7 +173,7 @@ export function Subject() {
   const handleNext = () => {
     const classCurrently = classes.filter(
       (value) => value.numero_clase === Number(idClass)
-      );
+    );
     const lastValue = classes.reduce((arr, val) => {
       if (val.numero_clase > arr.numero_clase) {
         return val;
@@ -182,7 +182,7 @@ export function Subject() {
     }, classes[0]);
 
     if (Number(idSubject) < classCurrently[0].subjects.length) {
-     /*  navigate(
+      /*  navigate(
         `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/${idClass}/${
           Number(idSubject) + 1
         }`
@@ -191,10 +191,11 @@ export function Subject() {
       return;
     }
     if (lastValue.numero_clase > Number(idClass)) {
-      const nextClase = classCurrently[0].subjects[classCurrently[0].subjects.length - 1];
-      if(nextClase.type === 'quiz'){
-        handleNavigate((Number(idClass) + 1) + '/quiz' , 1);
-      }else{
+      const nextClase =
+        classCurrently[0].subjects[classCurrently[0].subjects.length - 1];
+      if (nextClase.type === "quiz") {
+        handleNavigate(Number(idClass) + 1 + "/quiz", 1);
+      } else {
         handleNavigate(Number(idClass) + 1, 1);
       }
       return;
@@ -202,20 +203,22 @@ export function Subject() {
   };
 
   const handleNavigate = (nroClass: number | string, slugSubject: number) => {
-    navigate(`/${PrivateRoutes.RUTAS}/${path}/${idCourse}/${nroClass}/${slugSubject}`);
-  }
+    navigate(
+      `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/${nroClass}/${slugSubject}`
+    );
+  };
 
   const handleLike = () => {
     const userId = getCookie("userId");
-    if(userId !== ""){
+    if (userId !== "") {
       likesRef.current = isLiked ? likesRef.current - 1 : likesRef.current + 1;
       setIsLiked(!isLiked);
-      const url = "subject/update-likes";
+      const url = "api/update-likes-sub";
       const params = {
-      idSubject: infoSubject?.id,
-      idStudent: userId,
-    };
-    AxiosService.get(url, params);
+        idSubject: infoSubject?.id,
+        idStudent: userId,
+      };
+      AxiosService.get(url, params);
     }
   };
 
@@ -223,13 +226,19 @@ export function Subject() {
 
   if (loading) {
     return (
-      <section className="subject">
+      <section className="subject" style={{ height: "100vh", margin: "0 auto"}}>
         <div className="subject-info">
           <Skeleton height={"250px"} />
 
           <Skeleton height={"28px"} width={"70%"} />
           <Skeleton height={"20px"} width={"33%"} />
-          <div style={{display: 'grid', gridTemplateColumns: '24px 1fr', gap: '0.2rem'}}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "24px 1fr",
+              gap: "0.2rem",
+            }}
+          >
             <Skeleton circle={true} height={"24px"} width={"24px"} />
             <Skeleton height={"20px"} width={"33%"} />
           </div>
@@ -244,98 +253,119 @@ export function Subject() {
             <Skeleton height={"30px"} />
             <Skeleton height={"30px"} />
           </div>
-            <Skeleton height={200} />
-            <Skeleton height={200} />
+          <Skeleton height={200} />
+          <Skeleton height={200} />
         </div>
       </section>
     );
   }
 
+  const width = window.innerWidth;
+
   return (
-    <div className="subject">
-      <Header setIsOpen={() => {}}>
-      </Header>
-
-      <section>
-        <div className="player-wrapper">
-          <ReactPlayer
-            className="react-player"
-            url={infoSubject?.video_url}
-            width="100%"
-            height="100%"
-            playing={true}
-            onEnded={handleNext}
-            controls={true}
-          />
-        </div>
-      </section>
-
-      <div className="controls-player">
-        <button className="f-btn" onClick={handleLike}>
-          {isLiked ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />}
-          <span>{likesRef.current}</span>
-        </button>
-        <button className="f-btn">
-          <FcStart />
-          <span>Rep. Automatica</span>
-        </button>
-        <button className="f-btn" onClick={handlePrevius}>
-          <MdSkipPrevious />
-          <span>Anterior</span>
-        </button>
-        <button className="f-btn" onClick={handleNext}>
-          <MdSkipNext />
-          Siguiente
-        </button>
-      </div>
-
-      <div className="subject-info">
-        <h2>{infoSubject?.title}</h2>
-        <div className="subject-info-sub">
-          <BsEye style={{ width: "0.8rem", height: "0.8rem" }} />
-          <p>{viewRef.current} Vistas</p>
-          <Link
-            to={`/${PrivateRoutes.RUTAS}/${path}/${idCourse}`}
-            style={{ textDecoration: "none" }}
-          >
-            <p>{infoCourse?.name}</p>
-          </Link>
-        </div>
-        <div className="subject-info-teacher">
-          <div className="subject-info-teacher-content">
-            <img className="" src={professorRef.current?.url_image} alt="" />
-            <p className="my-0 mr-2">
-              {professorRef.current?.firstname} {professorRef.current?.lastname}
-            </p>
+    <>
+      <Header setIsOpen={() => {}}></Header>
+      <div className="subject">
+        <section className="xlp1">
+          <div className="player-wrapper">
+            <ReactPlayer
+              className="react-player"
+              url={infoSubject?.video_url}
+              width="100%"
+              height="100%"
+              playing={true}
+              onEnded={handleNext}
+              controls={true}
+            />
           </div>
-          <FaRegFlag />
+
+          <div className="controls-player">
+            <button className="f-btn" onClick={handleLike}>
+              {isLiked ? <BsHeartFill style={{ color: "red" }} /> : <BsHeart />}
+              <span>{likesRef.current}</span>
+            </button>
+            <button className="f-btn">
+              <FcStart />
+              <span>Rep. Automatica</span>
+            </button>
+            <button className="f-btn" onClick={handlePrevius}>
+              <MdSkipPrevious />
+              <span>Anterior</span>
+            </button>
+            <button className="f-btn" onClick={handleNext}>
+              <MdSkipNext />
+              Siguiente
+            </button>
+          </div>
+
+          <div className="subject-info">
+            <h2>{infoSubject?.title}</h2>
+            <div className="subject-info-sub">
+              <BsEye style={{ width: "0.8rem", height: "0.8rem" }} />
+              <p>{viewRef.current} Vistas</p>
+              <Link
+                to={`/${PrivateRoutes.RUTAS}/${path}/${idCourse}`}
+                style={{ textDecoration: "none" }}
+              >
+                <p>{infoCourse?.name}</p>
+              </Link>
+            </div>
+            <div className="subject-info-teacher">
+              <div className="subject-info-teacher-content">
+                <img
+                  className=""
+                  src={professorRef.current?.url_image}
+                  alt=""
+                />
+                <p className="my-0 mr-2">
+                  {professorRef.current?.firstname}{" "}
+                  {professorRef.current?.lastname}
+                </p>
+              </div>
+              <FaRegFlag />
+            </div>
+          </div>
+
+
+        <div className="xlp2">
+          <div className="subject-btns-line">
+            <button
+              className={` ${btnSelected === TypeBtns.RESOURCE ? "flag" : ""} `}
+              onClick={() => setBtnSelected(TypeBtns.RESOURCE)}
+            >
+              Recursos
+            </button>
+            <button
+              className={` ${btnSelected == TypeBtns.SYLLABUS ? "flag" : ""}`}
+              onClick={() => setBtnSelected(TypeBtns.SYLLABUS)}
+            >
+              <p style={{ paddingBottom: "0.2rem", margin: "0" }}> Temario </p>
+            </button>
+            <button
+              className={` ${
+                btnSelected === TypeBtns.CONTRIBUTION ? "flag" : ""
+              }`}
+              onClick={() => setBtnSelected(TypeBtns.CONTRIBUTION)}
+              style={{ display: width > 1028 ? "none" : "block" }}
+            >
+              Aportes
+            </button>
+          </div>
+          {CurrentView}
         </div>
+
+        </section>
+
+
+
+        <div style={{ display: width > 1028 ? "block" : "none"}} className={`${width > 1028 ? "siderbar-comments" : "none" }`}>
+          <Contribution btnSelected={btnSelected} />
+        </div>
+
       </div>
-
-      <div className="subject-btns-line">
-        <button
-          className={` ${btnSelected === TypeBtns.RESOURCE ? "flag" : ""} `}
-          onClick={() => setBtnSelected(TypeBtns.RESOURCE)}
-        >
-          Recursos
-        </button>
-        <button
-          className={` ${btnSelected == TypeBtns.SYLLABUS ? "flag" : ""}`}
-          onClick={() => setBtnSelected(TypeBtns.SYLLABUS)}
-        >
-          <p style={{ paddingBottom: "0.2rem", margin: "0" }}> Temario </p>
-        </button>
-        <button
-          className={` ${btnSelected === TypeBtns.CONTRIBUTION ? "flag" : ""}`}
-          onClick={() => setBtnSelected(TypeBtns.CONTRIBUTION)}
-        >
-          Aportes
-        </button>
-      </div>
-
-      {CurrentView}
-
-      <Footer />
-    </div>
+      {
+        width < 1028 ? <Footer /> : null
+      }
+    </>
   );
 }

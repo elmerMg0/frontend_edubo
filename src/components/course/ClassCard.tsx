@@ -1,4 +1,3 @@
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai"
 import { useState } from "react"
 import { Subject } from "./Subject"
 import { ClassWithSubject } from "./Course"

@@ -9,7 +9,8 @@
     left: 0;
 }
 .subject{
-    background-color: var(--l-colorMain);
+    background-color: var(--l-colorGris);
+    position: relative;
 }
 .controls-player{
     display: flex;
@@ -231,7 +232,7 @@
 .card_comment-content{
     grid-row: 1/3;
     grid-column: 2/3;
-    background-color: var(--l-colorMain);
+    background-color: var(--l-colorGris);
     border-radius: 0.7rem;
     display: flex;
     flex-direction: column;
@@ -380,4 +381,55 @@
     color: var(--colorGris);
     border: none;
     font-size: 0.785rem;
+}
+
+.siderbar-comments{
+    min-width: 400px;
+    grid-column: 2/3;
+    grid-row: span 2;
+    min-height: calc(100vh - 48px - 1rem);
+    max-height: calc(100vh - 48px - 1rem);
+    overflow-y: scroll;
+    background-color:var(--colorBlack);
+}
+
+/* Estilos por defecto del scrollbar */
+.siderbar-comments::-webkit-scrollbar {
+    background-color: black;
+    width: 0.5rem;
+}
+
+.siderbar-comments::-webkit-scrollbar-thumb {
+      border-radius: 15px;
+      background-color: black;
+    }
+    
+.siderbar-comments::-webkit-scrollbar-track {
+      background-color: var(--l-colorMain);
+}
+
+.input-commen:hover::-webkit-scrollbar-thumb {
+    background-color: var(--colorWhite); /* Nuevo color del thumb al pasar el mouse */
+}
+
+
+@media(min-width: 1028px){
+    .subject{
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        grid-template-rows: calc(56.25vw - 300px) 1fr;
+    }
+    .subject-contributions{
+        min-width: 400px;
+    }
+    .xlp1{
+        grid-column: 1/2;
+        grid-row: 1/2;
+        overflow: scroll;
+        min-height: calc(100vh - 48px - 1rem);
+        max-height: calc(100vh - 48px - 1rem);
+    }
+    .xlp1::-webkit-scrollbar{
+        display: none;
+    }
 }

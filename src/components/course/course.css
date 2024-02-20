@@ -94,7 +94,7 @@
 /* Classs Card */
 .class-card{
     padding: 1rem 1rem 0rem 1rem;
-    background-color: var(--l-colorMain);
+    background-color: var(--l-colorGris);
     border-bottom: 1px solid var(--colorBlack);
 }
 .class-card button{
@@ -196,4 +196,27 @@
     font-weight: 400;
     color: var(--colorWhite);
     font-weight: 600;
+}
+
+@media(min-width: 1028px){
+    .course-header{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 1028px;
+        gap: 0.5rem;
+        margin: 0 auto;
+        padding: 1.5rem 0;
+    }
+    .course-info{
+        grid-column: 1/2;
+        grid-row: 1/1;
+        padding: 0;
+    }
+    .course-img{
+        grid-column: 2/2;
+    }
+    .course-about-content, .course-classes-content{
+        max-width: 1028px;
+        margin: 0 auto;
+    }
 }

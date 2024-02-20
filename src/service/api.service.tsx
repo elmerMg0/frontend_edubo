@@ -1,16 +1,10 @@
-import { PageInfo, Road } from "../models/models";
 import axios from "axios"
 
 const APIURL = import.meta.env.VITE_REACT_APP_API_URL
 const APIURLAUTH = import.meta.env.VITE_APP_API_URL_AUTH
 
 
-type ApiResponse = {
-    success: boolean;
-    pageInfo: PageInfo
-    roads: Road[]
-     // Dependiendo de cómo está estructurada la respuesta de la API
-};
+
 
 export const APISERVICE = {
     get: async (url: string, params: string) => {

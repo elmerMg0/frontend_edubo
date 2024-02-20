@@ -62,7 +62,7 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
       const params = {
         idResponse: answerSelect,
       };
-      const response = await AxiosService.get("response/check", params);
+      const response = await AxiosService.get("api/check", params);
       if (response) {
         const { is_correct, answer } = response.data;
         setAnswerState(is_correct);

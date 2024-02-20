@@ -1,4 +1,4 @@
-import { createSlice , PayloadAction} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import { persistLocalStorage } from "../../utilities/localstorage.utility";
 import { User } from '../../models/User';
@@ -20,6 +20,7 @@ const userSlice = createSlice( {
 
     reducers: {
         createUser: (state, action) => {
+            state;
             persistLocalStorage(UserKey , action.payload)
             return action.payload;
         }, 

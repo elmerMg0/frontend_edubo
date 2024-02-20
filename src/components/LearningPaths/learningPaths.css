@@ -109,3 +109,17 @@
 .user-menu-pts p{
     margin: 0;
 }
+
+@media(min-width: 768px){
+    .home-welcome-ld{
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .roads{
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+
+}

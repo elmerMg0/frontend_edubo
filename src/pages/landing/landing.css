@@ -2,6 +2,9 @@
 /* Hero */
 .hero-content{
     padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .hero-content-title{
     font-size: 2.8rem;
@@ -150,6 +153,22 @@
     margin-bottom: 1rem;
     color: var(--colorGrisHard);
 }
-.btn-start-now{
+@media(min-width: 1028px){
+    .hero-content{
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .goals-container{
+        max-width: 1200px; 
+        margin: 0 auto;       
+    }
+    .section-carousel{
+        width: 1200px;
+        margin: 0 auto;
+    }
 
+    .start-now{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }
