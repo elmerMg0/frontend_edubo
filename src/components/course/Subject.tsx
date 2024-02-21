@@ -1,6 +1,6 @@
 import { AiOutlineLock } from "react-icons/ai"
 import { Subject } from "../../models/models"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { PrivateRoutes } from "../../models/routes";
 
 interface Props{
@@ -9,7 +9,7 @@ interface Props{
     nroClase: number | undefined
 }
 export function Subject({subjects, isOpen, nroClase}:Props){
-    const {path, idCourse, idSubject, idClass } = useParams();
+    const {path, idCourse } = useParams();
     const navigate = useNavigate()
     const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;
     const openClass = ( type: string, slug: string) => {

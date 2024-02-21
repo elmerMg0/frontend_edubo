@@ -40,7 +40,7 @@ export function Header({ children, setIsOpen}:Props) {
         </div>
        <div className="header-sign">
 
-        <Navbar showNavbar={showNavbar} handleLogin={handleLogin}/>
+        <Navbar showNavbar={showNavbar} handleLogin={handleLogin} closeNav={() => setShowNavbar(false)}/>
        
        {
          !autenticated ? 

@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router';
 import { deleteCookie } from '../../../utilities/cookies';
 import './navbar.css'
-function Navbar({showNavbar, handleLogin}: {showNavbar: boolean, handleLogin: () => void}) {
+function Navbar({showNavbar, handleLogin, closeNav}: {showNavbar: boolean, handleLogin: () => void, closeNav: () => void}) {
     const autenticated = document.cookie.length > 0;
     const navigate = useNavigate();
     const handleLogOut = () => {
         deleteCookie('token');
+        closeNav()
         navigate('/')
     }
-
 
     return (
         <nav className={`navigation ${showNavbar ? 'active' : ''}`}>

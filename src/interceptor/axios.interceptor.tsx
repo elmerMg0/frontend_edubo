@@ -1,13 +1,16 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import toast from 'react-hot-toast';
 import { getValidationError } from '../utilities/get-validation-error';
-
+import { getCookie } from '../utilities/cookies';
+import { decryptString } from '../utilities/utilities';
+const APIKEY = import.meta.env.VITE_REACT_KEY
 export const AxiosInterceptor = () => {
   //saveInLocalStorage(LocalStorageKeys.TOKEN, '123123123123');
 
   const updateHeader = (request: AxiosRequestConfig) => {
-    //const token = getInLocalStorage(LocalStorageKeys.TOKEN);
-    const token = 'getInLocalStorage(LocalStorageKeys.TOKEN);'
+    const tokenSaved = getCookie('token');
+    const value = decryptString(tokenSaved ?? '', APIKEY);
+    const token = `Bearer ${value}`
     const newHeaders = {
       Authorization: token,
       'Content-Type': 'application/json'

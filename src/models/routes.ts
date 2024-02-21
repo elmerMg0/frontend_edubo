@@ -14,7 +14,6 @@ export const PrivateRoutes = {
 
 export const PublicRoutes = {
     LOGIN: 'login',
-    APISXPRESS: 'apis-xpress'
 }
 
 export const Roles = {
