@@ -10,6 +10,8 @@ import { Footer } from "../global/footer/Footer";
 import { Classes } from "./Classes";
 import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
+import { bussinesName, typePlans } from "../../utilities/constans";
+import { Link } from "react-router-dom";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 
@@ -94,7 +96,7 @@ export function Course (){
 
                     <div className="course-profit">
                         <p>Que aprenderas?</p>
-                        <ul className="test" dangerouslySetInnerHTML={{ __html: course?.you_learn ?? '' }} />
+                        <ul className="" dangerouslySetInnerHTML={{ __html: course?.you_learn ?? '' }} />
                     </div>
 
 
@@ -102,7 +104,7 @@ export function Course (){
                         <span className="course-feature-item">
                             <FaRegCalendarAlt/>
                             <span>
-                                {getMotnth(course?.create_ts)}{" "}
+                                {getMotnth(course?.create_ts)}{" - "}
                                 {course?.create_ts.slice(8,10)}
                             </span>
                         </span>
@@ -110,11 +112,12 @@ export function Course (){
                             <BsBarChartLine/>
                             {course?.nivel}
                         </span>
-                        {/* Btn comprar */}
                             
                     </div>
-                    <button className="f-btn course-btn">Proximamente</button>
-                    <p className="course-b-btn">*Prueba la experiencia Edubo</p>
+                    <Link to={`/precios/${typePlans.course}/${course?.id}`}>
+                        <button className="f-btn course-btn">Subscribirme</button>
+                    </Link>
+                    <p className="course-b-btn">*Prueba la experiencia {bussinesName}</p>
                 </section>
             </div>
 

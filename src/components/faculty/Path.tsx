@@ -8,6 +8,7 @@ import { Course, Road } from "../../models/models";
 import { Link } from "react-router-dom";
 import { PrivateRoutes } from "../../models/routes";
 import Skeleton from "react-loading-skeleton";
+import { typePlans } from "../../utilities/constans";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 
@@ -60,8 +61,8 @@ export function Faculty() {
           {road?.descripcion || <Skeleton />}
         </p>
 
-        <Link style={{width: '250px'}} to={`/${PrivateRoutes.PLANES}/${road?.id}`}>
-        <button className='f-btn btn--get-start mb-2 mt-3' onClick={()=>{}}>Ver plan</button>
+        <Link style={{width: '250px'}} to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}>
+         <button className='f-btn btn--get-start mb-2 mt-3' >Ver plan</button>
         </Link>
         
         <p className="path-welcome-parrafo mb-4">Suscríbete a un plan y accede al curso completo.</p>
@@ -125,8 +126,8 @@ export function Faculty() {
           <h4>Carrera</h4>
           <p>{road?.period}</p>
 
-          <Link to={`/${PrivateRoutes.PLANES}/${road?.id}`}>
-          <button style={{width: '230px'}} className='f-btn btn--get-start mb-2 mt-3' onClick={()=>{}}>Ver plan</button>
+          <Link to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}>
+          <button style={{width: '230px'}} className='f-btn btn--get-start mb-2 mt-3' >Ver plan</button>
           </Link>
         </div>
       </section>

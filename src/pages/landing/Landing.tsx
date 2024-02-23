@@ -5,6 +5,7 @@ import { Footer } from '../../components/global/footer/Footer'
 import { RegistrerModal } from '../../components/registerModal/RegisterModal'
 import { FcFlowChart, FcGlobe, FcPositiveDynamic } from 'react-icons/fc'
 import { useState } from 'react'
+import { bussinesName } from '../../utilities/constans'
 export function Landing() {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -35,7 +36,7 @@ export function Landing() {
 
             <section className='goals'>
                 <div className='goals-container'>
-                <p className='goals-title'>¿Porque funciona edubo ?</p>
+                <p className='goals-title'>¿Porque funciona {bussinesName} ?</p>
                 <div className='goals-card'>
                     <div className='goals-card-icon'>
                         <FcFlowChart size={50}/>

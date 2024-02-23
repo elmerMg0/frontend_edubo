@@ -98,3 +98,12 @@ export interface Response{
     url_image: string,
     slug: string
 }
+
+export interface Plan{
+    id: number,
+    nombre: string,
+    active?: boolean,
+    precio_total: number,
+    duracion: string,
+    benefit: string
+}

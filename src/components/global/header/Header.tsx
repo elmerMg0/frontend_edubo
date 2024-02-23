@@ -1,13 +1,13 @@
-import { colors } from "../../../utilities/constans";
+import { bussinesName, colors } from "../../../utilities/constans";
 import { MenuBar } from "../icons/Icons";
-import image from '../../../assets/img/logoedubo1.png' 
+import image from '../../../assets/img/logo.png' 
 import './header.css'
 import Navbar from "../navbar/Navbar";
 import { useState } from "react";
 import { getCookie } from "../../../utilities/cookies";
 interface Props {
     children?: React.ReactNode
-    setIsOpen: () => void | undefined
+    setIsOpen?: () => void | undefined
 }
 const Menu = ({setShowNavbar}: {setShowNavbar: () => void}) => {
   return (
@@ -27,7 +27,7 @@ export function Header({ children, setIsOpen}:Props) {
   let autenticated = false; 
   if(getCookie('token'))autenticated = true;
   const handleLogin = () => {
-    setIsOpen()
+    if(setIsOpen)setIsOpen()
     setShowNavbar(false);
   }
   return (
@@ -36,7 +36,7 @@ export function Header({ children, setIsOpen}:Props) {
             <div className="header__img">
               <img src={image} alt="" />
             </div>
-            <h5>Edubo</h5>
+            <h5>{bussinesName}</h5>
         </div>
        <div className="header-sign">
 

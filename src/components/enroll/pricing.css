@@ -1,0 +1,92 @@
+.pricing-bg{
+    background-color: var(--l-colorMain);
+    height: 100vh;
+}
+.pricing{
+    padding: 2rem 1rem 1rem 1rem;
+    color: var(--colorWhite);
+}   
+.pricing-title{
+    font-size: 1rem;
+    text-align: center;
+}
+.pricing-description{   
+    font-size: .85rem;
+    text-align: center;
+    color: var(--colorGris);
+}
+
+/* Card Pricing */
+.card-pricing{
+    color: var(--colorWhite);
+    padding: 1rem;
+    background-color: var(--l-colorGris);
+    border-radius: .3rem;
+    border-top: 2px solid;
+}
+.card-pricing--yellow{
+    border-color: yellow;
+}
+.card-pricing--green{
+    border-color:rgb(11, 151, 11);
+}
+.card-pricing header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+.card-pricing header p{
+    border: 1px solid var(--colorGrisHard);
+    border-radius: .3rem;
+    padding: .2rem;
+    font-size: .8rem;
+    font-weight: 500;   
+}
+.pricing-price{
+    text-align: center;
+}
+
+.pricing-benefits ul{
+    padding: 0 ;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+.pricing-benefits ul li{
+    font-size: .85rem;
+}
+.pricing-benefits ul li::before{
+    content: "✓";
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    color: yellow;
+}
+.btn-enroll{
+    border: 1px solid;
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+    padding: 0.5rem 0rem;
+}
+.btn-enroll--green{
+    color: rgb(11, 151, 11);
+}
+.btn-enroll--yellow{
+    color: yellow;
+}
+@media(min-width: 1028px){
+    .pricing-plans{
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+    .pricing-title{
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+    .pricing-description{
+        font-size: 1rem;
+    }
+}
