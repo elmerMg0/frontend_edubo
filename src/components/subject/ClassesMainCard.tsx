@@ -25,7 +25,7 @@ export function ClassMainCard({ clase, progress }: Props) {
     }
    
     return (
-        <div className="class-card" key={clase.id}>
+        <div className={`class-card ${Number(idClass) === clase.numero_clase ? 'active' : ''}`} key={clase.id}>
             <button className="f-btn" onClick={toggleSubjects}>
                 <span className="class-card-header">
                     <span className="class-card-title">{clase.numero_clase + ". " + clase.titulo}</span>

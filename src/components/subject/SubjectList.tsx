@@ -3,6 +3,8 @@ import { Subject } from "../../models/models"
 import { useNavigate, useParams } from "react-router-dom"
 import { PrivateRoutes } from "../../models/routes";
 import { FaRegCirclePlay } from "react-icons/fa6";
+import { AppStore } from "../../redux/store";
+import { useSelector } from "react-redux";
 
 interface Props {
     subjects: Subject[],
@@ -12,6 +14,7 @@ interface Props {
 }
 export function SubjectList({ subjects, isOpen, progress, nroClass}: Props) {
     const {path, idCourse, idSubject, idClass } = useParams();
+    const user = useSelector((store: AppStore) => store.user);
     const navigate = useNavigate()
     const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;
 
@@ -30,20 +33,20 @@ export function SubjectList({ subjects, isOpen, progress, nroClass}: Props) {
                     subjects?.length > 0 ? subjects?.map((subject) => {
                         return (
                             <li key={subject.id} className={`subject-list-item ${progress.some((item: any) => item.subject_id === subject.id) ? 'active' : ''}`}>
-                               {/*  <Link className="w-100" style={{ textDecoration: 'none' }} to={`${basePath}${nroClass}/${subject.slug}`}> */}
                                     <button className={`f-btn subject-btn ${(subject.slug === idSubject && nroClass === Number(idClass)) ? 'active' : ''}`} onClick={() => openClass(subject.type, subject.slug)}>
                                         <span className="class-card-title">
+                                            <div style={{minWidth: '14px'}}>
                                             {
-                                                subject.is_public ? 
+                                                subject.is_public || user.subscribed ? 
                                                 <FaRegCirclePlay />
                                                 :
                                                 <AiOutlineLock />
                                             }
+                                            </div>
                                             <span>{subject.title}</span>
                                         </span>
                                         <span>{subject.duration.slice(3, 8)}</span>
                                     </button>
-                               {/*  </Link> */}
                             </li>
                         )
                     })

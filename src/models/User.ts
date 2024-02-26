@@ -1,9 +1,8 @@
 export interface User {
-    username: string,
-    accessToken: string,
-    periodUser: {
-        id: number,
-        state: boolean
-    }
-    tipo: string
+    id: number,
+    nombre: string,
+    apellido: string,
+    puntos: number,
+    role: string,
+    subscribed: boolean
 }

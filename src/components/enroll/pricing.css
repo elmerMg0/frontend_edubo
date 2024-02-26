@@ -1,6 +1,6 @@
 .pricing-bg{
     background-color: var(--l-colorMain);
-    height: 100vh;
+/*     height: 100vh; */
 }
 .pricing{
     padding: 2rem 1rem 1rem 1rem;

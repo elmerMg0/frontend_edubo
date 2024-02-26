@@ -6,7 +6,6 @@ interface Props {
     progress: String[]
 }
 export function ClassesMain({ classes, progress }: Props) {
-
     return (
         <section className="course-classes">
             <h2 className="course-classes-title">Temario del curso</h2>

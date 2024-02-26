@@ -105,5 +105,7 @@ export interface Plan{
     active?: boolean,
     precio_total: number,
     duracion: string,
-    benefit: string
+    benefit: string,
+    course_id?: number,
+    ruta_aprendizaje_id?: number
 }

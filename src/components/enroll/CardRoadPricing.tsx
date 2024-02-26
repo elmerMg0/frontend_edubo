@@ -1,14 +1,15 @@
-import { Plan, Road } from "../../models/models"
+import { Plan } from "../../models/models"
 
 interface Props{
     plans: Plan[]
-    color: string
+    color: string,
+    handleSetPlanSelected: (plan: Plan) => void
 }
-function CardRoadPricing({plans,color}: Props) {
+function CardRoadPricing({plans,color, handleSetPlanSelected}: Props) {
 
     if(plans.length === 0)return;
     return (
-    <div className={`card-pricing mb-4  card-pricing--${color}`}>
+    <div className={`card-pricing mb-4  card-pricing--${color}`} onClick={() => handleSetPlanSelected(plans[0])}>
         <header>
                 <h4>{plans[0].nombre}</h4>
                 <p>{plans[0].duracion}</p>

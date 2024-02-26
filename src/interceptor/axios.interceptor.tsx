@@ -5,11 +5,12 @@ import { getCookie } from '../utilities/cookies';
 import { decryptString } from '../utilities/utilities';
 const APIKEY = import.meta.env.VITE_REACT_KEY
 export const AxiosInterceptor = () => {
-  //saveInLocalStorage(LocalStorageKeys.TOKEN, '123123123123');
 
   const updateHeader = (request: AxiosRequestConfig) => {
-    const tokenSaved = getCookie('token');
-    const value = decryptString(tokenSaved ?? '', APIKEY);
+    if(getCookie('token') === null) return request;
+    const userStringity = decryptString(getCookie('token') ?? '', APIKEY);
+    const infoUSER = JSON.parse(userStringity)
+    const value = infoUSER.accessToken;
     const token = `Bearer ${value}`
     const newHeaders = {
       Authorization: token,
@@ -26,7 +27,7 @@ export const AxiosInterceptor = () => {
 
   axios.interceptors.response.use(
     (response) => {
-      if(response?.data.message.includes('existosamente')){
+      if(response?.data?.message.includes('existosamente')){
         toast.success(response.data.message);
       }
       return response.data;

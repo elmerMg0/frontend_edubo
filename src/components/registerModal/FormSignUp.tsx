@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { requiredMessage } from "../../utilities/messagesError";
 import * as Yup from 'yup';
 import { useState } from "react";
-import { APISERVICE } from "../../service/api.service";
+import { APISERVICE, setToken } from "../../service/api.service";
 import { useNavigate } from "react-router";
 import { PrivateRoutes } from "../../models/routes";
 import { Spinner } from "react-bootstrap";
@@ -32,10 +32,15 @@ function FormSignUp() {
             }
             const response: any = await APISERVICE.post(body, 'usuario/register', '');
             if(response.success){
-                const tokenEncrypt = encryptString(response.data.accessToken, APIKEY)
-                setCookie('token', tokenEncrypt, 2)
-                setCookie('userId', response.data.id, 2)
-                navigate(PrivateRoutes.RUTAS)
+              const infoUser = {
+                accessToken: response.accessToken,
+                id: response.id,
+                subscribed: response.subscribed
+              }
+              const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
+              setCookie('token', tokenEncrypt, 2) 
+              setToken(response.data.accessToken)
+              navigate(PrivateRoutes.RUTAS)
             }
         } catch (error) {
             setError('Ocurrio un error, intente de nuevo')            

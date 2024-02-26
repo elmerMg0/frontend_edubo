@@ -23,7 +23,9 @@ import { Footer } from "../../components/global/footer/Footer";
 import { Header } from "../global/header/Header";
 import Contribution from "./Contributions/Contribution";
 import Skeleton from "react-loading-skeleton";
-import { getCookie } from "../../utilities/cookies";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../redux/store";
+import Suscribe from "./Suscribe";
 
 export interface CommentsFull extends Comment {
   name: string;
@@ -72,7 +74,7 @@ export function Subject() {
 
   const navigate = useNavigate();
 
-  const idStudent = getCookie("userId");
+  const user = useSelector((store: AppStore) => store.user);
 
   const views: TypesBtns = {
     resource: <ResourceComponent resources={resourceRef.current} />,
@@ -92,7 +94,7 @@ export function Subject() {
     const url = "api/update-progress";
     const params = {
       idSubject: id,
-      idStudent,
+      idStudent: user.id,
     };
     AxiosService.get(url, params);
   };
@@ -113,7 +115,7 @@ export function Subject() {
     const params2 = {
       slugSubject: idSubject,
       idCourse: idCourse?.split("-")[0],
-      idStudent,
+      idStudent: user.id,
       nroClase: idClass,
     };
     try {
@@ -130,7 +132,7 @@ export function Subject() {
         viewRef.current = res[1].data.views;
         likesRef.current = res[1].data.likes;
         resourceRef.current = res[1].data.resources;
-        updateProgres(res[1].data.subject.id);
+        if(res[1].data.subject?.video_url !== null) updateProgres(res[1].data.subject.id);
 
         setProgress(res[2].data.progress);
         setIsLiked(res[2].data.isLiked);
@@ -209,14 +211,13 @@ export function Subject() {
   };
 
   const handleLike = () => {
-    const userId = getCookie("userId");
-    if (userId !== "") {
+    if (user?.id) {
       likesRef.current = isLiked ? likesRef.current - 1 : likesRef.current + 1;
       setIsLiked(!isLiked);
       const url = "api/update-likes-sub";
       const params = {
         idSubject: infoSubject?.id,
-        idStudent: userId,
+        idStudent: user.id,
       };
       AxiosService.get(url, params);
     }
@@ -226,7 +227,7 @@ export function Subject() {
 
   if (loading) {
     return (
-      <section className="subject" style={{ height: "100vh", margin: "0 auto"}}>
+      <section className="subject subject-loading">
         <div className="subject-info">
           <Skeleton height={"250px"} />
 
@@ -254,7 +255,7 @@ export function Subject() {
             <Skeleton height={"30px"} />
           </div>
           <Skeleton height={200} />
-          <Skeleton height={200} />
+         {/*  <Skeleton height={200} /> */}
         </div>
       </section>
     );
@@ -267,7 +268,9 @@ export function Subject() {
       <Header setIsOpen={() => {}}></Header>
       <div className="subject">
         <section className="xlp1">
-          <div className="player-wrapper">
+          {
+            infoSubject?.video_url ? 
+            <div className="player-wrapper">
             <ReactPlayer
               className="react-player"
               url={infoSubject?.video_url}
@@ -278,6 +281,12 @@ export function Subject() {
               controls={true}
             />
           </div>
+            :
+            <div className="player-wrapper">
+               <Suscribe/>
+            </div>
+          }
+      
 
           <div className="controls-player">
             <button className="f-btn" onClick={handleLike}>

@@ -1,39 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit'
-
-import { persistLocalStorage } from "../../utilities/localstorage.utility";
-import { User } from '../../models/User';
-
-export const UserEmptyState: User  = {
+import { createSlice } from "@reduxjs/toolkit";
+import { deleteCookie, getCookie, setCookie } from "../../utilities/cookies";
+import { decryptString, encryptString } from "../../utilities/utilities";
+const key = import.meta.env.VITE_REACT_KEY;
+const initialState = {
     username: '',
     accessToken: '',
-    periodUser: {
-        id: 0,
-        state: false
-    },
-    tipo: ''
+    id: -1,
+    subscribed: false
 }
 
 export const UserKey = 'user';
+export const UserKey2 = 'token';
 const userSlice = createSlice( {
     name: 'user',
-    initialState: localStorage.getItem(UserKey) ? JSON.parse(localStorage.getItem(UserKey) as string): UserEmptyState,
-
+    initialState: getCookie(UserKey2) ? JSON.parse(decryptString(getCookie(UserKey2) as string, key)) : initialState,
     reducers: {
-        createUser: (state, action) => {
-            state;
-            persistLocalStorage(UserKey , action.payload)
-            return action.payload;
-        }, 
+      
         updateUser: ( state, action) => {
             const result = {...state, ...action.payload}
-            persistLocalStorage(UserKey, result);
+            const tokenEncrypt = encryptString(JSON.stringify(result), key);
+            setCookie(UserKey2, tokenEncrypt, 2);
             return result;
         } , 
         resetUser: () => {
-            return UserEmptyState;
+            deleteCookie('token');
+            return initialState;
         }
        }
 })
 
-export const { createUser, updateUser, resetUser } = userSlice.actions;
+export const { updateUser, resetUser } = userSlice.actions;
 export default userSlice.reducer; 
