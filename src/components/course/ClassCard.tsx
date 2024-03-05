@@ -5,15 +5,16 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs"
 
 interface Props {
     clase: ClassWithSubject,
+    subscribed: boolean
 }
-export function ClassCard({ clase }: Props) {
+export function ClassCard({ clase, subscribed }: Props) {
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleSubjects = () => {
         setIsOpen(!isOpen)
     }
     return (
-        <div className="class-card" key={clase.id}>
+        <div className={`class-card ${clase.numero_clase === 1 ? 'active' : ''}`} key={clase.id}>
             <button className="f-btn" onClick={toggleSubjects}>
                 <span className="class-card-header">
                     <span className="class-card-title">{clase.numero_clase + ". " + clase.titulo}</span>
@@ -26,7 +27,7 @@ export function ClassCard({ clase }: Props) {
                 <span className="class-card-description">{clase.descripcion}</span>
             </button>
 
-            <Subject subjects={clase.subjects} isOpen={isOpen} nroClase={clase.numero_clase} />
+            <Subject subjects={clase.subjects} isOpen={isOpen} nroClase={clase.numero_clase}  subscribed={subscribed}/>
         </div>
     )
 }

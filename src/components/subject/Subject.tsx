@@ -11,8 +11,6 @@ import {
 } from "../../models/models";
 import "./subject.css";
 import { BsEye, BsHeart, BsHeartFill } from "react-icons/bs";
-import { FcStart } from "react-icons/fc";
-import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { FaRegFlag } from "react-icons/fa";
 import { ResourceComponent } from "./Resource";
 import { ClassesMain } from "./ClassesMain";
@@ -23,8 +21,13 @@ import { Footer } from "../../components/global/footer/Footer";
 import { Header } from "../global/header/Header";
 import Contribution from "./Contributions/Contribution";
 import Skeleton from "react-loading-skeleton";
-import { getCookie } from "../../utilities/cookies";
-
+import { useSelector } from "react-redux";
+import { AppStore } from "../../redux/store";
+import Suscribe from "./Suscribe";
+import { updateSettings } from "../../redux/states/settings.state";
+import { useDispatch } from "react-redux";
+import { BiSolidSkipNextCircle, BiSolidSkipPreviousCircle } from "react-icons/bi";
+const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 export interface CommentsFull extends Comment {
   name: string;
   lastName: string;
@@ -69,14 +72,16 @@ export function Subject() {
   const viewRef = useRef(0);
   const likesRef = useRef(0);
   const professorRef = useRef<AppState["professor"]>(null);
+  const [subscribed, setSubscribed] = useState(false); 
 
   const navigate = useNavigate();
-
-  const idStudent = getCookie("userId");
+  const dispatch = useDispatch();
+  const user = useSelector((store: AppStore) => store.user);
+  const settings = useSelector((store: AppStore) => store.settings);  
 
   const views: TypesBtns = {
     resource: <ResourceComponent resources={resourceRef.current} />,
-    syllabus: <ClassesMain classes={classes} progress={progress} />,
+    syllabus: <ClassesMain classes={classes} progress={progress} suscribed={subscribed}/>,
     contribution: <Contribution btnSelected={btnSelected} />,
   };
 
@@ -92,7 +97,7 @@ export function Subject() {
     const url = "api/update-progress";
     const params = {
       idSubject: id,
-      idStudent,
+      idStudent: user.id,
     };
     AxiosService.get(url, params);
   };
@@ -113,7 +118,7 @@ export function Subject() {
     const params2 = {
       slugSubject: idSubject,
       idCourse: idCourse?.split("-")[0],
-      idStudent,
+      idStudent: user.id,
       nroClase: idClass,
     };
     try {
@@ -125,12 +130,13 @@ export function Subject() {
         setinfoCourse(res[0].data.course);
         setClasses(res[0].data.classes);
         professorRef.current = res[0].data.professor;
-
+        setSubscribed(res[0].data.subscribed);
+        
         setInfoSubject(res[1].data.subject);
         viewRef.current = res[1].data.views;
         likesRef.current = res[1].data.likes;
         resourceRef.current = res[1].data.resources;
-        updateProgres(res[1].data.subject.id);
+        if(res[1].data.subject?.video_url !== null) updateProgres(res[1].data.subject.id);
 
         setProgress(res[2].data.progress);
         setIsLiked(res[2].data.isLiked);
@@ -182,19 +188,20 @@ export function Subject() {
     }, classes[0]);
 
     if (Number(idSubject) < classCurrently[0].subjects.length) {
-      /*  navigate(
-        `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/${idClass}/${
-          Number(idSubject) + 1
-        }`
-      ); */
-      handleNavigate(Number(idClass), Number(idSubject) + 1);
+      const nextClase = classCurrently[0].subjects[Number(idSubject)];
+      console.log(nextClase, idSubject)
+      if (nextClase.type === "quiz") {
+        handleNavigate(Number(idClass) + "/quiz", Number(idSubject) + 1);
+      } else {
+        handleNavigate(Number(idClass), Number(idSubject) + 1);
+      }
       return;
     }
     if (lastValue.numero_clase > Number(idClass)) {
       const nextClase =
         classCurrently[0].subjects[classCurrently[0].subjects.length - 1];
       if (nextClase.type === "quiz") {
-        handleNavigate(Number(idClass) + 1 + "/quiz", 1);
+        handleNavigate(Number(idClass) + 1 + "/quiz", Number(idSubject));
       } else {
         handleNavigate(Number(idClass) + 1, 1);
       }
@@ -209,14 +216,13 @@ export function Subject() {
   };
 
   const handleLike = () => {
-    const userId = getCookie("userId");
-    if (userId !== "") {
+    if (user?.id) {
       likesRef.current = isLiked ? likesRef.current - 1 : likesRef.current + 1;
       setIsLiked(!isLiked);
       const url = "api/update-likes-sub";
       const params = {
         idSubject: infoSubject?.id,
-        idStudent: userId,
+        idStudent: user.id,
       };
       AxiosService.get(url, params);
     }
@@ -226,7 +232,7 @@ export function Subject() {
 
   if (loading) {
     return (
-      <section className="subject" style={{ height: "100vh", margin: "0 auto"}}>
+      <section className="subject subject-loading">
         <div className="subject-info">
           <Skeleton height={"250px"} />
 
@@ -254,30 +260,40 @@ export function Subject() {
             <Skeleton height={"30px"} />
           </div>
           <Skeleton height={200} />
-          <Skeleton height={200} />
+         {/*  <Skeleton height={200} /> */}
         </div>
       </section>
     );
   }
 
   const width = window.innerWidth;
-
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ repAutomatic: e.target.checked }));
+  };
   return (
     <>
-      <Header setIsOpen={() => {}}></Header>
+      <Header/>
       <div className="subject">
         <section className="xlp1">
-          <div className="player-wrapper">
+          {
+            infoSubject?.video_url ? 
+            <div className="player-wrapper">
             <ReactPlayer
               className="react-player"
               url={infoSubject?.video_url}
               width="100%"
               height="100%"
-              playing={true}
+              playing={settings.repAutomatic}
               onEnded={handleNext}
               controls={true}
             />
           </div>
+            :
+            <div className="player-wrapper">
+               <Suscribe/>
+            </div>
+          }
+      
 
           <div className="controls-player">
             <button className="f-btn" onClick={handleLike}>
@@ -285,15 +301,18 @@ export function Subject() {
               <span>{likesRef.current}</span>
             </button>
             <button className="f-btn">
-              <FcStart />
+              <div className="wrap-toggle">
+                <input type="checkbox" id='toggle' className="offscreen" onChange={handleToggle} checked={settings.repAutomatic}/>
+                <label htmlFor="toggle" className="switch"></label>
+              </div>
               <span>Rep. Automatica</span>
             </button>
             <button className="f-btn" onClick={handlePrevius}>
-              <MdSkipPrevious />
+            <BiSolidSkipPreviousCircle size={19} />
               <span>Anterior</span>
             </button>
             <button className="f-btn" onClick={handleNext}>
-              <MdSkipNext />
+            <BiSolidSkipNextCircle size={19} />
               Siguiente
             </button>
           </div>
@@ -312,11 +331,20 @@ export function Subject() {
             </div>
             <div className="subject-info-teacher">
               <div className="subject-info-teacher-content">
+               {
+                professorRef.current?.url_image ?
                 <img
-                  className=""
-                  src={professorRef.current?.url_image}
-                  alt=""
+                className=""
+                src={`${APIURLIMG + professorRef.current?.url_image}` }
+                alt=""
                 />
+                :
+                <img
+                className=""
+                src={`https://picsum.photos/200` }
+                alt=""
+              />
+               }
                 <p className="my-0 mr-2">
                   {professorRef.current?.firstname}{" "}
                   {professorRef.current?.lastname}

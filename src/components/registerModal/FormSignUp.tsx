@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { requiredMessage } from "../../utilities/messagesError";
 import * as Yup from 'yup';
 import { useState } from "react";
-import { APISERVICE } from "../../service/api.service";
+import { APISERVICE, setToken } from "../../service/api.service";
 import { useNavigate } from "react-router";
 import { PrivateRoutes } from "../../models/routes";
 import { Spinner } from "react-bootstrap";
@@ -32,10 +32,17 @@ function FormSignUp() {
             }
             const response: any = await APISERVICE.post(body, 'usuario/register', '');
             if(response.success){
-                const tokenEncrypt = encryptString(response.data.accessToken, APIKEY)
-                setCookie('token', tokenEncrypt, 2)
-                setCookie('userId', response.data.id, 2)
-                navigate(PrivateRoutes.RUTAS)
+              const infoUser = {
+                accessToken: response.accessToken,
+                id: response.id,
+                subscribed: response.subscribed,
+                image: response.data.image,
+                name: response.data.name
+              }
+              const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
+              setCookie('token', tokenEncrypt, 2) 
+              setToken(response.data.accessToken)
+              navigate(`/${PrivateRoutes.RUTAS}`)
             }
         } catch (error) {
             setError('Ocurrio un error, intente de nuevo')            
@@ -65,11 +72,11 @@ function FormSignUp() {
         <Form className="register-modal-form">
 
         <div className="d-flex gap-3 align-items-start">
-            <div className="mb-3">
+            <div className="mb-3 w-100">
               <Field name="firstName" type="text" placeholder="Nombre" className="w-100"/>
               <ErrorMessage name="firstName" component="div" className="f-error" />
             </div>
-            <div className="mb-3">
+            <div className="mb-3 w-100">
               <Field name="lastName" type="text" placeholder="Apellido" className="w-100" />
               <ErrorMessage name="lastName" component="div" className="f-error" />
             </div>

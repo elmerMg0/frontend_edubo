@@ -14,7 +14,7 @@ export function ResourceComponent({ resources }:Props) {
                 ))
                 
                 :
-                <p>No hay recursos</p>
+                <p>Estamos trabajando en la expansión de los recursos disponibles.</p>
             }
         </section>
     )

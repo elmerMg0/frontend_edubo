@@ -109,11 +109,6 @@
 .class-card-icon{
     color: var(--colorWhite);
 }
-.class-card:nth-child(1){
-    border-left: 2px solid var(--l-colorGreenSecundary);
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-}
 .class-card:last-child {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -123,6 +118,12 @@
     flex-direction: column;
     text-align: left;
     gap: 0.3rem;
+}
+
+.class-card.active{
+    border-left: 2px solid var(--l-colorGreenSecundary);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
 .class-card-description{

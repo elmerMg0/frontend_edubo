@@ -6,7 +6,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-    --colorMain: #3f7f35;          
+   /*  --colorMain: #3f7f35;          
     --colorSecundary: #2f5f28;
     --colorThird: #1f3f1a;
     --colorBlackSecundary: #10200d;
@@ -25,6 +25,28 @@
     --l-colorGrisSoft: #2c323c;
     --l-colorGrisSoft2: #a4abb6;
     --l-colorHome:  #1E2229;
+    --colorGrisText:  #87909d;
+ */
+    --colorMain: #202e94;          
+    --colorSecundary: #1e24cc;
+    --colorThird: #000b54;
+    --colorBlackSecundary: #10200d;
+    --colorBlack: #08090B;
+    --colorRed: #DA4E3B;
+    --colorGris: #B8B6B5;
+    --colorGrisHard: #696969;
+    --colorBlue: #3c8dbb;
+    --colorWhite: #eff3f8;
+    --l-colorMain: #13161C;
+    --l-colorGreen: #0095ff;
+    --l-colorGreenSecundary: #0095ff;
+    --l-colorGreenSecundary2: #0095ff;
+    --l-colorGreenThird: #CEE5CD;
+    --l-colorGris: #1c2028;
+    --l-colorGrisSoft: #2c323c;
+    --l-colorGrisSoft2: #a4abb6;
+    --l-colorHome:  #1E2229;
+    --colorGrisText:  #87909d;
     /*font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -108,7 +130,7 @@ label,select{
 }
 .btn--green{
   color: var(--colorMain);
-  border:1px solid var(--colorRed);
+  border:1px solid var(--colorMain);
 }
 .btn--l-white{
   color: var(--l-colorMain);

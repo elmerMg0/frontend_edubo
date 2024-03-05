@@ -8,9 +8,10 @@ function QuizIntro({ changeView, questionsNumber }: Props) {
   const handleSkip = () => {};
   return (
     <div className="quiz-intro">
-      <div>
+      <div className="quiz-intro-img">
         <img style={{ width: "100%" }} src={image} alt="quiz image" />
       </div>
+      <div>
 
       <h4 className="mb-3">Por favor completa el Quiz</h4>
       <ul className="quiz-intro-list">
@@ -37,7 +38,8 @@ function QuizIntro({ changeView, questionsNumber }: Props) {
         txtBtn1="Saltar"
         txtBtn2="Comenzar"
         juscont="left"
-      />
+        />
+      </div>
     </div>
   );
 }

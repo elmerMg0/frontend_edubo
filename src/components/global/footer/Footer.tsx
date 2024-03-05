@@ -38,7 +38,7 @@ export function Footer() {
           </div>
           <div>
             <MdEmail />
-            <p>sedeelec@hotmail.com</p>
+            <p>esniun@gmail.com</p>
           </div>
           <div>
             <PiPhone />

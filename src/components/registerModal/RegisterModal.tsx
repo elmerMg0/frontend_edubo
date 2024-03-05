@@ -2,7 +2,7 @@ import "./registerModal.css";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
 import { useGoogleLogin } from "@react-oauth/google";
-import { APISERVICE } from "../../service/api.service";
+import { APISERVICE, setToken } from "../../service/api.service";
 import { useNavigate } from "react-router";
 import { PrivateRoutes } from "../../models/routes";
 import { useState } from "react";
@@ -10,6 +10,8 @@ import { encryptString } from "../../utilities/utilities";
 import { setCookie } from "../../utilities/cookies";
 import FormLogin from "./FormLogin";
 import FormSignUp from "./FormSignUp";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../redux/states/user.state";
 
 const APIKEY = import.meta.env.VITE_REACT_KEY;
 
@@ -25,19 +27,25 @@ const views = {
 
 export function RegistrerModal({ isOpen, toggleModal }: Props) {
   const [view, setView] = useState(views.login);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logIn = async (access_token: string) => {
     const url = "usuario/login";
     const response = await APISERVICE.post({ access_token }, url, "");
     if (response) {
-      /* get credencialt para el user */
-      /* Encrypt token */
-      const tokenEncrypt = encryptString(response.data.accessToken, APIKEY);
+      const infoUser = {
+        accessToken: response.data.accessToken,
+        id: response.data.id,
+        subscribed: response.data.subscribed,
+        image: response.data.image,
+        name: response.data.name
+      }
+      const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
       setCookie("token", tokenEncrypt, 2);
-      setCookie("userId", response.data.id, 2);
-      navigate(`${PrivateRoutes.RUTAS}`);
+      setToken(response.data.accessToken)
+      navigate(`/${PrivateRoutes.RUTAS}`);
+      dispatch(updateUser(response.data))
     }
   };
 

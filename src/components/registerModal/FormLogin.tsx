@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { requiredMessage } from "../../utilities/messagesError";
 import { useNavigate } from "react-router";
 import { PrivateRoutes } from "../../models/routes";
-import { APISERVICE } from "../../service/api.service";
+import { APISERVICE, setToken } from "../../service/api.service";
 import { Spinner } from "react-bootstrap";
 import { encryptString } from "../../utilities/utilities";
 import { setCookie } from "../../utilities/cookies";
@@ -30,10 +30,18 @@ function FormLogin() {
       const url = "usuario/login-user";
       const response = await APISERVICE.post(values, url, "");
       if (response.success) {
-        const tokenEncrypt = encryptString(response.accessToken, APIKEY)
-        setCookie('token', tokenEncrypt, 2)
-        setCookie('userId', response.id, 2)
-          navigate(`${PrivateRoutes.RUTAS}`);
+
+        const infoUser = {
+          accessToken: response.accessToken,
+          id: response.id,
+          subscribed: response.subscribed,
+          image: response.data.image,
+          name: response.data.name
+        }
+        const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
+        setCookie("token", tokenEncrypt, 2);
+        setToken(response.accessToken)
+        navigate(`/${PrivateRoutes.RUTAS}`);
       } else {
         setError(response.message);
       }
