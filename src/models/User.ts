@@ -1,8 +1,9 @@
 export interface User {
     id: number,
-    nombre: string,
+    name: string,
     apellido: string,
     puntos: number,
     role: string,
-    subscribed: boolean
+    subscribed: boolean,
+    image?: string
 }

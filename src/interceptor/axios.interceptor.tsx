@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import toast from 'react-hot-toast';
 import { getValidationError } from '../utilities/get-validation-error';
-import { getCookie } from '../utilities/cookies';
+import { deleteCookie, getCookie } from '../utilities/cookies';
 import { decryptString } from '../utilities/utilities';
 const APIKEY = import.meta.env.VITE_REACT_KEY
 export const AxiosInterceptor = () => {
@@ -33,6 +33,11 @@ export const AxiosInterceptor = () => {
       return response.data;
     },
     (error) => {
+        if(error.response.status === 401){
+          deleteCookie('token');
+          window.location.replace('/login');
+          return;
+        }
         toast.error(getValidationError(error.code));
       return Promise.reject(error);
     }

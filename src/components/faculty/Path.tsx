@@ -43,40 +43,51 @@ export function Faculty() {
 
   return (
     <div className="home">
-      <Header setIsOpen={() => {}}></Header>
-
-      <section className="home-welcome">
-        <h2 className="home-welcome-title">{road?.nombre || <Skeleton />}</h2>
-        <p className="path-welcome-parrafo">{road?.subtitle || <Skeleton />}</p>
-        {loading ? (
-          <Skeleton
-            height="200px"
-          />
-        ) : (
+      <Header />
+      {loading ? (
+        <div className="p-3 skeleton-header-path">
+          <Skeleton height={40} className="mb-3" />
+          <Skeleton height={20} className="mb-2" />
+          <Skeleton height={150} className="mb-1" />
+        </div>
+      ) : (
+        <section className="home-welcome">
+          <h2 className="home-welcome-title">{road?.nombre}</h2>
+          <p className="path-welcome-parrafo">{road?.subtitle}</p>
           <div className="path-welcome-img">
-            <img src={APIURLIMG + road?.url_image} alt="" />
+            <img
+              style={{ aspectRatio: "16/9" }}
+              src={APIURLIMG + road?.url_image}
+              alt=""
+            />
           </div>
-        )}
-        <p className="path-welcome-parrafo">
-          {road?.descripcion || <Skeleton />}
-        </p>
+          {/*   <p className="path-welcome-parrafo">
+          {road?.descripcion }
+        </p> */}
 
-        <Link style={{width: '250px'}} to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}>
-         <button className='f-btn btn--get-start mb-2 mt-3' >Ver plan</button>
-        </Link>
-        
-        <p className="path-welcome-parrafo mb-4">Suscríbete a un plan y accede al curso completo.</p>
-        
-        <h4 className="path-welcome-parrafo">
-          Nuestra oferta académica incluye:
-        </h4>
-      </section>
+          <Link
+            style={{ width: "250px", marginTop: "1rem" }}
+            to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}
+          >
+            <button className="f-btn btn--get-start mb-2 mt-1">Ver plan</button>
+          </Link>
 
-      <div className="path-courses">
-        <ul>
-          {courses?.length > 0 ? (
-            courses.map((course: Course) => {
-              return (
+          <p className="path-welcome-parrafo mb-4">
+            Suscríbete a un plan y accede al curso completo.
+          </p>
+
+          <h4 className="path-welcome-parrafo">
+            Nuestra oferta académica incluye:
+          </h4>
+        </section>
+      )}
+
+      {
+        courses?.length > 0 ? 
+            <div className="path-courses">
+              <ul>
+              {courses.map((course: Course) => {
+                return (
                 <Link
                   to={`/${PrivateRoutes.RUTAS}/${path}/${
                     course.id + "-" + course.slug
@@ -93,21 +104,22 @@ export function Faculty() {
                     </div>
                   </li>
                 </Link>
-              );
-            })
+              )})}
+            </ul>
+          </div>
+       : (
+        <>
+          {loading ? (
+            <div className="skeleton-paths" style={{padding: "1rem"}}>
+              <Skeleton height={250} count={4} className="mb-2" />
+            </div>
           ) : (
-            <>
-              {loading ? (
-                <>
-                  <Skeleton height={250} count={4} />
-                </>
-              ) : (
-                <p>No hay cursos disponibles</p>
-              )}
-            </>
+            <p className="path-welcome-parrafo text-center">
+              Estamos en proceso de preparar de nuevos cursos.
+            </p>
           )}
-        </ul>
-      </div>
+        </>
+      )}
 
       <section className="path-info">
         {road?.carrers && (
@@ -127,7 +139,12 @@ export function Faculty() {
           <p>{road?.period}</p>
 
           <Link to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}>
-          <button style={{width: '230px'}} className='f-btn btn--get-start mb-2 mt-3' >Ver plan</button>
+            <button
+              style={{ width: "230px" }}
+              className="f-btn btn--get-start mb-2 mt-3"
+            >
+              Ver plan
+            </button>
           </Link>
         </div>
       </section>

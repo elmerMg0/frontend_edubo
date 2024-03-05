@@ -165,3 +165,30 @@
 .quiz-finished-list li::marker{
     color: var(--colorMain);
 }
+
+@media(min-width: 1028px){
+    .quiz-intro{
+        max-width: 1200px;
+        margin: 0 auto;
+        place-items: center;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .quiz-header-container{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .quiz-questions-container{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .quiz-content-img{
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    .quiz-finished{
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}

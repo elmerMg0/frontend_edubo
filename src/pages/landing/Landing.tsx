@@ -14,7 +14,7 @@ export function Landing() {
     }
     return (
         <>
-            <Header setIsOpen={() => setIsOpen(!isOpen)}>
+            <Header>
             <div className="header-landing__sign">
                 <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
             </div>

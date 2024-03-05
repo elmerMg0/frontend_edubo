@@ -5,8 +5,9 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs"
 
 interface Props {
     clase: ClassWithSubject,
+    subscribed: boolean
 }
-export function ClassCard({ clase }: Props) {
+export function ClassCard({ clase, subscribed }: Props) {
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleSubjects = () => {
@@ -26,7 +27,7 @@ export function ClassCard({ clase }: Props) {
                 <span className="class-card-description">{clase.descripcion}</span>
             </button>
 
-            <Subject subjects={clase.subjects} isOpen={isOpen} nroClase={clase.numero_clase} />
+            <Subject subjects={clase.subjects} isOpen={isOpen} nroClase={clase.numero_clase}  subscribed={subscribed}/>
         </div>
     )
 }

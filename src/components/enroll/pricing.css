@@ -80,6 +80,7 @@
     .pricing-plans{
         display: flex;
         justify-content: center;
+        align-items: start;
         gap: 2rem;
     }
     .pricing-title{

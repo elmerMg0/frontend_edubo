@@ -27,6 +27,40 @@
 .controls-player, .controls-player button{
     color: var(--colorGris);
 }
+
+.wrap-toggle{
+}
+.switch{
+    position: relative;
+    display: inline-block;
+    width: 2rem;
+    height: .8rem;
+    background-color: var(--colorGris);
+    border-radius: 40px;
+    cursor: pointer;
+}
+.switch::after{
+    content: "";
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--colorWhite);
+    left: 0;
+    top: -1px;
+    border-radius: 50%;
+    transition: all 0.4s;
+}
+input[type="checkbox"]:checked + .switch::after {
+    transform: translate(1.0rem);
+    background-color: var(--colorWhite);
+}
+input[type="checkbox"]:checked + .switch{
+    background-color: var(--l-colorGreen);
+}
+.offscreen{
+    display: none;
+}
+
 .controls-player button{
     display: flex;
     flex-direction: column;

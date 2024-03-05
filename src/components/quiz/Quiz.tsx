@@ -122,8 +122,9 @@ function Quiz() {
 
   return (
     <>
-      <Header setIsOpen={() => {}}></Header>
+      <Header></Header>
       <main className="quiz">
+        <div className="quiz-header-container">
         <div className="quiz-header">
           <img
             className="img-icon"
@@ -135,6 +136,7 @@ function Quiz() {
         <p>Clase</p>
         <div className="quiz-class mb-1">
           <h4> {clase?.titulo}</h4>
+        </div>
         </div>
 
         {Views[view]}

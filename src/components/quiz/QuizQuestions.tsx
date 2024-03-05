@@ -74,7 +74,7 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
   
   
     return (
-    <div className="">
+    <div className="quiz-questions-container">
         <p className='mb-1'>Pregunta {nroQuiz + 1} de {questions?.length}</p>
         <progress
           className="progressBar"

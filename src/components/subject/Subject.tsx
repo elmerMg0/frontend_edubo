@@ -11,8 +11,6 @@ import {
 } from "../../models/models";
 import "./subject.css";
 import { BsEye, BsHeart, BsHeartFill } from "react-icons/bs";
-import { FcStart } from "react-icons/fc";
-import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { FaRegFlag } from "react-icons/fa";
 import { ResourceComponent } from "./Resource";
 import { ClassesMain } from "./ClassesMain";
@@ -26,7 +24,10 @@ import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../redux/store";
 import Suscribe from "./Suscribe";
-
+import { updateSettings } from "../../redux/states/settings.state";
+import { useDispatch } from "react-redux";
+import { BiSolidSkipNextCircle, BiSolidSkipPreviousCircle } from "react-icons/bi";
+const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 export interface CommentsFull extends Comment {
   name: string;
   lastName: string;
@@ -71,14 +72,16 @@ export function Subject() {
   const viewRef = useRef(0);
   const likesRef = useRef(0);
   const professorRef = useRef<AppState["professor"]>(null);
+  const [subscribed, setSubscribed] = useState(false); 
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const user = useSelector((store: AppStore) => store.user);
+  const settings = useSelector((store: AppStore) => store.settings);  
 
   const views: TypesBtns = {
     resource: <ResourceComponent resources={resourceRef.current} />,
-    syllabus: <ClassesMain classes={classes} progress={progress} />,
+    syllabus: <ClassesMain classes={classes} progress={progress} suscribed={subscribed}/>,
     contribution: <Contribution btnSelected={btnSelected} />,
   };
 
@@ -127,7 +130,8 @@ export function Subject() {
         setinfoCourse(res[0].data.course);
         setClasses(res[0].data.classes);
         professorRef.current = res[0].data.professor;
-
+        setSubscribed(res[0].data.subscribed);
+        
         setInfoSubject(res[1].data.subject);
         viewRef.current = res[1].data.views;
         likesRef.current = res[1].data.likes;
@@ -184,19 +188,20 @@ export function Subject() {
     }, classes[0]);
 
     if (Number(idSubject) < classCurrently[0].subjects.length) {
-      /*  navigate(
-        `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/${idClass}/${
-          Number(idSubject) + 1
-        }`
-      ); */
-      handleNavigate(Number(idClass), Number(idSubject) + 1);
+      const nextClase = classCurrently[0].subjects[Number(idSubject)];
+      console.log(nextClase, idSubject)
+      if (nextClase.type === "quiz") {
+        handleNavigate(Number(idClass) + "/quiz", Number(idSubject) + 1);
+      } else {
+        handleNavigate(Number(idClass), Number(idSubject) + 1);
+      }
       return;
     }
     if (lastValue.numero_clase > Number(idClass)) {
       const nextClase =
         classCurrently[0].subjects[classCurrently[0].subjects.length - 1];
       if (nextClase.type === "quiz") {
-        handleNavigate(Number(idClass) + 1 + "/quiz", 1);
+        handleNavigate(Number(idClass) + 1 + "/quiz", Number(idSubject));
       } else {
         handleNavigate(Number(idClass) + 1, 1);
       }
@@ -262,10 +267,12 @@ export function Subject() {
   }
 
   const width = window.innerWidth;
-
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateSettings({ repAutomatic: e.target.checked }));
+  };
   return (
     <>
-      <Header setIsOpen={() => {}}></Header>
+      <Header/>
       <div className="subject">
         <section className="xlp1">
           {
@@ -276,7 +283,7 @@ export function Subject() {
               url={infoSubject?.video_url}
               width="100%"
               height="100%"
-              playing={true}
+              playing={settings.repAutomatic}
               onEnded={handleNext}
               controls={true}
             />
@@ -294,15 +301,18 @@ export function Subject() {
               <span>{likesRef.current}</span>
             </button>
             <button className="f-btn">
-              <FcStart />
+              <div className="wrap-toggle">
+                <input type="checkbox" id='toggle' className="offscreen" onChange={handleToggle} checked={settings.repAutomatic}/>
+                <label htmlFor="toggle" className="switch"></label>
+              </div>
               <span>Rep. Automatica</span>
             </button>
             <button className="f-btn" onClick={handlePrevius}>
-              <MdSkipPrevious />
+            <BiSolidSkipPreviousCircle size={19} />
               <span>Anterior</span>
             </button>
             <button className="f-btn" onClick={handleNext}>
-              <MdSkipNext />
+            <BiSolidSkipNextCircle size={19} />
               Siguiente
             </button>
           </div>
@@ -321,11 +331,20 @@ export function Subject() {
             </div>
             <div className="subject-info-teacher">
               <div className="subject-info-teacher-content">
+               {
+                professorRef.current?.url_image ?
                 <img
-                  className=""
-                  src={professorRef.current?.url_image}
-                  alt=""
+                className=""
+                src={`${APIURLIMG + professorRef.current?.url_image}` }
+                alt=""
                 />
+                :
+                <img
+                className=""
+                src={`https://picsum.photos/200` }
+                alt=""
+              />
+               }
                 <p className="my-0 mr-2">
                   {professorRef.current?.firstname}{" "}
                   {professorRef.current?.lastname}

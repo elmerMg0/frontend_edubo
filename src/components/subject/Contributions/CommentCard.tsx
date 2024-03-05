@@ -1,6 +1,6 @@
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { CommentWithReplies } from "./Contribution";
-
+const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 interface Props {
     comment: CommentWithReplies
     likeList: {
@@ -13,10 +13,18 @@ interface Props {
 function CommentCard({comment, likeList, toggleLike, classname, children}:Props) {
   return (
     <li className={ `${classname}`} key={comment.id}>
-      <img className="card_comment-img" src="https://picsum.photos/200" />
+      {
+        comment.avatar ? 
+        <img className="card_comment-img" src={ comment.avatar.includes('https') ? comment.avatar : APIURLIMG + comment.avatar} />
+        :
+        <img className="card_comment-img" src={`https://picsum.photos/200`} alt=""/>
+      }
       <div className="card_comment-content">
         <p className="card_comment-content-name">{comment.name} {comment.lastName}</p>
-        <p className="card_comment-content-text">{comment.comment_text}</p>
+        <p
+        className="card_comment-content-text"
+        dangerouslySetInnerHTML={{ __html: comment.comment_text.replace(/\n/g, '<br>') }}
+      />
       </div>
 
       <div className="card_comment-likes">

@@ -23,6 +23,10 @@
     align-items: center;
     gap: 0.5rem;
     z-index: 20;
+    text-decoration: none;
+}
+.header__img{
+    width: 65px;
 }
 .header__img img{
     width: 100%;
@@ -45,4 +49,14 @@
 .header-sign{
     display: flex;
     align-items: center;
+}
+
+@media(min-width: 1028px){
+   /*  .header{
+        max-width: 1200px;
+        margin: 0 auto;
+    } */
+    .header-container{
+        background-color: var(--l-colorMain);
+    }
 }

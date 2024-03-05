@@ -12,6 +12,8 @@ import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
 import { bussinesName, typePlans } from "../../utilities/constans";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../redux/store";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 
@@ -26,10 +28,10 @@ interface AppState {
 export function Course (){
     const [course, setCourse] = useState<AppState['course']>(null)
     const [classes, setClasses] = useState<AppState['classes']>([])
-
+    const [subscribed, setSubscribed] = useState(false);
     const [loading, setLoading] = useState(false)
     const { idCourse } = useParams()
-
+    const user = useSelector((store: AppStore) => store.user);
     useEffect(() => {
         getCourseInfo()
         window.scrollTo(0, 0);
@@ -40,13 +42,14 @@ export function Course (){
               setLoading(true)
               let params = {
                 idCourse: idCourse?.split('-')[0],
-                isActive: true,
+                idStudent: user.id,
               }
               const response = await AxiosService.get(CourseServiceName.COURSE, params);
               if(response){
                   const { data } = response;
                   setCourse(data.course);
-                  setClasses(data.classes)
+                  setClasses(data.classes);
+                  setSubscribed( data.subscribed);
                 }
             } catch (error) {
               
@@ -81,8 +84,7 @@ export function Course (){
     }
     return (
         <div className="course">
-            <Header setIsOpen={() => {}}>
-            </Header>
+            <Header />
 
             <div className="course-header">
                 <div className="course-img">
@@ -121,7 +123,7 @@ export function Course (){
                 </section>
             </div>
 
-            <Classes classes={classes}/>
+            <Classes classes={classes} subscribed={subscribed}/>
         
             <article className="course-about">
                 <div className="course-about-content">

@@ -37,12 +37,14 @@ export function RegistrerModal({ isOpen, toggleModal }: Props) {
       const infoUser = {
         accessToken: response.data.accessToken,
         id: response.data.id,
-        subscribed: response.data.subscribed
+        subscribed: response.data.subscribed,
+        image: response.data.image,
+        name: response.data.name
       }
       const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
       setCookie("token", tokenEncrypt, 2);
       setToken(response.data.accessToken)
-      navigate(`${PrivateRoutes.RUTAS}`);
+      navigate(`/${PrivateRoutes.RUTAS}`);
       dispatch(updateUser(response.data))
     }
   };

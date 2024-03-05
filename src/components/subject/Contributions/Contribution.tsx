@@ -5,7 +5,9 @@ import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
 import CommentInput from "./CommentInput";
 import Comments from "./Comments";
-import { getCookie } from "../../../utilities/cookies";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../../redux/store";
 
 interface AppState {
   contribution: CommentWithReplies[];
@@ -21,12 +23,12 @@ export interface CommentWithReplies extends CommentsFull {
   comments: CommentWithReplies[];
 }
 function Contribution({ btnSelected }: Props) {
-  const { idSubject } = useParams();
+  const { idClass ,idSubject, idCourse } = useParams();
   const [likeList, setLikeList] = useState<AppState["likeList"]>([]);
   const [comments, setComments] = useState<AppState["contribution"]>([]);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [loading, setLoading] = useState(false);
-  const idStudent = getCookie("userId");
+  const user = useSelector((state: AppStore) => state.user);
   useEffect(() => {
     if (btnSelected === TypeBtns.CONTRIBUTION) getComments();
   }, [btnSelected]);
@@ -39,6 +41,7 @@ function Contribution({ btnSelected }: Props) {
     const params = {
       idSubject: idSubject,
       idStudent: 8,
+      nroClass: idClass
     };
     try {
       setLoading(true);
@@ -69,18 +72,23 @@ function Contribution({ btnSelected }: Props) {
     text: string,
     idComment: number | undefined
   ) => {
+    if(text.length > 500)return;
     const body = {
       comment_text: text,
-      usuario_id: idStudent,
-      subject_id: idSubject,
+      usuario_id: user.id,
+      slugSubject: idSubject,
       num_likes: 0,
       num_comments: 0,
       comment_id: idComment,
+      nroClass: idClass,
+      courseId: idCourse?.split("-")[0],
     };
     const response = await APISERVICE.post(body, "api/create", "");
     if (response.success) {
       getComments();
       setIsOpenEdit(false);
+    } else { 
+      toast.error('No se puedo enviar el comentario')
     }
   };
   return (

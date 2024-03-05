@@ -1,13 +1,16 @@
-import { bussinesName, colors } from "../../../utilities/constans";
+import { colors } from "../../../utilities/constans";
 import { MenuBar } from "../icons/Icons";
-import image from '../../../assets/img/logo.png' 
 import './header.css'
 import Navbar from "../navbar/Navbar";
 import { useState } from "react";
 import { getCookie } from "../../../utilities/cookies";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../../redux/store";
+import { Link } from "react-router-dom";
+import image from '../../../assets/img/logo.webp' 
+const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 interface Props {
     children?: React.ReactNode
-    setIsOpen?: () => void | undefined
 }
 const Menu = ({setShowNavbar}: {setShowNavbar: () => void}) => {
   return (
@@ -20,38 +23,36 @@ const Menu = ({setShowNavbar}: {setShowNavbar: () => void}) => {
     </div>
     )
   }
-export function Header({ children, setIsOpen}:Props) {
+export function Header({ children}:Props) {
   const [showNavbar, setShowNavbar] = useState(false);
-  //const [showModal, setShowModal] = useState(true);
+  const user = useSelector((store: AppStore) => store.user);
 
   let autenticated = false; 
   if(getCookie('token'))autenticated = true;
-  const handleLogin = () => {
-    if(setIsOpen)setIsOpen()
-    setShowNavbar(false);
-  }
+
   return (
+    <div className="header-container">
     <header className="header">
-        <div className="header-logo">
+        <Link to={"/"} className="header-logo">
             <div className="header__img">
               <img src={image} alt="" />
             </div>
-            <h5>{bussinesName}</h5>
-        </div>
+        </Link>
        <div className="header-sign">
 
-        <Navbar showNavbar={showNavbar} handleLogin={handleLogin} closeNav={() => setShowNavbar(false)}/>
+        <Navbar showNavbar={showNavbar} closeNav={() => setShowNavbar(false)}/>
        
        {
          !autenticated ? 
          <>
              {children}
-           </>
-           : <img style={{width: '24px', height: '24px', borderRadius: '50%'}} src="https://picsum.photos/200" alt=""/> 
+         </>
+           : <img style={{width: '24px', height: '24px', borderRadius: '50%'}} src={user.image?.includes('google') ? user.image : APIURLIMG + user.image} alt=""/> 
           }
         <Menu setShowNavbar={() => setShowNavbar(!showNavbar)}/>
         </div>
 
     </header>
+    </div>
   )
 }

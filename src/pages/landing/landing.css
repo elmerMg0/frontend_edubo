@@ -73,7 +73,6 @@
     margin-bottom: 1.5rem;
 }
 .carousel{
-    width: 800px; /* Ancho total del contenido */
     display: flex;
     gap: 1rem;
 }

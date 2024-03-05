@@ -3,11 +3,13 @@ import { Plan } from "../../models/models"
 interface Props{
     plans: Plan[]
     color: string,
-    handleSetPlanSelected: (plan: Plan) => void
+    handleSetPlanSelected: (plan: Plan) => void,
+    sendMessage: (plan: Plan) => void
 }
-function CardRoadPricing({plans,color, handleSetPlanSelected}: Props) {
+function CardRoadPricing({plans,color, handleSetPlanSelected, sendMessage}: Props) {
 
     if(plans.length === 0)return;
+
     return (
     <div className={`card-pricing mb-4  card-pricing--${color}`} onClick={() => handleSetPlanSelected(plans[0])}>
         <header>
@@ -25,7 +27,7 @@ function CardRoadPricing({plans,color, handleSetPlanSelected}: Props) {
         </main>
 
         <footer>
-            <button className={`f-btn btn-enroll btn-enroll--${color}`}>Suscribirme</button>
+            <button className={`f-btn btn-enroll btn-enroll--${color}`} onClick={() => sendMessage(plans[0])}>Suscribirme</button>
         </footer>
     </div>
   )

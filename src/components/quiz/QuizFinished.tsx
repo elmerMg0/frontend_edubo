@@ -16,7 +16,7 @@ interface Props {
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 function QuizFinished({ questions, resultsRef, handleRestart, nextClass }: Props) {
   return (
-    <div className="mt-3">
+    <div className="mt-3 quiz-finished">
       <h4 className="mb-3">Teminaste!</h4>
       <ul className="quiz-intro-list">
         <li>

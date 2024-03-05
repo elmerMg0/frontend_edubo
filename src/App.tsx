@@ -11,6 +11,7 @@ import { Subject } from './components/subject/Subject';
 import 'react-loading-skeleton/dist/skeleton.css'
 import Quiz from './components/quiz/Quiz';
 import Pricing from './components/enroll/Pricing';
+import Login from './pages/login/Login';
 const APIURLAUTH = import.meta.env.VITE_REACT_AUTH;
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Landing />} />
+          <Route path='/login' element={<Login />} />
           <Route path={`${PrivateRoutes.RUTAS}`} element={<LearningPaths />} />
           <Route path={`${PrivateRoutes.RUTAS}/:path`} element={<Faculty />} />
           <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse`} element={<Course />} />

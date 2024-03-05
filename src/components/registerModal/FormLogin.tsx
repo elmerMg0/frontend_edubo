@@ -34,12 +34,14 @@ function FormLogin() {
         const infoUser = {
           accessToken: response.accessToken,
           id: response.id,
-          subscribed: response.subscribed
+          subscribed: response.subscribed,
+          image: response.data.image,
+          name: response.data.name
         }
         const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
         setCookie("token", tokenEncrypt, 2);
         setToken(response.accessToken)
-        navigate(`${PrivateRoutes.RUTAS}`);
+        navigate(`/${PrivateRoutes.RUTAS}`);
       } else {
         setError(response.message);
       }

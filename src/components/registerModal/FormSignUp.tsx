@@ -35,12 +35,14 @@ function FormSignUp() {
               const infoUser = {
                 accessToken: response.accessToken,
                 id: response.id,
-                subscribed: response.subscribed
+                subscribed: response.subscribed,
+                image: response.data.image,
+                name: response.data.name
               }
               const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
               setCookie('token', tokenEncrypt, 2) 
               setToken(response.data.accessToken)
-              navigate(PrivateRoutes.RUTAS)
+              navigate(`/${PrivateRoutes.RUTAS}`)
             }
         } catch (error) {
             setError('Ocurrio un error, intente de nuevo')            
@@ -70,11 +72,11 @@ function FormSignUp() {
         <Form className="register-modal-form">
 
         <div className="d-flex gap-3 align-items-start">
-            <div className="mb-3">
+            <div className="mb-3 w-100">
               <Field name="firstName" type="text" placeholder="Nombre" className="w-100"/>
               <ErrorMessage name="firstName" component="div" className="f-error" />
             </div>
-            <div className="mb-3">
+            <div className="mb-3 w-100">
               <Field name="lastName" type="text" placeholder="Apellido" className="w-100" />
               <ErrorMessage name="lastName" component="div" className="f-error" />
             </div>

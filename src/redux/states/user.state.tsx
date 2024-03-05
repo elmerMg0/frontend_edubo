@@ -3,10 +3,11 @@ import { deleteCookie, getCookie, setCookie } from "../../utilities/cookies";
 import { decryptString, encryptString } from "../../utilities/utilities";
 const key = import.meta.env.VITE_REACT_KEY;
 const initialState = {
-    username: '',
+    name: '',
     accessToken: '',
     id: -1,
-    subscribed: false
+    subscribed: false,
+    image: '',
 }
 
 export const UserKey = 'user';

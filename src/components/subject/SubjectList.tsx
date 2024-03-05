@@ -3,18 +3,16 @@ import { Subject } from "../../models/models"
 import { useNavigate, useParams } from "react-router-dom"
 import { PrivateRoutes } from "../../models/routes";
 import { FaRegCirclePlay } from "react-icons/fa6";
-import { AppStore } from "../../redux/store";
-import { useSelector } from "react-redux";
 
 interface Props {
     subjects: Subject[],
     isOpen: boolean,
     progress: String[],
     nroClass: number
+    subscribed: boolean
 }
-export function SubjectList({ subjects, isOpen, progress, nroClass}: Props) {
+export function SubjectList({ subjects, isOpen, progress, nroClass, subscribed}: Props) {
     const {path, idCourse, idSubject, idClass } = useParams();
-    const user = useSelector((store: AppStore) => store.user);
     const navigate = useNavigate()
     const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;
 
@@ -37,7 +35,7 @@ export function SubjectList({ subjects, isOpen, progress, nroClass}: Props) {
                                         <span className="class-card-title">
                                             <div style={{minWidth: '14px'}}>
                                             {
-                                                subject.is_public || user.subscribed ? 
+                                                subject.is_public || subscribed ? 
                                                 <FaRegCirclePlay />
                                                 :
                                                 <AiOutlineLock />
