@@ -20,7 +20,7 @@ function Navbar({showNavbar, closeNav}: {showNavbar: boolean, closeNav: () => vo
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <Link to={autenticated ? 'rutas' : '/login'}>Cursos</Link>
+                    <Link to={autenticated ? '/rutas' : '/login'}>Cursos</Link>
                 </li>
                 <li>
                     <a href="/">Contacto</a>

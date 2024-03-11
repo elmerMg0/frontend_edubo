@@ -70,16 +70,16 @@ function RecentClass() {
                     <div className="card-recent-class-info-img">
                         <img src={`${APIURLIMG}${road?.url_image}`} />
                     </div>
-                      <div>
+                      <div className="w-100">
                        {/*  <h4>Clase {road.classCurrently} <span> de {road.totalClasses} </span></h4> */}
-                        <h4>{road.title}</h4>
+                        <h4 className="card-recent-class-info-title">{road.title}</h4>
                         <p>Curso de {road.name}</p>
                     </div>
                   </div>
                 </li>
               </Link>
                 ))
-              : "No hay rutas"}
+              : ""}
           </ul>
         </div>
     </section>

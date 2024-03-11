@@ -189,7 +189,6 @@ export function Subject() {
 
     if (Number(idSubject) < classCurrently[0].subjects.length) {
       const nextClase = classCurrently[0].subjects[Number(idSubject)];
-      console.log(nextClase, idSubject)
       if (nextClase.type === "quiz") {
         handleNavigate(Number(idClass) + "/quiz", Number(idSubject) + 1);
       } else {
@@ -271,7 +270,7 @@ export function Subject() {
     dispatch(updateSettings({ repAutomatic: e.target.checked }));
   };
   return (
-    <>
+    <div className="subject-container">
       <Header/>
       <div className="subject">
         <section className="xlp1">
@@ -394,6 +393,6 @@ export function Subject() {
       {
         width < 1028 ? <Footer /> : null
       }
-    </>
+    </div>
   );
 }

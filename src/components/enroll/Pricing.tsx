@@ -24,7 +24,7 @@ function Pricing() {
   const [plans, setPlans] = useState<AppState["plans"]>([]);
   const [plansCourse, setPlansCourse] = useState<AppState["plans"]>([]);
   const [planSelected, setPlanSelected] = useState<AppState['plan']>(null);
-  const [course, setCourse] = useState<AppState["course"]>(null);
+  //const [course, setCourse] = useState<AppState["course"]>(null);
     const [loading, setLoading] = useState(false);
   //const user = useSelector((store: AppStore) => store.user);
   useEffect(() => {
@@ -44,7 +44,7 @@ function Pricing() {
         setPlans(response.data.plansRoad);
         setRoad(response.data.path);
         setPlansCourse(response.data.plansCourse);
-        setCourse(response.data.course)
+        //setCourse(response.data.course)
       }
     } catch (error) {
       
@@ -53,35 +53,6 @@ function Pricing() {
     }
   
   };
-
- /*  const handleEnroll = () => {
-    try {
-      const body = {
-        type: planSelected?.course_id ? "course" : "path",
-        student: user.id,
-        path: road?.id,
-        plan: planSelected?.id,
-        quantity: 1,
-        id: planSelected?.course_id?? planSelected?.ruta_aprendizaje_id
-      }
-      const response: any = APISERVICE.post(body, "api/enroll", '');
-      if(response.success){
-
-      }
-    } catch (error) {
-      
-    }
-  } */
-
-  const sendMessage = (plan: Plan) => {
-    let textMessage = ''
-    if(plan.course_id){
-      textMessage = 'Hola%20me%20interesa%20el%20paquete%20'+plan.nombre+'%20para%20el%20curso%20'+ course?.name
-    }else{  
-      textMessage = 'Hola%20me%20interesa%20el%20paquete%20'+plan.nombre+'%20para%20la%20'+ road?.nombre
-    }
-    window.open(`https://api.whatsapp.com/send?phone=+59165322739&text=${textMessage}`, '_blank');
-  }
 
   const handleSetPlanSelected = (plan: Plan) => {
     setPlanSelected(plan)
@@ -95,16 +66,15 @@ function Pricing() {
           Preparate para {road?.nombre}
         </h3>
         <p className="pricing-description mb-5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sed
-          amet nostrum explicabo{" "}
+        Con material de calidad y enfoque práctico, estarás listo para el éxito académico y profesional. ¡Inicia tu experiencia de aprendizaje ahora!"{" "}
         </p>
         {
           loading ? 
           <Skeleton height={400}/>
           :
         <div className="pricing-plans">
-          <CardRoadPricing plans={plans} color={"yellow"} handleSetPlanSelected={handleSetPlanSelected} sendMessage={sendMessage}/>
-          <CardRoadPricing plans={plansCourse} color={"green"} handleSetPlanSelected={handleSetPlanSelected} sendMessage={sendMessage}/>
+          <CardRoadPricing plans={plans} color={"yellow"} handleSetPlanSelected={handleSetPlanSelected}/>
+          <CardRoadPricing plans={plansCourse} color={"green"} handleSetPlanSelected={handleSetPlanSelected}/>
         </div>
         }
       </div>

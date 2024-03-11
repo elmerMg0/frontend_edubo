@@ -198,7 +198,9 @@
     color: var(--colorWhite);
     font-weight: 600;
 }
-
+.progressBar-course{
+    height: 0.8rem;
+}
 @media(min-width: 1028px){
     .course-header{
         display: grid;

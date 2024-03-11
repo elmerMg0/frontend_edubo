@@ -7,7 +7,7 @@ import { getCookie } from "../../../utilities/cookies";
 import { useSelector } from "react-redux";
 import { AppStore } from "../../../redux/store";
 import { Link } from "react-router-dom";
-import image from '../../../assets/img/logo.webp' 
+import image from '../../../assets/img/logo.png' 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 interface Props {
     children?: React.ReactNode

@@ -21,6 +21,7 @@ export function Faculty() {
   const [courses, setCourses] = useState<AppState["courses"]>([]);
   const { path } = useParams();
   const [loading, setLoading] = useState(false);
+  const [isEnrollment, setIsEnrollment] = useState(false);
   useEffect(() => {
     getPaths();
     window.scrollTo(0, 0);
@@ -37,6 +38,7 @@ export function Faculty() {
     if (res) {
       setRoad(res.data.pathInfo);
       setCourses(res.data.courses);
+      setIsEnrollment(res.data.enrollment);
     }
     setLoading(false);
   };
@@ -61,33 +63,42 @@ export function Faculty() {
               alt=""
             />
           </div>
-          {/*   <p className="path-welcome-parrafo">
-          {road?.descripcion }
-        </p> */}
 
-          <Link
-            style={{ width: "250px", marginTop: "1rem" }}
-            to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}
-          >
-            <button className="f-btn btn--get-start mb-2 mt-1">Ver plan</button>
-          </Link>
+          {isEnrollment ? (
+            <>
+              <p className="path-welcome-parrafo mb-2 mt-2">
+                Tienes un plan activo.
+              </p>
+              <h4 className="path-welcome-parrafo">Cursos incluidos:</h4>
+            </>
+          ) : (
+            <>
+              <Link
+                style={{ width: "250px", marginTop: "1rem" }}
+                to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}
+              >
+                <button className="f-btn btn--get-start mb-2 mt-1">
+                  Ver plan
+                </button>
+              </Link>
 
-          <p className="path-welcome-parrafo mb-4">
-            Suscríbete a un plan y accede al curso completo.
-          </p>
+              <p className="path-welcome-parrafo mb-4">
+                Suscríbete a un plan y accede al curso completo.
+              </p>
 
-          <h4 className="path-welcome-parrafo">
-            Nuestra oferta académica incluye:
-          </h4>
+              <h4 className="path-welcome-parrafo">
+                Nuestra oferta académica incluye:
+              </h4>
+            </>
+          )}
         </section>
       )}
 
-      {
-        courses?.length > 0 ? 
-            <div className="path-courses">
-              <ul>
-              {courses.map((course: Course) => {
-                return (
+      {courses?.length > 0 ? (
+        <div className="path-courses">
+          <ul>
+            {courses.map((course: Course) => {
+              return (
                 <Link
                   to={`/${PrivateRoutes.RUTAS}/${path}/${
                     course.id + "-" + course.slug
@@ -104,13 +115,14 @@ export function Faculty() {
                     </div>
                   </li>
                 </Link>
-              )})}
-            </ul>
-          </div>
-       : (
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
         <>
           {loading ? (
-            <div className="skeleton-paths" style={{padding: "1rem"}}>
+            <div className="skeleton-paths" style={{ padding: "1rem" }}>
               <Skeleton height={250} count={4} className="mb-2" />
             </div>
           ) : (

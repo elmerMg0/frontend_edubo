@@ -8,6 +8,9 @@
     top: 0;
     left: 0;
 }
+.subject-container{
+    background-color: var(--l-colorMain);
+}
 .subject{
     background-color: var(--l-colorGris);
     position: relative;

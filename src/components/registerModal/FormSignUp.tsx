@@ -36,12 +36,12 @@ function FormSignUp() {
                 accessToken: response.accessToken,
                 id: response.id,
                 subscribed: response.subscribed,
-                image: response.data.image,
-                name: response.data.name
+                image: response.image,
+                name: response.name
               }
               const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
               setCookie('token', tokenEncrypt, 2) 
-              setToken(response.data.accessToken)
+              setToken(response.accessToken)
               navigate(`/${PrivateRoutes.RUTAS}`)
             }
         } catch (error) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../global/header/Header";
 import './course.css'
 import { AxiosService } from "../../service/api.service";
@@ -32,6 +32,8 @@ export function Course (){
     const [loading, setLoading] = useState(false)
     const { idCourse } = useParams()
     const user = useSelector((store: AppStore) => store.user);
+    const progressTotal = useRef(0);
+
     useEffect(() => {
         getCourseInfo()
         window.scrollTo(0, 0);
@@ -50,6 +52,7 @@ export function Course (){
                   setCourse(data.course);
                   setClasses(data.classes);
                   setSubscribed( data.subscribed);
+                  progressTotal.current = data.progress.toFixed(3);
                 }
             } catch (error) {
               
@@ -101,7 +104,6 @@ export function Course (){
                         <ul className="" dangerouslySetInnerHTML={{ __html: course?.you_learn ?? '' }} />
                     </div>
 
-
                     <div className="course-date">
                         <span className="course-feature-item">
                             <FaRegCalendarAlt/>
@@ -116,14 +118,23 @@ export function Course (){
                         </span>
                             
                     </div>
-                    <Link to={`/precios/${typePlans.course}/${course?.id}`}>
-                        <button className="f-btn course-btn">Subscribirme</button>
-                    </Link>
-                    <p className="course-b-btn">*Prueba la experiencia {bussinesName}</p>
+                    {
+                        subscribed ?
+                        <p className="path-welcome-parrafo mb-2 mt-2">
+                         Bienvenido a tu viaje educativo personalizado!  
+                        </p>
+                        :
+                        <>
+                            <Link to={`/precios/${typePlans.course}/${course?.id}`}>
+                                <button className="f-btn course-btn">Subscribirme</button>
+                            </Link>
+                            <p className="course-b-btn">*Prueba la experiencia {bussinesName}</p>
+                        </>
+                    }
                 </section>
             </div>
 
-            <Classes classes={classes} subscribed={subscribed}/>
+            <Classes classes={classes} subscribed={subscribed} progress={progressTotal.current}/>
         
             <article className="course-about">
                 <div className="course-about-content">

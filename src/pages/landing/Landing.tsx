@@ -13,7 +13,7 @@ export function Landing() {
         setIsOpen(!isOpen);
     }
     return (
-        <>
+        <div className='landing-container'>
             <Header>
             <div className="header-landing__sign">
                 <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
@@ -76,7 +76,7 @@ export function Landing() {
         </div>
             <RegistrerModal isOpen={isOpen} toggleModal={toggleModal}/>
             <Footer/>
-        </>
+        </div>
     )
 
 }

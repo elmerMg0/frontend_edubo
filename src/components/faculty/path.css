@@ -111,6 +111,8 @@
     background-color: var(--l-colorGrisSoft);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    background: rgb(78,93,103);
+    background: radial-gradient(circle, rgba(78,93,103,1) 27%, rgba(44,50,60,1) 100%);
 }
 .card-course-img img{
     width: 100%;

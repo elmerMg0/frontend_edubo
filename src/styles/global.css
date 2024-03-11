@@ -27,7 +27,8 @@
     --l-colorHome:  #1E2229;
     --colorGrisText:  #87909d;
  */
-    --colorMain: #202e94;          
+    --colorGreen: #3f7f35;
+    --colorMain: #004C84;          
     --colorSecundary: #1e24cc;
     --colorThird: #000b54;
     --colorBlackSecundary: #10200d;
@@ -223,4 +224,22 @@ input:focus {
   width: 1.8rem;
   height: 1.8rem;
   border-radius: 50%;
+}
+
+/* progress bar */
+
+.progressBar{
+  margin-bottom: 1rem;
+  width: 100%;
+  background-color: var(--colorMain);
+  height: 0.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.progressBar::-webkit-progress-value{
+  background-color: var(--colorMain);
+}
+
+.progressBar::-webkit-progress-bar{
+  background-color: var(--colorGrisText);
 }

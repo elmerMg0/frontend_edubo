@@ -12,6 +12,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Quiz from './components/quiz/Quiz';
 import Pricing from './components/enroll/Pricing';
 import Login from './pages/login/Login';
+import Payment from './components/payment/Payment';
 const APIURLAUTH = import.meta.env.VITE_REACT_AUTH;
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse/:idClass/quiz/:idSubject`} element={<Quiz />} />
           <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse/:idClass/:idSubject`} element={<Subject />} />
           <Route path={`${PrivateRoutes.PLANES}/:type/:id`} element={<Pricing />} />
+          <Route path={`${PrivateRoutes.PLANES}/:type/:id/pago`} element={<Payment />} />
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>

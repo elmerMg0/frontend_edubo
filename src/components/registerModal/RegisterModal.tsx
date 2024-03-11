@@ -33,7 +33,7 @@ export function RegistrerModal({ isOpen, toggleModal }: Props) {
   const logIn = async (access_token: string) => {
     const url = "usuario/login";
     const response = await APISERVICE.post({ access_token }, url, "");
-    if (response) {
+    if (response.success) {
       const infoUser = {
         accessToken: response.data.accessToken,
         id: response.data.id,
