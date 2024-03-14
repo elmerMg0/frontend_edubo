@@ -79,7 +79,7 @@ function RecentClass() {
                 </li>
               </Link>
                 ))
-              : ""}
+              : 'Rutas de aprendizaje personalizadas'}
           </ul>
         </div>
     </section>

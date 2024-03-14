@@ -21,7 +21,8 @@ interface AppState {
   plan: Plan | null;
   item: {
     name?: string;
-    descripcion: string;
+    descripcion?: string;
+    subtitle?: string;
     id: number;
     url_image: string;
     numero_cursos?: number;
@@ -139,7 +140,7 @@ function Payment() {
         <p>Su pago se ha realizado con exito</p>
         <button className="f-btn btn--padding btn--l-white w-100" onClick={handleGoClass}>
           Ir{" "}
-          {type === typePlans.course ? "al cursos" : "a la ruta de aprendizaje"}
+          {type === typePlans.course ? "al curso" : "a la ruta de aprendizaje"}
         </button>
       </div>
     );
@@ -226,7 +227,7 @@ function Payment() {
                 </div>
                 <div className="payment-card-text">
                   <p>{item?.name ?? item?.nombre}</p>
-                  <p>{item?.descripcion}</p>
+                  <p>{item?.descripcion ?? item?.subtitle}</p>
                 </div>
               </div>
 

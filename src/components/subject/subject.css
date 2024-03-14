@@ -12,7 +12,7 @@
     background-color: var(--l-colorMain);
 }
 .subject{
-    background-color: var(--l-colorGris);
+    background-color: var(--l-colorMain);
     position: relative;
 }
 .subject-loading{

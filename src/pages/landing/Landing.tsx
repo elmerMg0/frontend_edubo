@@ -63,8 +63,10 @@ export function Landing() {
                 </div>
             </section>
 
-            <Carousel/>
-
+            <div className='section-carousel-lg-container'>
+                <Carousel/>
+            </div>
+            <div className='start-now-container'>
             <section className='start-now'>
                 <h2 className='start-now-title'>No postergues más tu educación, ¡tu futuro te está esperando!</h2>
                 <p className='start-now-parrafo'>Dedicados a proporcionar contenido educativo de calidad, preparando a los estudiantes para la universidad.</p>
@@ -73,6 +75,7 @@ export function Landing() {
                     <span className='start-now-parrafo'>*solo necesitas un correo electronico</span>
                 </div>
             </section>
+            </div>
         </div>
             <RegistrerModal isOpen={isOpen} toggleModal={toggleModal}/>
             <Footer/>

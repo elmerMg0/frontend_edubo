@@ -43,6 +43,8 @@ function FormSignUp() {
               setCookie('token', tokenEncrypt, 2) 
               setToken(response.accessToken)
               navigate(`/${PrivateRoutes.RUTAS}`)
+            }else{
+              setError(response.message)
             }
         } catch (error) {
             setError('Ocurrio un error, intente de nuevo')            
