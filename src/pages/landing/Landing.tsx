@@ -6,7 +6,7 @@ import { RegistrerModal } from '../../components/registerModal/RegisterModal'
 import { FcFlowChart, FcGlobe, FcPositiveDynamic } from 'react-icons/fc'
 import { useState } from 'react'
 import { bussinesName } from '../../utilities/constans'
-export function Landing() {
+export default function Landing() {
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleModal = () => {

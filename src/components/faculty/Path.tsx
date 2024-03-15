@@ -16,7 +16,7 @@ interface AppState {
   road: Road | null;
   courses: Course[];
 }
-export function Faculty() {
+export default function Faculty() {
   const [road, setRoad] = useState<AppState["road"]>(null);
   const [courses, setCourses] = useState<AppState["courses"]>([]);
   const { path } = useParams();

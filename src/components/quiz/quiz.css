@@ -1,3 +1,6 @@
+.quiz-container{
+    background-color: var(--l-colorMain);
+}
 .quiz{
     background-color: var(--l-colorMain);
     padding: 1rem 1rem;

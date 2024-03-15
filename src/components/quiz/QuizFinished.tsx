@@ -8,13 +8,14 @@ interface Props {
     correct: boolean;
   }[];
   handleRestart: () => void
-  nextClass: () => void
+  nextClass: () => void,
+  error: string
 }
 
 
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
-function QuizFinished({ questions, resultsRef, handleRestart, nextClass }: Props) {
+function QuizFinished({ questions, resultsRef, handleRestart, nextClass, error }: Props) {
   return (
     <div className="mt-3 quiz-finished">
       <h4 className="mb-3">Teminaste!</h4>
@@ -69,13 +70,15 @@ function QuizFinished({ questions, resultsRef, handleRestart, nextClass }: Props
         )}
       </ul>
 
+      {error && <p className="error">{error}</p>}
+
       <Btns
         handleSkip={() => handleRestart()}
         changeView={() => nextClass()}
         classname1=""
         classname2=""
         txtBtn1="Repetir"
-        txtBtn2="Siguiente clase"
+        txtBtn2="Continuar"
         juscont="right"
       />
     </div>

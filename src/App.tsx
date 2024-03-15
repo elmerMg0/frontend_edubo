@@ -1,24 +1,27 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import './styles/global.css'
-import { Landing } from './pages/landing/Landing';
 import { PrivateRoutes } from './models/routes';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { Course } from './components/course/Course';
 import { LearningPaths } from './components/LearningPaths/LearningPaths';
-import { Faculty } from './components/faculty/Path';
-import { Subject } from './components/subject/Subject';
 import 'react-loading-skeleton/dist/skeleton.css'
-import Quiz from './components/quiz/Quiz';
-import Pricing from './components/enroll/Pricing';
-import Login from './pages/login/Login';
-import Payment from './components/payment/Payment';
+import { Suspense, lazy } from 'react';
 const APIURLAUTH = import.meta.env.VITE_REACT_AUTH;
+const Landing  = lazy(() => import('./pages/landing/Landing'))
+const Course = lazy(() => import('./components/course/Course'))
+const Faculty = lazy(() => import('./components/faculty/Path'))
+const Subject = lazy(() => import('./components/subject/Subject'))
+const Quiz = lazy(() => import('./components/quiz/Quiz'))
+const Pricing = lazy(() => import('./components/enroll/Pricing'))
+const Login = lazy(() => import('./pages/login/Login'))
+const Payment = lazy(() => import('./components/payment/Payment'))
+const CourseFInished = lazy(() => import('./components/courseFinished/CourseFInished'))
+
 function App() {
 
   return (
     <GoogleOAuthProvider clientId={APIURLAUTH}>
-
+      <Suspense fallback={<div></div>} >
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Landing />} />
@@ -27,11 +30,13 @@ function App() {
           <Route path={`${PrivateRoutes.RUTAS}/:path`} element={<Faculty />} />
           <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse`} element={<Course />} />
           <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse/:idClass/quiz/:idSubject`} element={<Quiz />} />
+          <Route path={`${PrivateRoutes.RUTAS}/:type/:idCourse/finish`} element={<CourseFInished />} />
           <Route path={`${PrivateRoutes.RUTAS}/:path/:idCourse/:idClass/:idSubject`} element={<Subject />} />
           <Route path={`${PrivateRoutes.PLANES}/:type/:id`} element={<Pricing />} />
           <Route path={`${PrivateRoutes.PLANES}/:type/:id/pago`} element={<Payment />} />
         </Routes>
       </BrowserRouter>
+      </Suspense>
     </GoogleOAuthProvider>
   )
 }

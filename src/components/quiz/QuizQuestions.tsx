@@ -92,8 +92,9 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
                   <div key={question.id} className="quiz-card">
                     <h4 className="mb-2">{question.descripcion}</h4>
                     {
-                      question.url_image &&  <div className="quiz-content-img">
-                      <img src={`${APIURLIMG + question.url_image}`} alt="" />
+                      question.url_image &&  
+                      <div className="quiz-content-img">
+                        <img style={{aspectRatio: "16/9"}} src={`${APIURLIMG + question.url_image}`} alt="" />
                     </div>
                     }
                    

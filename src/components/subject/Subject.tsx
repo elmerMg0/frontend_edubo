@@ -55,7 +55,7 @@ interface TypesBtns {
   contribution: React.ReactNode;
 }
 
-export function Subject() {
+export default function Subject() {
   const { idSubject, idClass, idCourse, path } = useParams();
 
   const [infoCourse, setinfoCourse] = useState<AppState["infoCourse"]>(null);

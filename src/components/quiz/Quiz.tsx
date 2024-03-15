@@ -36,6 +36,7 @@ function Quiz() {
   const navigate = useNavigate();
   const resultsRef = useRef<AppState["results"]>([]);
   const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;
+  const [error, setError] = useState('');
 
   useEffect(() => {
     getInfo();
@@ -77,13 +78,12 @@ function Quiz() {
   };
 
   const restartQuiz = () => {
+    setError('')
     resultsRef.current = [];
     setView(0);
   }
 
   const nextClass = () => {
-    /* Validar si es la ultima clase y el ultimo quiz */
-    
     const lastValue: Class = classes.reduce((arr: Class, val: Class) => {
       if (val.numero_clase > arr.numero_clase) {
         return val;
@@ -93,6 +93,22 @@ function Quiz() {
 
     if(lastValue.numero_clase > Number(idClass)){
       navigate(`${basePath}${Number(idClass) + 1}/1`)
+    }else{
+      /* Terminado el curso */
+      /* Validar que hay respondido mas del 80% correcto */
+      const asnwerSuccess = resultsRef.current.reduce((acc: number, val: { id: number; correct: boolean }) => {
+        if (val.correct) {
+          return acc + 1
+        }
+        return acc
+      }, 0) 
+    
+      const percent = ((asnwerSuccess / questions.length)*100);
+      if(percent >= 80){
+        navigate(`${basePath}finish`)
+      }else{
+        setError('Debes superar el 80% de respuestas correctas para terminar el curso');
+      }
     }
   
   }
@@ -117,12 +133,13 @@ function Quiz() {
         resultsRef={resultsRef.current}
         handleRestart={restartQuiz}
         nextClass={nextClass}
+        error={error}
         />,
   };
 
   return (
-    <>
-      <Header></Header>
+    <div className="quiz-container">
+      <Header/>
       <main className="quiz">
         <div className="quiz-header-container">
         <div className="quiz-header">
@@ -142,7 +159,7 @@ function Quiz() {
         {Views[view]}
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

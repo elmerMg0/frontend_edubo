@@ -25,7 +25,7 @@ interface AppState {
     classes: ClassWithSubject[]
 }
 
-export function Course (){
+export default function Course (){
     const [course, setCourse] = useState<AppState['course']>(null)
     const [classes, setClasses] = useState<AppState['classes']>([])
     const [subscribed, setSubscribed] = useState(false);
