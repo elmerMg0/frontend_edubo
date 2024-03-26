@@ -15,7 +15,7 @@ function CourseFInished() {
   const {idCourse } = useParams();
 
   const [course, setCourse] = useState<AppState["course"]>();
-  const [path, setPath] = useState<AppState["path"]>();
+  const [, setPath] = useState<AppState["path"]>();
   useEffect(() => {
     getInfo()
   },[])

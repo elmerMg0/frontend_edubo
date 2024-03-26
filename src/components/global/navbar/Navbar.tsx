@@ -23,6 +23,9 @@ function Navbar({showNavbar, closeNav}: {showNavbar: boolean, closeNav: () => vo
                     <Link to={autenticated ? '/rutas' : '/login'}>Cursos</Link>
                 </li>
                 <li>
+                    <Link to={'/simulacros'}>Simulacros</Link>
+                </li>
+                <li>
                     <a href="/">Contacto</a>
                 </li>
                 <li>

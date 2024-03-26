@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Header } from "../global/header/Header";
 import { useNavigate, useParams } from "react-router";
 import { AxiosService } from "../../service/api.service";
-import { Class, Course, Question, Response } from "../../models/models";
+import { Answer, Class, Course, Question, Response } from "../../models/models";
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 import "./quiz.css";
 import { Footer } from "../global/footer/Footer";
@@ -21,6 +21,7 @@ interface AppState {
   results: {
     id: number;
     correct: boolean;
+    answer: Answer | null;
   }[];
 }
 export type AnswerState = true | false | null;
@@ -63,7 +64,14 @@ function Quiz() {
         setClasses(res[0].data.classes);
 
         setClase(res[1].data.classe);
-        setQuestions(res[1].data.questions);
+        const questionsApi = res[1].data.questions;
+        resultsRef.current = questionsApi.map((question: QuestionWithReponses) => {
+          return {
+            id: question.id,
+            answer: null
+          }
+        })
+        setQuestions(questionsApi);
 
         setLoading(false);
       });
@@ -134,7 +142,9 @@ function Quiz() {
         handleRestart={restartQuiz}
         nextClass={nextClass}
         error={error}
-        />,
+        > 
+        f
+        </QuizFinished>,
   };
 
   return (

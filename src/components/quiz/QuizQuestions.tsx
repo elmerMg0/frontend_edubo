@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { AnswerState, QuestionWithReponses } from './Quiz';
-import { Response } from '../../models/models';
+import { Answer, Response } from '../../models/models';
 import Btns from './Btns';
 import { AxiosService } from '../../service/api.service';
 
@@ -16,9 +16,11 @@ interface AppState {
     answerState: AnswerState; 
     results: {
       id: number;
+      answer: Answer | null;
       correct: boolean;
     }[]
-    setNroQuiz: React.Dispatch<React.SetStateAction<number>>
+    setNroQuiz: React.Dispatch<React.SetStateAction<number>>,
+    answer: Answer | null
 } 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props) {
@@ -26,14 +28,15 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
     const [answerState, setAnswerState] = useState<AppState["answerState"]>(null);
     const [answer, setAnswer] = useState("");
     const [nroQuiz, setNroQuiz] = useState(0);
-    const [answerSelect, setAnswerSelected] = useState(0);
+    const [answerSelect, setAnswerSelected] = useState<AppState['answer']>(null);
     const checkClicked = useRef(false);
+    const questionSelected = useRef(-1);
 
-
-    const handleSelectAnswer = (id: number | undefined) => {
-        if (id === undefined) return;
+    const handleSelectAnswer = (answer: Answer | undefined, idQuestion: number | undefined) => {
+        if (!answer) return;
         setIsAnswerSelected(true);
-        setAnswerSelected(id);
+        setAnswerSelected(answer);
+        questionSelected.current = idQuestion ?? -1;
       };
 
       
@@ -44,6 +47,8 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
     }
 
     const handleCheck = async () => {
+      if(!answerSelect)return;
+
       if(nroQuiz === questions.length - 1 && checkClicked.current){
         changeView();  
         return 
@@ -54,19 +59,28 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
         checkClicked.current = false;
         setAnswerState(null)
         setNroQuiz(nroQuiz + 1);
-        setAnswerSelected(0);
+        setIsAnswerSelected(false);
+        setAnswerSelected(null);
         setAnswer("");
         return;
       }
       checkClicked.current = true;
       const params = {
-        idResponse: answerSelect,
+        idResponse: answerSelect?.id,
       };
       const response = await AxiosService.get("api/check", params);
       if (response) {
         const { is_correct, answer } = response.data;
         setAnswerState(is_correct);
-        resultsRef.current = [...resultsRef.current, { id: answerSelect, correct: is_correct }];
+
+        resultsRef.current = resultsRef.current.map((q) => {
+          if(q.id === questionSelected.current){
+            return {
+              ...q, answer: {...answerSelect}, correct: is_correct
+            }
+          }
+          return q;
+        })
         if (!is_correct) setAnswer(answer);
       }
     }
@@ -83,6 +97,7 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
           max="100"
         ></progress>
 
+        {/*Preguntas y respuestas  */}
         <section className="quiz-questions mb-3">
           {questions?.length > 0 ? (
             questions
@@ -109,9 +124,9 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
                             <button
                               key={response.id}
                               className={`response-card ${
-                                answerSelect === response.id ? "selected" : ""
+                                answerSelect?.id === response.id ? "selected" : ""
                               }`}
-                              onClick={() => handleSelectAnswer(response.id)}
+                              onClick={() => handleSelectAnswer(response, question?.id)}
                               disabled={checkClicked.current}
                               style={{
                                 cursor: checkClicked.current
@@ -119,7 +134,7 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
                                   : "pointer",
                               }}
                             >
-                              <p style={{ backgroundColor:  answerSelect === response.id  ? "#3f7f35" : ""}}>{response.slug}</p>
+                              <p style={{ backgroundColor:  answerSelect?.id === response.id  ? "#3f7f35" : ""}}>{response.slug}</p>
                               <div className="response-card-content">
                                 <p>{response.description}</p>
                                 {response?.url_image &&

@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { PrivateRoutes } from "../../models/routes";
 import Skeleton from "react-loading-skeleton";
 import { typePlans } from "../../utilities/constans";
+import PathCourse from "./PathCourse";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 
@@ -99,22 +100,12 @@ export default function Faculty() {
           <ul>
             {courses.map((course: Course) => {
               return (
-                <Link
-                  to={`/${PrivateRoutes.RUTAS}/${path}/${
-                    course.id + "-" + course.slug
-                  }`}
-                  key={course.id}
-                >
-                  <li className="card-course">
-                    <div className="card-course-img">
-                      <img src={`${APIURLIMG}${course?.url_image}`} alt="" />
-                    </div>
-                    <div className="card-course-info">
-                      <h4>{course.name}</h4>
-                      <p>{course.subtitle}</p>
-                    </div>
-                  </li>
-                </Link>
+                <PathCourse urlImage={course?.url_image} url={`/${PrivateRoutes.RUTAS}/${path}/${
+                  course.id + "-" + course.slug
+                }`} >
+                  <h4>{course.name}</h4>
+                  <p>{course.subtitle}</p>
+                </PathCourse>
               );
             })}
           </ul>

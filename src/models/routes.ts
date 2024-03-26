@@ -10,6 +10,7 @@ export const PrivateRoutes = {
     CURSOS: 'cursos',
     TECNOLOGIA: 'tecnologia',
     PLANES: 'precios',
+    SIMULATION: 'simulacros'
 }
 
 export const PublicRoutes = {
