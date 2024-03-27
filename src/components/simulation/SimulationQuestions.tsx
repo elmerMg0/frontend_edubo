@@ -34,7 +34,7 @@ function SimulationQuestions() {
   const [view, setView] = useState(0);
   const navigate = useNavigate();
   const resultsRef = useRef<AppState["results"]>([]);
-  const [time, setTime] = useState('01:00');
+  const [time, setTime] = useState('20:00');
   const resultSummarize = useRef<AppState["resultsSummarize"]>({ numAnswerCorrect: 0, numQuestions: 0 }); 
 
   let interval: number;
@@ -119,7 +119,7 @@ function SimulationQuestions() {
     setView(1)
   }
   const views: Record<number, JSX.Element> = {
-    0: <QuizQuestions questions={questions} changeView={handleShowResutld} resultsRef={resultsRef} setQuestions={setQuestions}/>,
+    0: <QuizQuestions questions={questions} changeView={handleShowResutld} resultsRef={resultsRef} setQuestions={setQuestions} isLoading={loading}/>,
     1: <QuizFinished questions={questions} resultsRef={resultsRef.current} handleRestart={handleRestart} nextClass={handleNextClass} error={''} >
          <ul className="quiz-intro-list">
           <li>

@@ -134,6 +134,7 @@ function Quiz() {
         questions={questions}
         changeView={() => changeView(2)}
         resultsRef={resultsRef}
+        isLoading={loading}
       />
     ),
     2: <QuizFinished 

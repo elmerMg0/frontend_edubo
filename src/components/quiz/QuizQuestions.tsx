@@ -3,12 +3,15 @@ import { AnswerState, QuestionWithReponses } from './Quiz';
 import { Answer, Response } from '../../models/models';
 import Btns from './Btns';
 import { AxiosService } from '../../service/api.service';
+import { Spinner } from 'react-bootstrap';
+import Skeleton from 'react-loading-skeleton';
 
 interface Props {
     questions: QuestionWithReponses[],
     changeView: () => void,
     resultsRef: React.MutableRefObject<AppState['results']>,
-    setQuestions: React.Dispatch<React.SetStateAction<QuestionWithReponses[]>>
+    setQuestions: React.Dispatch<React.SetStateAction<QuestionWithReponses[]>>,
+    isLoading: boolean
 }
 
 interface AppState {
@@ -20,15 +23,16 @@ interface AppState {
       correct: boolean;
     }[]
     setNroQuiz: React.Dispatch<React.SetStateAction<number>>,
-    answer: Answer | null
+    answer: Answer | null,
 } 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
-function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props) {
+function QuizQuestions({questions, changeView, resultsRef, setQuestions, isLoading}: Props) {
     const [isAnswerSelected, setIsAnswerSelected] = useState(false);
     const [answerState, setAnswerState] = useState<AppState["answerState"]>(null);
     const [answer, setAnswer] = useState("");
     const [nroQuiz, setNroQuiz] = useState(0);
     const [answerSelect, setAnswerSelected] = useState<AppState['answer']>(null);
+    const [loading, setLoading] = useState(false);
     const checkClicked = useRef(false);
     const questionSelected = useRef(-1);
 
@@ -41,9 +45,13 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
 
       
     const handleSkip = ()=>{
+      if(answerSelect)return;
       const cloneQuestions = [...questions];
-      cloneQuestions.unshift(cloneQuestions.pop() as QuestionWithReponses);
-      setQuestions(cloneQuestions);
+      const numberQuestionsAnswered = resultsRef.current.filter((question: { answer: Answer | null, id: number}) => question.answer !== null).length;
+      const questionResults = [...cloneQuestions].slice(numberQuestionsAnswered, questions.length );
+      questionResults.unshift(questionResults.pop() as QuestionWithReponses);
+      cloneQuestions.splice(numberQuestionsAnswered, questions.length, ...questionResults);
+      setQuestions(Object.values(cloneQuestions));  
     }
 
     const handleCheck = async () => {
@@ -65,27 +73,34 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
         return;
       }
       checkClicked.current = true;
-      const params = {
-        idResponse: answerSelect?.id,
-      };
-      const response = await AxiosService.get("api/check", params);
-      if (response) {
-        const { is_correct, answer } = response.data;
-        setAnswerState(is_correct);
-
-        resultsRef.current = resultsRef.current.map((q) => {
-          if(q.id === questionSelected.current){
-            return {
-              ...q, answer: {...answerSelect}, correct: is_correct
+      
+      try {
+        setLoading(true);
+        const params = {
+          idResponse: answerSelect?.id,
+        };
+        const response = await AxiosService.get("api/check", params);
+        if (response) {
+          const { is_correct, answer } = response.data;
+          setAnswerState(is_correct);
+  
+          resultsRef.current = resultsRef.current.map((q) => {
+            if(q.id === questionSelected.current){
+              return {
+                ...q, answer: {...answerSelect}, correct: is_correct
+              }
             }
-          }
-          return q;
-        })
-        if (!is_correct) setAnswer(answer);
+            return q;
+          })
+          if (!is_correct) setAnswer(answer);
+        }
+      } catch (error) {
+        
+      } finally {
+        setLoading(false);
       }
     }
     let progressValue = (nroQuiz + 1) / questions?.length;
-  
   
     return (
     <div className="quiz-questions-container">
@@ -156,7 +171,11 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
                 );
               })
           ) : (
-            <p>No hay preguntas</p>
+            <>
+              {
+                isLoading ? <Skeleton count={5} height={40} /> : <p>No hay preguntas</p>
+              }
+            </>
           )}
         </section>
 
@@ -179,7 +198,7 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions}: Props)
             classname1=''
             classname2={`${isAnswerSelected ? "" : "disabled"}`}
             changeView={handleCheck}
-            txtBtn2={checkClicked.current ? "Siguiente" : "Comprobar"}
+            txtBtn2={loading ? <Spinner size='sm' />  :  checkClicked.current ? "Siguiente" : "Comprobar"}
         />
       </div>
   )

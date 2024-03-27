@@ -5,13 +5,14 @@ import { AxiosService } from "../../service/api.service";
 import { Road } from "../../models/models";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "../global/footer/Footer";
+import Skeleton from "react-loading-skeleton";
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 interface AppState {
   roads: Road[];
 }
 function Simulation() {
   const [roads, setRoads] = useState<AppState["roads"]>([]);
-  const [, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     getRoads();
@@ -52,7 +53,11 @@ function Simulation() {
                 </li>
               );
             })
-          : ""}
+          : 
+          <>
+            { loading ? <Skeleton count={5} height={300}/> : <p>Se esta trabajando en esta seccion</p> }
+          </>
+          }
       </ul>
       <Footer/>
     </div>
