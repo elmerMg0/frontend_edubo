@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../global/header/Header";
 import './course.css'
 import { AxiosService } from "../../service/api.service";
@@ -10,6 +10,10 @@ import { Footer } from "../global/footer/Footer";
 import { Classes } from "./Classes";
 import { useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
+import { bussinesName, typePlans } from "../../utilities/constans";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AppStore } from "../../redux/store";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 
@@ -21,12 +25,14 @@ interface AppState {
     classes: ClassWithSubject[]
 }
 
-export function Course (){
+export default function Course (){
     const [course, setCourse] = useState<AppState['course']>(null)
     const [classes, setClasses] = useState<AppState['classes']>([])
-
+    const [subscribed, setSubscribed] = useState(false);
     const [loading, setLoading] = useState(false)
     const { idCourse } = useParams()
+    const user = useSelector((store: AppStore) => store.user);
+    const progressTotal = useRef(0);
 
     useEffect(() => {
         getCourseInfo()
@@ -38,13 +44,15 @@ export function Course (){
               setLoading(true)
               let params = {
                 idCourse: idCourse?.split('-')[0],
-                isActive: true,
+                idStudent: user.id,
               }
               const response = await AxiosService.get(CourseServiceName.COURSE, params);
               if(response){
                   const { data } = response;
                   setCourse(data.course);
-                  setClasses(data.classes)
+                  setClasses(data.classes);
+                  setSubscribed( data.subscribed);
+                  progressTotal.current = data.progress.toFixed(3);
                 }
             } catch (error) {
               
@@ -79,8 +87,7 @@ export function Course (){
     }
     return (
         <div className="course">
-            <Header setIsOpen={() => {}}>
-            </Header>
+            <Header />
 
             <div className="course-header">
                 <div className="course-img">
@@ -94,15 +101,14 @@ export function Course (){
 
                     <div className="course-profit">
                         <p>Que aprenderas?</p>
-                        <ul className="test" dangerouslySetInnerHTML={{ __html: course?.you_learn ?? '' }} />
+                        <ul className="" dangerouslySetInnerHTML={{ __html: course?.you_learn ?? '' }} />
                     </div>
-
 
                     <div className="course-date">
                         <span className="course-feature-item">
                             <FaRegCalendarAlt/>
                             <span>
-                                {getMotnth(course?.create_ts)}{" "}
+                                {getMotnth(course?.create_ts)}{" - "}
                                 {course?.create_ts.slice(8,10)}
                             </span>
                         </span>
@@ -110,15 +116,25 @@ export function Course (){
                             <BsBarChartLine/>
                             {course?.nivel}
                         </span>
-                        {/* Btn comprar */}
                             
                     </div>
-                    <button className="f-btn course-btn">Proximamente</button>
-                    <p className="course-b-btn">*Prueba la experiencia Edubo</p>
+                    {
+                        subscribed ?
+                        <p className="path-welcome-parrafo mb-2 mt-2">
+                         Bienvenido a tu viaje educativo personalizado!  
+                        </p>
+                        :
+                        <>
+                            <Link to={`/precios/${typePlans.course}/${course?.id}`}>
+                                <button className="f-btn course-btn">Subscribirme</button>
+                            </Link>
+                            <p className="course-b-btn">*Prueba la experiencia {bussinesName}</p>
+                        </>
+                    }
                 </section>
             </div>
 
-            <Classes classes={classes}/>
+            <Classes classes={classes} subscribed={subscribed} progress={progressTotal.current}/>
         
             <article className="course-about">
                 <div className="course-about-content">

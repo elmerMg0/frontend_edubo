@@ -5,15 +5,16 @@ import { Footer } from '../../components/global/footer/Footer'
 import { RegistrerModal } from '../../components/registerModal/RegisterModal'
 import { FcFlowChart, FcGlobe, FcPositiveDynamic } from 'react-icons/fc'
 import { useState } from 'react'
-export function Landing() {
+import { bussinesName } from '../../utilities/constans'
+export default function Landing() {
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleModal = () => {
         setIsOpen(!isOpen);
     }
     return (
-        <>
-            <Header setIsOpen={() => setIsOpen(!isOpen)}>
+        <div className='landing-container'>
+            <Header>
             <div className="header-landing__sign">
                 <button className="f-btn btn--padding btn--l-white" onClick={()=>toggleModal()}>Registrarse</button>
             </div>
@@ -35,7 +36,7 @@ export function Landing() {
 
             <section className='goals'>
                 <div className='goals-container'>
-                <p className='goals-title'>¿Porque funciona edubo ?</p>
+                <p className='goals-title'>¿Porque funciona {bussinesName} ?</p>
                 <div className='goals-card'>
                     <div className='goals-card-icon'>
                         <FcFlowChart size={50}/>
@@ -62,8 +63,10 @@ export function Landing() {
                 </div>
             </section>
 
-            <Carousel/>
-
+            <div className='section-carousel-lg-container'>
+                <Carousel/>
+            </div>
+            <div className='start-now-container'>
             <section className='start-now'>
                 <h2 className='start-now-title'>No postergues más tu educación, ¡tu futuro te está esperando!</h2>
                 <p className='start-now-parrafo'>Dedicados a proporcionar contenido educativo de calidad, preparando a los estudiantes para la universidad.</p>
@@ -72,10 +75,11 @@ export function Landing() {
                     <span className='start-now-parrafo'>*solo necesitas un correo electronico</span>
                 </div>
             </section>
+            </div>
         </div>
             <RegistrerModal isOpen={isOpen} toggleModal={toggleModal}/>
             <Footer/>
-        </>
+        </div>
     )
 
 }

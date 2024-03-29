@@ -8,6 +8,8 @@ import { Course, Road } from "../../models/models";
 import { Link } from "react-router-dom";
 import { PrivateRoutes } from "../../models/routes";
 import Skeleton from "react-loading-skeleton";
+import { typePlans } from "../../utilities/constans";
+import PathCourse from "./PathCourse";
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 
@@ -15,11 +17,12 @@ interface AppState {
   road: Road | null;
   courses: Course[];
 }
-export function Faculty() {
+export default function Faculty() {
   const [road, setRoad] = useState<AppState["road"]>(null);
   const [courses, setCourses] = useState<AppState["courses"]>([]);
   const { path } = useParams();
   const [loading, setLoading] = useState(false);
+  const [isEnrollment, setIsEnrollment] = useState(false);
   useEffect(() => {
     getPaths();
     window.scrollTo(0, 0);
@@ -36,77 +39,90 @@ export function Faculty() {
     if (res) {
       setRoad(res.data.pathInfo);
       setCourses(res.data.courses);
+      setIsEnrollment(res.data.enrollment);
     }
     setLoading(false);
   };
 
   return (
     <div className="home">
-      <Header setIsOpen={() => {}}></Header>
-
-      <section className="home-welcome">
-        <h2 className="home-welcome-title">{road?.nombre || <Skeleton />}</h2>
-        <p className="path-welcome-parrafo">{road?.subtitle || <Skeleton />}</p>
-        {loading ? (
-          <Skeleton
-            height="200px"
-          />
-        ) : (
+      <Header />
+      {loading ? (
+        <div className="p-3 skeleton-header-path">
+          <Skeleton height={40} className="mb-3" />
+          <Skeleton height={20} className="mb-2" />
+          <Skeleton height={150} className="mb-1" />
+        </div>
+      ) : (
+        <section className="home-welcome">
+          <h2 className="home-welcome-title">{road?.nombre}</h2>
+          <p className="path-welcome-parrafo">{road?.subtitle}</p>
           <div className="path-welcome-img">
-            <img src={APIURLIMG + road?.url_image} alt="" />
+            <img
+              style={{ aspectRatio: "16/9" }}
+              src={APIURLIMG + road?.url_image}
+              alt=""
+            />
           </div>
-        )}
-        <p className="path-welcome-parrafo">
-          {road?.descripcion || <Skeleton />}
-        </p>
 
-        <Link style={{width: '250px'}} to={`/${PrivateRoutes.PLANES}/${road?.id}`}>
-        <button className='f-btn btn--get-start mb-2 mt-3' onClick={()=>{}}>Ver plan</button>
-        </Link>
-        
-        <p className="path-welcome-parrafo mb-4">Suscríbete a un plan y accede al curso completo.</p>
-        
-        <h4 className="path-welcome-parrafo">
-          Nuestra oferta académica incluye:
-        </h4>
-      </section>
-
-      <div className="path-courses">
-        <ul>
-          {courses?.length > 0 ? (
-            courses.map((course: Course) => {
-              return (
-                <Link
-                  to={`/${PrivateRoutes.RUTAS}/${path}/${
-                    course.id + "-" + course.slug
-                  }`}
-                  key={course.id}
-                >
-                  <li className="card-course">
-                    <div className="card-course-img">
-                      <img src={`${APIURLIMG}${course?.url_image}`} alt="" />
-                    </div>
-                    <div className="card-course-info">
-                      <h4>{course.name}</h4>
-                      <p>{course.subtitle}</p>
-                    </div>
-                  </li>
-                </Link>
-              );
-            })
+          {isEnrollment ? (
+            <>
+              <p className="path-welcome-parrafo mb-2 mt-2">
+                Tienes un plan activo.
+              </p>
+              <h4 className="path-welcome-parrafo">Cursos incluidos:</h4>
+            </>
           ) : (
             <>
-              {loading ? (
-                <>
-                  <Skeleton height={250} count={4} />
-                </>
-              ) : (
-                <p>No hay cursos disponibles</p>
-              )}
+              <Link
+                style={{ width: "250px", marginTop: "1rem" }}
+                to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}
+              >
+                <button className="f-btn btn--get-start mb-2 mt-1">
+                  Ver plan
+                </button>
+              </Link>
+
+              <p className="path-welcome-parrafo mb-4">
+                Suscríbete a un plan y accede al curso completo.
+              </p>
+
+              <h4 className="path-welcome-parrafo">
+                Nuestra oferta académica incluye:
+              </h4>
             </>
           )}
-        </ul>
-      </div>
+        </section>
+      )}
+
+      {courses?.length > 0 ? (
+        <div className="path-courses">
+          <ul>
+            {courses.map((course: Course) => {
+              return (
+                <PathCourse urlImage={course?.url_image} url={`/${PrivateRoutes.RUTAS}/${path}/${
+                  course.id + "-" + course.slug
+                }`} >
+                  <h4>{course.name}</h4>
+                  <p>{course.subtitle}</p>
+                </PathCourse>
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
+        <>
+          {loading ? (
+            <div className="skeleton-paths" style={{ padding: "1rem" }}>
+              <Skeleton height={250} count={4} className="mb-2" />
+            </div>
+          ) : (
+            <p className="path-welcome-parrafo text-center">
+              Estamos en proceso de preparar de nuevos cursos.
+            </p>
+          )}
+        </>
+      )}
 
       <section className="path-info">
         {road?.carrers && (
@@ -125,8 +141,13 @@ export function Faculty() {
           <h4>Carrera</h4>
           <p>{road?.period}</p>
 
-          <Link to={`/${PrivateRoutes.PLANES}/${road?.id}`}>
-          <button style={{width: '230px'}} className='f-btn btn--get-start mb-2 mt-3' onClick={()=>{}}>Ver plan</button>
+          <Link to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}>
+            <button
+              style={{ width: "230px" }}
+              className="f-btn btn--get-start mb-2 mt-3"
+            >
+              Ver plan
+            </button>
           </Link>
         </div>
       </section>

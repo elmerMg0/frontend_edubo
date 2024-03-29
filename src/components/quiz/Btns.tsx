@@ -1,7 +1,7 @@
 
 interface Props{
   classname1: string,
-  txtBtn2: string,
+  txtBtn2: string | React.ReactNode,
   txtBtn1: string,
   handleSkip: () => void,
   changeView: () => void,
@@ -21,6 +21,7 @@ function Btns({classname1,classname2, txtBtn2, txtBtn1, handleSkip, changeView, 
       <button
         className={`f-btn ${classname2}`}
         onClick={changeView}
+        style={{minWidth: '100px'}}
       >
         {txtBtn2}
       </button>

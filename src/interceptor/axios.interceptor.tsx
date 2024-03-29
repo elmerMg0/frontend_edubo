@@ -1,13 +1,17 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import toast from 'react-hot-toast';
 import { getValidationError } from '../utilities/get-validation-error';
-
+import { deleteCookie, getCookie } from '../utilities/cookies';
+import { decryptString } from '../utilities/utilities';
+const APIKEY = import.meta.env.VITE_REACT_KEY
 export const AxiosInterceptor = () => {
-  //saveInLocalStorage(LocalStorageKeys.TOKEN, '123123123123');
 
   const updateHeader = (request: AxiosRequestConfig) => {
-    //const token = getInLocalStorage(LocalStorageKeys.TOKEN);
-    const token = 'getInLocalStorage(LocalStorageKeys.TOKEN);'
+    if(getCookie('token') === null) return request;
+    const userStringity = decryptString(getCookie('token') ?? '', APIKEY);
+    const infoUSER = JSON.parse(userStringity)
+    const value = infoUSER.accessToken;
+    const token = `Bearer ${value}`
     const newHeaders = {
       Authorization: token,
       'Content-Type': 'application/json'
@@ -23,12 +27,17 @@ export const AxiosInterceptor = () => {
 
   axios.interceptors.response.use(
     (response) => {
-      if(response?.data.message.includes('existosamente')){
+      if(response?.data?.message.includes('existosamente')){
         toast.success(response.data.message);
       }
       return response.data;
     },
     (error) => {
+        if(error.response.status === 401){
+          deleteCookie('token');
+          window.location.replace('/login');
+          return;
+        }
         toast.error(getValidationError(error.code));
       return Promise.reject(error);
     }

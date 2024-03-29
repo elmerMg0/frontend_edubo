@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Header } from "../global/header/Header";
 import { useNavigate, useParams } from "react-router";
 import { AxiosService } from "../../service/api.service";
-import { Class, Course, Question, Response } from "../../models/models";
+import { Answer, Class, Course, Question, Response } from "../../models/models";
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 import "./quiz.css";
 import { Footer } from "../global/footer/Footer";
@@ -21,6 +21,7 @@ interface AppState {
   results: {
     id: number;
     correct: boolean;
+    answer: Answer | null;
   }[];
 }
 export type AnswerState = true | false | null;
@@ -36,6 +37,7 @@ function Quiz() {
   const navigate = useNavigate();
   const resultsRef = useRef<AppState["results"]>([]);
   const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;
+  const [error, setError] = useState('');
 
   useEffect(() => {
     getInfo();
@@ -62,7 +64,14 @@ function Quiz() {
         setClasses(res[0].data.classes);
 
         setClase(res[1].data.classe);
-        setQuestions(res[1].data.questions);
+        const questionsApi = res[1].data.questions;
+        resultsRef.current = questionsApi.map((question: QuestionWithReponses) => {
+          return {
+            id: question.id,
+            answer: null
+          }
+        })
+        setQuestions(questionsApi);
 
         setLoading(false);
       });
@@ -77,13 +86,12 @@ function Quiz() {
   };
 
   const restartQuiz = () => {
+    setError('')
     resultsRef.current = [];
     setView(0);
   }
 
   const nextClass = () => {
-    /* Validar si es la ultima clase y el ultimo quiz */
-    
     const lastValue: Class = classes.reduce((arr: Class, val: Class) => {
       if (val.numero_clase > arr.numero_clase) {
         return val;
@@ -93,6 +101,22 @@ function Quiz() {
 
     if(lastValue.numero_clase > Number(idClass)){
       navigate(`${basePath}${Number(idClass) + 1}/1`)
+    }else{
+      /* Terminado el curso */
+      /* Validar que hay respondido mas del 80% correcto */
+      const asnwerSuccess = resultsRef.current.reduce((acc: number, val: { id: number; correct: boolean }) => {
+        if (val.correct) {
+          return acc + 1
+        }
+        return acc
+      }, 0) 
+    
+      const percent = ((asnwerSuccess / questions.length)*100);
+      if(percent >= 80){
+        navigate(`${basePath}finish`)
+      }else{
+        setError('Debes superar el 80% de respuestas correctas para terminar el curso');
+      }
     }
   
   }
@@ -110,6 +134,7 @@ function Quiz() {
         questions={questions}
         changeView={() => changeView(2)}
         resultsRef={resultsRef}
+        isLoading={loading}
       />
     ),
     2: <QuizFinished 
@@ -117,13 +142,17 @@ function Quiz() {
         resultsRef={resultsRef.current}
         handleRestart={restartQuiz}
         nextClass={nextClass}
-        />,
+        error={error}
+        > 
+        f
+        </QuizFinished>,
   };
 
   return (
-    <>
-      <Header setIsOpen={() => {}}></Header>
+    <div className="quiz-container">
+      <Header/>
       <main className="quiz">
+        <div className="quiz-header-container">
         <div className="quiz-header">
           <img
             className="img-icon"
@@ -136,11 +165,12 @@ function Quiz() {
         <div className="quiz-class mb-1">
           <h4> {clase?.titulo}</h4>
         </div>
+        </div>
 
         {Views[view]}
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

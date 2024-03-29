@@ -7,8 +7,9 @@ import { useParams } from "react-router"
 interface Props {
     clase: ClassWithSubject,
     progress: String[]
+    subscribed: boolean
 }
-export function ClassMainCard({ clase, progress }: Props) {
+export function ClassMainCard({ clase, progress, subscribed }: Props) {
     const [isOpen, setIsOpen] = useState(false)
     const { idClass } = useParams();
 
@@ -25,7 +26,7 @@ export function ClassMainCard({ clase, progress }: Props) {
     }
    
     return (
-        <div className="class-card" key={clase.id}>
+        <div className={`class-card ${Number(idClass) === clase.numero_clase ? 'active' : ''}`} key={clase.id}>
             <button className="f-btn" onClick={toggleSubjects}>
                 <span className="class-card-header">
                     <span className="class-card-title">{clase.numero_clase + ". " + clase.titulo}</span>
@@ -38,7 +39,7 @@ export function ClassMainCard({ clase, progress }: Props) {
                 <span className="class-card-description">{clase.descripcion}</span>
             </button>
 
-            <SubjectList subjects={clase.subjects} isOpen={isOpen} nroClass={clase.numero_clase} progress={progress}/>
+            <SubjectList subjects={clase.subjects} isOpen={isOpen} nroClass={clase.numero_clase} progress={progress} subscribed={subscribed}/>
         </div>
     )
 }

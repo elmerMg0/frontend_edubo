@@ -34,7 +34,8 @@ export interface Course {
     you_learn: string,
     create_ts: string,
     informacion?: string,
-    slug?: string
+    slug?: string,
+    num_quizzes?: number
 }
 
 export interface Class{
@@ -97,4 +98,31 @@ export interface Response{
     description: string,
     url_image: string,
     slug: string
+}
+
+export interface Plan{
+    id: number,
+    nombre: string,
+    active?: boolean,
+    precio_total: number,
+    duracion: string,
+    benefit: string,
+    course_id?: number,
+    ruta_aprendizaje_id?: number
+}
+
+export interface Quiz{
+    id?: number,
+    descripcion: string,
+    url_image?: string,
+    curso_id?: number,
+    ruta_aprendizaje_id?:number,
+}
+
+export interface Answer{
+    id?: number,
+    description: string,
+    slug: string,
+    url_image?: string,
+    pregunta_id?: number
 }

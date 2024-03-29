@@ -1,3 +1,4 @@
+import { Answer } from "../../models/models";
 import Btns from "./Btns";
 import { QuestionWithReponses } from "./Quiz";
 
@@ -5,25 +6,23 @@ interface Props {
   questions: QuestionWithReponses[];
   resultsRef: {
     id: number;
+    answer: Answer | null;
     correct: boolean;
   }[];
   handleRestart: () => void
-  nextClass: () => void
+  nextClass: () => void,
+  error: string,
+  children: React.ReactNode
 }
 
 
 
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
-function QuizFinished({ questions, resultsRef, handleRestart, nextClass }: Props) {
+function QuizFinished({ questions, resultsRef, handleRestart, nextClass, error, children }: Props) {
   return (
-    <div className="mt-3">
+    <div className="mt-3 quiz-finished">
       <h4 className="mb-3">Teminaste!</h4>
-      <ul className="quiz-intro-list">
-        <li>
-          Has llegado al final del cuestionario, ¡buen trabajo! Ahora podrás recibir retroalimentación valiosa sobre tus respuestas y desempeño
-        </li>
-        <li>Siéntete libre de revisar el contenido del curso y abordar cualquier concepto que desees reforzar. ¡Estamos aquí para apoyarte en tu camino de aprendizaje!</li>
-      </ul>
+     {children}
       <ul className="quiz-finished-list">
         {questions?.length > 0 ? (
           questions.map((question) => {
@@ -40,27 +39,33 @@ function QuizFinished({ questions, resultsRef, handleRestart, nextClass }: Props
                   <p className="mb-2">{question.subtitle}</p>
                 )}
 
-                {question?.responses && question?.responses?.map((response) => {
-                      if (
-                        resultsRef.some((result) => result.id === response.id)
-                      ) {
+                {
+                  resultsRef?.length > 0 ? resultsRef.map((result) => {
+                      if(result.id === question.id){
                         return (
-                          <div key={response.id} className={`d-flex gap-2 message ${ resultsRef.find((result) => result.id === response.id)?.correct ? "success": "error"}`}>
-                            <p>{response.slug})</p>
+                          <div key={result.id} className={`d-flex gap-2 message ${ result.correct ? "success": "error"}`}>
+                            {
+                              result.answer? <>
+                              <p>{`${result.answer?.slug})`}</p>
                             <div className="response-card-content">
-                              <p>{response.description}</p>
-                              {response?.url_image &&
-                                response.url_image.length > 0 && (
+                              <p>{result.answer?.description}</p>
+                              {result.answer?.url_image &&
+                                result.answer.url_image.length > 0 && (
                                   <img
-                                    src={`${APIURLIMG + response.url_image}`}
+                                    src={`${APIURLIMG + result.answer.url_image}`}
                                     alt=""
                                   />
                                 )}
                             </div>
+                            </>:
+                            'Tu no has responsido a esta pregunta.'
+                            }
                           </div>
                         );
                       }
-                    })}
+                  })
+                  :""
+                }
               </li>
             );
           })
@@ -69,13 +74,15 @@ function QuizFinished({ questions, resultsRef, handleRestart, nextClass }: Props
         )}
       </ul>
 
+      {error && <p className="error">{error}</p>}
+
       <Btns
         handleSkip={() => handleRestart()}
         changeView={() => nextClass()}
         classname1=""
         classname2=""
         txtBtn1="Repetir"
-        txtBtn2="Siguiente clase"
+        txtBtn2="Continuar"
         juscont="right"
       />
     </div>

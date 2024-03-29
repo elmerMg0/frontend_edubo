@@ -1,0 +1,36 @@
+.course-finished-container{
+    background-color: var(--l-colorMain);
+}
+.course-finished{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 64px);
+    color: var(--colorWhite);
+}
+.course-finished-you_learn{
+    padding: 0px;
+    list-style: none;
+}
+.course-finished-you_learn li{
+    padding-bottom: 0.75rem;
+}
+.course-finished-you_learn li::before{
+    content: "✓";
+    margin-right: 0.5rem;
+    color: var(--colorMain);
+    font-weight: 500;
+    font-size: 1rem;
+}
+.course-finished-content{
+    display: flex;
+    gap: 1rem;
+}
+.course-finished-content div{
+    width: 350px;
+}
+.course-finished-content div img{
+    width: 100%;
+    height: 100%;
+}

@@ -1,10 +1,20 @@
 import axios from "axios"
+import { getCookie } from "../utilities/cookies"
+import { decryptString } from "../utilities/utilities"
 
 const APIURL = import.meta.env.VITE_REACT_APP_API_URL
-const APIURLAUTH = import.meta.env.VITE_APP_API_URL_AUTH
+const APIKEY = import.meta.env.VITE_REACT_KEY;
 
+const token = getCookie('token')
+let accessToken = ''
+if(token){
+    const userInfo = JSON.parse(decryptString(token ?? '', APIKEY))
+    accessToken = userInfo?.accessToken
+}
 
-
+export const setToken = (token: string) => {
+    accessToken = token
+}
 
 export const APISERVICE = {
     get: async (url: string, params: string) => {
@@ -20,6 +30,8 @@ export const APISERVICE = {
             method: "POST",
             headers: {
                 "content-type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${accessToken}`
             },
             body: JSON.stringify(body)
         })
@@ -58,23 +70,6 @@ export const APISERVICE = {
             throw(new Error('New error'));
         }
     },
-    getInfoUser: async  ( params: string ) => {
-        try{
-          const response =  await fetch(`${APIURLAUTH}?access_token=${params}`, {
-            headers: {
-                Authorization: `Bearer ${params}`,
-                Accept: 'application/json'
-            }
-          })
-          if(!response.ok){
-          }
-          const data = await response.json();
-          return data;
-    
-        }catch(error){
-          console.error(error);
-        }
-      }
 }
 
 export const AxiosService = {

@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     position: sticky;
-    background-color: var(--l-colorMain);
     top: 0;
     z-index: 30;
     justify-content: space-between;
@@ -23,6 +22,10 @@
     align-items: center;
     gap: 0.5rem;
     z-index: 20;
+    text-decoration: none;
+}
+.header__img{
+    width: 65px;
 }
 .header__img img{
     width: 100%;
@@ -38,9 +41,6 @@
     gap: 0.4rem;
     padding: 1rem 1rem 1rem 1rem;
 }
-.landing{
-    background-color: var(--l-colorMain);
-}   
 
 .header-sign{
     display: flex;

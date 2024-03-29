@@ -1,15 +1,18 @@
 import { useNavigate } from 'react-router';
 import { deleteCookie } from '../../../utilities/cookies';
 import './navbar.css'
-function Navbar({showNavbar, handleLogin}: {showNavbar: boolean, handleLogin: () => void}) {
+import { Link } from 'react-router-dom';
+function Navbar({showNavbar, closeNav}: {showNavbar: boolean, closeNav: () => void}) {
     const autenticated = document.cookie.length > 0;
     const navigate = useNavigate();
     const handleLogOut = () => {
         deleteCookie('token');
+        closeNav()
         navigate('/')
     }
-
-
+    const handleLogin = () => {
+        navigate('/login')
+    }
     return (
         <nav className={`navigation ${showNavbar ? 'active' : ''}`}>
             <ul>
@@ -17,7 +20,10 @@ function Navbar({showNavbar, handleLogin}: {showNavbar: boolean, handleLogin: ()
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="/rutas">Cursos</a>
+                    <Link to={autenticated ? '/rutas' : '/login'}>Cursos</Link>
+                </li>
+                <li>
+                    <Link to={'/simulacros'}>Simulacros</Link>
                 </li>
                 <li>
                     <a href="/">Contacto</a>
@@ -25,7 +31,7 @@ function Navbar({showNavbar, handleLogin}: {showNavbar: boolean, handleLogin: ()
                 <li>
                     {
                         autenticated ? <button className='f-btn' onClick={handleLogOut}>Logout</button> : 
-                        <button className='f-btn' onClick={handleLogin}>Login</button>
+                        <button className='f-btn' onClick={() => handleLogin()}>Login</button>
                     }
                 </li>
             </ul>
