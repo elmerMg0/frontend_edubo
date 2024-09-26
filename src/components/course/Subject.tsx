@@ -10,7 +10,7 @@ interface Props {
   nroClase: number | undefined;
   subscribed: boolean;
 }
-export function Subject({ subjects, isOpen, nroClase, subscribed }: Props) {
+export default function SubjectComponent({ subjects, isOpen, nroClase, subscribed }: Props) {
   const { path, idCourse } = useParams();
   const navigate = useNavigate();
   const basePath = `/${PrivateRoutes.RUTAS}/${path}/${idCourse}/`;

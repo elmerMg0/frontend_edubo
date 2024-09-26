@@ -42,12 +42,7 @@
     line-height: 2rem;
     margin-bottom: 3rem;
 }
-.btn--get-start{
-    background-color: var(--colorWhite);
-    width: 100%;
-    padding: 0.4rem 0px;
-    font-size: 1.2rem;
-}
+
 /* Goals */
 .goals{
     background-color: var(--colorWhite);
@@ -85,7 +80,7 @@
     padding: 3rem 1rem;
 }
 .section-carousel-title{
-    font-size: 1.75rem;
+    font-size: 1.3rem;
     line-height: 2.25rem;
 }
 .section-carousel-parrafo{
@@ -115,7 +110,7 @@
     justify-content: space-between;
     padding: 1.2rem;
     border-radius: 1rem;
-    background-color: var(--l-colorGreenThird);
+    background-color: var(--colorGrisSoft);
     width: 240px;
     color: var(--colorBlack);
 }
@@ -154,13 +149,13 @@
 
 /* Start now */
 .start-now-container{
-    background: rgb(0,76,132);
+    /* background: rgb(0,76,132);
     background: linear-gradient(137deg, rgba(0,76,132,1) 0%, rgba(19,22,28,1) 44%);background: rgb(0,76,132);
-    background: linear-gradient(137deg, rgba(0,76,132,1) 0%, rgba(19,22,28,1) 44%);
+    background: linear-gradient(137deg, rgba(0,76,132,1) 0%, rgba(19,22,28,1) 44%); */
+    background-color: var(--colorWhite);
 }
 .start-now{
     /* background-color: var(--colorBlack); */
-    color: var(--colorWhite);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -168,15 +163,23 @@
     gap: 1rem;
 }
 .start-now-title{
+    color: var(--l-colorGreenSecundary);
     font-size: 1.375rem;
     line-height: 1.4;
     font-weight: 700;
 }
 .start-now-parrafo{
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     line-height: 1.8;
     margin-bottom: 1rem;
-    color: var(--colorGris);
+}
+
+.btn--get-start-wt{
+    background-color: var(--l-colorHome);
+    width: 100%;
+    padding: 0.4rem 0px;
+    font-size: 1.2rem;
+    color: var(--colorWhite);
 }
 @media(min-width: 1028px){
     .hero-content{

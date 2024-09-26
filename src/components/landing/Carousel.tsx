@@ -30,8 +30,8 @@ export function Carousel() {
     <section className="section-carousel">
       <h2 className="section-carousel-title">Potencia lo que ya sabes</h2>
       <p className="section-carousel-parrafo">
-        Elige una ruta de aprendizaje y sigue un orden de cursos sobre temas o
-        áreas específicas, de forma ágil y guiada.
+        Preparate paraingresar a la facultad de tus sueños, explora nuestras
+        rutas de aprendizaje diseñadas para cada área.
       </p>
 
       {!loading ? (

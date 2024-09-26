@@ -1,72 +1,38 @@
-import { ErrorMessage, Field } from 'formik';
-import { useState } from 'react';
-import { BsSearch } from 'react-icons/bs';
 
-interface inputFormProps{
-    type : string;
-    name : string;
-    label: string;    
-    placeHolder? : string;
-    selectOptions? : [ key: string, value : string ][];
+interface Props {
+    label: string;
+    name: string;
+    type?: "text" | "email" | "password" | "select" | "checkbox";
+    options?: { label: string, value: string }[];
+    register: any;
+    errors: any;
+    className?: string;
+    validations?: any;
+    [key: string]: any;
+    
 }
-
-function defineInputType(type : string, name : string, placeHolder = '', options? : [ string, string][]){
-    const [searchFocused, setsearchFocused] = useState(false)
-    let field : JSX.Element;
-    field = <div/>
-    switch (type) {
-        case "text":
-            field = <Field className='input border-input' name={name} placeholder={placeHolder}/>
-        break;
-        case "number":
-            field = <Field type="number" className='input  border-input' name={name} placeholder={placeHolder}/>
-        break;
-        case "date":
-            field = <Field type='date' className='input border-input' name={name} placeholder={placeHolder}/>
-        break;
-        case "password":
-            field = <Field type='password' className='input border-input' name={name} placeholder={placeHolder}/>
-        break;
-        case "file":
-            field = <Field type="file" className='input border-input' name={name} placeHolder={placeHolder} />
-        break;
-        case "select":
-            field = <>
-                        <Field as='select' list="country-list" className='select border-input' name={name} placeholder={placeHolder}>                           
-                            {                                                           
-                                options?.map(function(option){
-                                    return (
-                                        <option key={option[0]} value={option[0]}>
-                                            {option[1]}
-                                        </option>);
-                                })
-                            }
-                        </Field>                            
-                    </>
-            
-        break;
-        case "search":
-            field = <div className='flexbox-horizontal'>
-                        <Field className='f-field f-field-search border-input' name={name} placeholder={placeHolder} onFocus={()=>setsearchFocused(true)} onBlur={()=>setsearchFocused(false)}/>
-                        <button type='submit' className={`search-btn ${searchFocused ? 'search-btn-focus' : ''}`}>
-                            <BsSearch/>
-                        </button>
-                    </div>
-        break;  
-        default:
-            field = <></>
-            break;
-    }
-    return field;
-}
-const FormField = (props : inputFormProps) => {
+export const FormField = ({ label, name, type = "text", options = [], register, errors, className, validations,...rest}: Props) => {
+    const inputClassName = `${className} ${errors[name] ? "input-error" : ""}`;
     return (
-        <div className='flexbox-vertical'>
-            {props.label? <label className='f-label'>{props.label}</label> : <></>}            
-            {defineInputType(props.type, props.name, props.placeHolder, props.selectOptions)}
-            <ErrorMessage name={props.name} component="div" className='f-error' />
-        </div>
-        )
-}
-
-export default FormField
+      <div className="form-group">
+        <label htmlFor={name}>{label}</label>
+        {type === "select" ? (
+          <select className={`select ${inputClassName}`} {...register(name, validations)} {...rest}>
+            <option value="">Seleccionar</option>
+            {options.map((option, index ) => (
+              <option key={index} value={option.value}>{option.label}</option>
+            ))}
+          </select>
+        ) : (
+          <input
+            type={type}
+            className={`input ${inputClassName}`}
+            placeholder={type !== "checkbox" ? label : undefined}
+            {...register(name, validations)}
+            {...rest}
+          />
+        )}
+        {errors[name] && <p className="f-error">{errors[name]?.message}</p>}
+      </div>
+    );
+  };

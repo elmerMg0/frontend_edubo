@@ -24,7 +24,6 @@ function CommentInput({ commentId, setIsOpen, send, classname}: Props) {
         className={`input_comment`}
         contentEditable="true"
         onInput={(e) => setCommentText(e.currentTarget.innerText)}
-        placeholder="Escribe un comentario"
         ref={inputRef}
       ></div>
 

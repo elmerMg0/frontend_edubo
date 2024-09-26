@@ -17,7 +17,7 @@ export function Paths({roads}: Props){
     }
 
     return (
-        <div className="roads-ld">
+        <div className="roads-ld" id="paths">
             {roads?.map((road: RoadWithCourses) => (
                 <article className="road-card" key={road.id}>
                     <div className="road-card-info">

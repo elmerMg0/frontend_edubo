@@ -44,6 +44,43 @@ export default function Faculty() {
     setLoading(false);
   };
 
+
+  const styles = {
+    backgroundImage: `url(${APIURLIMG}${road?.url_image})`,
+  }
+
+  const IsEnrollment = () => {
+    return (
+      <>
+      {isEnrollment ? (
+        <>
+          <p className="path-welcome-parrafo mb-2 mt-2">
+            Tienes un plan activo.
+          </p>
+        </>
+      ) : (
+        <>
+          <Link
+            style={{ maxWidth: "250px"}}
+            to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}
+          >
+            <button className="f-btn btn-plan">
+              Ver plan
+            </button>
+          </Link>
+
+   {/*        <p className="path-welcome-parrafo mb-4">
+            Suscríbete a un plan y accede al curso completo.
+          </p>
+
+          <h4 className="path-welcome-parrafo">
+            Nuestra oferta académica incluye:
+          </h4> */} 
+        </>
+      )}
+      </>
+    )
+  }
   return (
     <div className="home">
       <Header />
@@ -54,55 +91,30 @@ export default function Faculty() {
           <Skeleton height={150} className="mb-1" />
         </div>
       ) : (
-        <section className="home-welcome">
-          <h2 className="home-welcome-title">{road?.nombre}</h2>
-          <p className="path-welcome-parrafo">{road?.subtitle}</p>
-          <div className="path-welcome-img">
-            <img
-              style={{ aspectRatio: "16/9" }}
-              src={APIURLIMG + road?.url_image}
-              alt=""
-            />
+        <section className="home-welcome" style={styles}>
+          <div className="home-welcome-bg">
+           <div className="home-welcome-content">
+            <h2 className="home-welcome-title">{road?.nombre}</h2>
+            <p className="path-welcome-parrafo">{road?.subtitle}</p>
+            <IsEnrollment />
+           </div>
           </div>
-
-          {isEnrollment ? (
-            <>
-              <p className="path-welcome-parrafo mb-2 mt-2">
-                Tienes un plan activo.
-              </p>
-              <h4 className="path-welcome-parrafo">Cursos incluidos:</h4>
-            </>
-          ) : (
-            <>
-              <Link
-                style={{ width: "250px", marginTop: "1rem" }}
-                to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}
-              >
-                <button className="f-btn btn--get-start mb-2 mt-1">
-                  Ver plan
-                </button>
-              </Link>
-
-              <p className="path-welcome-parrafo mb-4">
-                Suscríbete a un plan y accede al curso completo.
-              </p>
-
-              <h4 className="path-welcome-parrafo">
-                Nuestra oferta académica incluye:
-              </h4>
-            </>
-          )}
         </section>
       )}
+
+      <h4 className="text-our-offer content-width">Nuestra oferta académica incluye</h4>
 
       {courses?.length > 0 ? (
         <div className="path-courses">
           <ul>
             {courses.map((course: Course) => {
               return (
-                <PathCourse urlImage={course?.url_image} url={`/${PrivateRoutes.RUTAS}/${path}/${
-                  course.id + "-" + course.slug
-                }`} >
+                <PathCourse
+                  urlImage={course?.url_image}
+                  url={`/${PrivateRoutes.RUTAS}/${path}/${
+                    course.id + "-" + course.slug
+                  }`}
+                >
                   <h4>{course.name}</h4>
                   <p>{course.subtitle}</p>
                 </PathCourse>
@@ -124,7 +136,7 @@ export default function Faculty() {
         </>
       )}
 
-      <section className="path-info">
+      <section className="path-info content-width mt-3">
         {road?.carrers && (
           <div>
             <h4>Carreras: </h4>
