@@ -10,7 +10,7 @@ export const colors = {
     COLOR_GRIS: ' #B8B6B5'
 }
 
-export const bussinesName = 'Esniu'
+export const bussinesName = 'Esniun'
 
 export const typePlans = {
     road: 'road',

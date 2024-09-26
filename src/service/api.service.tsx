@@ -69,6 +69,8 @@ export const APISERVICE = {
         if(!response.ok){
             throw(new Error('New error'));
         }
+        const data = await response.json();
+        return data;
     },
 }
 

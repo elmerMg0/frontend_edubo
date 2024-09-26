@@ -10,6 +10,7 @@ import Simulation from './components/simulation/Simulation';
 import SimulationCourses from './components/simulation/SimulationCourses';
 import SimulationQuestions from './components/simulation/SimulationQuestions';
 import Quizzes from './components/simulation/Quizzes';
+
 const APIURLAUTH = import.meta.env.VITE_REACT_AUTH;
 const Landing  = lazy(() => import('./pages/landing/Landing'))
 const Course = lazy(() => import('./components/course/Course'))
@@ -20,7 +21,8 @@ const Pricing = lazy(() => import('./components/enroll/Pricing'))
 const Login = lazy(() => import('./pages/login/Login'))
 const Payment = lazy(() => import('./components/payment/Payment'))
 const CourseFInished = lazy(() => import('./components/courseFinished/CourseFInished'))
-
+const User = lazy(() => import('./components/user/UserInfo'))
+const PageNotFound = lazy(() => import('./pages/pageNotFound/PageNotFound'))
 function App() {
 
   return (
@@ -42,6 +44,8 @@ function App() {
           <Route path={`${PrivateRoutes.SIMULATION}/:path`} element={<SimulationCourses />} />
           <Route path={`${PrivateRoutes.SIMULATION}/:path/:id`} element={<Quizzes />} />
           <Route path={`${PrivateRoutes.SIMULATION}/:path/:id/:idQuiz`} element={<SimulationQuestions />} />
+          <Route path={`/:username`} element={<User />} />
+          <Route path='/*' element={<PageNotFound/>}/>
         </Routes>
       </BrowserRouter>
       </Suspense>

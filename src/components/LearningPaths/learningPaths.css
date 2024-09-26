@@ -2,20 +2,19 @@
     background-color: var(--l-colorMain);
 }
 .home-welcome-ld{
-    padding: 1rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    padding: 1rem;
 }
 .home-welcome-title{
     color: var(--colorWhite);
-    text-align: center;
     margin-bottom: 1rem;
 }
 .home-welcome-parrafo{
     color: var(--colorGris);
-    text-align: center;
-    font-size: 0.85rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
-}
-.home-welcome-img{
 }
 .home-welcome-img img{
     width: 100%;
@@ -31,7 +30,7 @@
 }
 .road-card{
     border: solid #666c68;
-    border-color: #23482a;
+    border-color: var(--l-colorGrisSoft);
     border-radius: .5rem;
     padding: 1rem 1rem 1rem 1rem;
     border-width: 1px 1px 2px;
@@ -213,16 +212,20 @@
     border-radius: 50%;
 }
 
-@media(min-width: 768px){
-    .home-welcome-ld, .skeleton-lp{
-        max-width: 800px;
-        margin: 0 auto;
+.home-welcome-ld, .roads-ld, .recent-classes{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+@media(max-width: 768px){
+    .home-welcome-ld{
+        grid-template-columns: repeat(1, 1fr);
+        text-align: center;
+    }   
+    .btn-watch-fac{
+        width: 100%;
+        margin-bottom: 1.5rem;
     }
-
-    .roads-ld, .recent-classes{
-        max-width: 800px;
-        margin: 0 auto;
+    .home-welcome-parrafo{
+        margin-bottom: .5rem;
     }
-
-
 }

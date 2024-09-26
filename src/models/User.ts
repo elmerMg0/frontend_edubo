@@ -5,5 +5,9 @@ export interface User {
     puntos: number,
     role: string,
     subscribed: boolean,
-    image?: string
+    image?: string,
+    username: string,
+    accessToken: string,
+    email: string,
+    telefono: string
 }

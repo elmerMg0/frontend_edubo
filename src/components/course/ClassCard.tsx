@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Subject } from "./Subject"
+import Subject  from "./Subject"
 import { ClassWithSubject } from "./Course"
 import { BsChevronDown, BsChevronUp } from "react-icons/bs"
 

@@ -1,6 +1,5 @@
 import "./registerModal.css";
 import { FcGoogle } from "react-icons/fc";
-import { BsFacebook } from "react-icons/bs";
 import { useGoogleLogin } from "@react-oauth/google";
 import { APISERVICE, setToken } from "../../service/api.service";
 import { useNavigate } from "react-router";
@@ -12,6 +11,7 @@ import FormLogin from "./FormLogin";
 import FormSignUp from "./FormSignUp";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../redux/states/user.state";
+import toast from "react-hot-toast";
 
 const APIKEY = import.meta.env.VITE_REACT_KEY;
 
@@ -32,6 +32,7 @@ export function RegistrerModal({ isOpen, toggleModal }: Props) {
 
   const logIn = async (access_token: string) => {
     const url = "usuario/login";
+    const idToast = toast.loading("Iniciando sesión");
     const response = await APISERVICE.post({ access_token, type: 'student' }, url, "");
     if (response.success) {
       const infoUser = {
@@ -41,11 +42,14 @@ export function RegistrerModal({ isOpen, toggleModal }: Props) {
         image: response.data.image,
         name: response.data.name
       }
+      toast.success("Login exitoso", { id: idToast });
       const tokenEncrypt = encryptString(JSON.stringify(infoUser), APIKEY);
       setCookie("token", tokenEncrypt, 2);
       setToken(response.data.accessToken)
       navigate(`/${PrivateRoutes.RUTAS}`);
       dispatch(updateUser(response.data))
+    }else{
+      toast.error("Error al iniciar sesión", { id: idToast });
     }
   };
 
@@ -84,10 +88,10 @@ export function RegistrerModal({ isOpen, toggleModal }: Props) {
             </button>
       
        
-            <button className="f-btn w-100" style={{display: 'none'}}>
+          {/*   <button className="f-btn w-100" >
              <BsFacebook />
               Facebook
-            </button>
+            </button> */}
             
           </div>
 

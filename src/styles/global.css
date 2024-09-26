@@ -35,6 +35,7 @@
     --colorBlack: #08090B;
     --colorRed: #DA4E3B;
     --colorGris: #B8B6B5;
+    --colorGrisSoft: #dcdcdc;
     --colorGrisHard: #696969;
     --colorBlue: #3c8dbb;
     --colorWhite: #eff3f8;
@@ -256,7 +257,8 @@ input:focus {
 
 
 .path-courses{
-  padding: 0.5rem 1rem 3rem 1rem;
+  width: 90%;
+  margin: 0 auto;
 }
 .path-courses ul a {
   text-decoration: none;
@@ -302,7 +304,8 @@ input:focus {
 
 @media(min-width: 768px){
   .path-courses{
-    max-width: 1200px;
+    width: 90%;
+    max-width: 1000px;
     margin: 0 auto;
   }
   .path-courses ul{
@@ -548,4 +551,10 @@ input:focus {
   font-weight: 500;
   font-size: 1rem;
   margin: 0;
+}
+.btn--get-start{
+  background-color: var(--colorWhite);
+  width: 100%;
+  padding: 0.4rem 0px;
+  font-size: 1.2rem;
 }
