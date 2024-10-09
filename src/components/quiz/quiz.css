@@ -1,39 +1,32 @@
 
-
-
 .quiz-class{
     display: flex;
     justify-content: space-between;
 }
 
-
-
 .quiz-content-img{
     width: 100%;
     margin-bottom: 1rem;
+    aspect-ratio: 16/9;
 }
 .quiz-content-img img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .message span{
     font-size: 0.875rem;
 }
-/* Quiz into */
-.quiz-intro p{
-    margin: 1rem 0rem;
+.quiz-intro{
+    display: grid;
+    gap: 1rem;
 }
-
-
-
-
 @media(min-width: 1028px){
     .quiz-intro{
         max-width: 1200px;
         margin: 0 auto;
         place-items: center;
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
     .quiz-header-container{

@@ -10,19 +10,17 @@
 .register-modal{
     position: fixed;
     bottom: 0;
-    color: var(--colorWhite);
+    color: var(--text-color);
     width: 100%;
     border-top-right-radius: 1.5rem;
     border-top-left-radius: 1.5rem;
     z-index: 30;
 }
-.register-modal-top{
-    background-color: var(--l-colorGris);
+.register-modal-main{
+    background-color: var(--gray-darker);
     padding: 2rem 1rem 0.2rem 1rem;
 }
-.register-modal-title{
-    font-weight: 700;
-}
+
 .register-modal-social{
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -34,44 +32,39 @@
     align-items: center;
     justify-content: center;
     gap: 0.3rem;
-    background-color: var(--l-colorGrisSoft);
+    background-color: #2c323c;
     padding: 0.5rem 1.5rem;
-    color: var(--colorWhite);
+    color: var(--text-color);
 }
 .register-modal-form{
     display: flex;
     flex-direction: column;
+    gap: 0.6rem;
 }
 .register-modal-form label{
-    color: var(--colorWhite);
+    color: var(--text-color);
     font-size: 0.91rem;
     margin-bottom: 0.3rem;
     margin-top: 0.3rem;
 }   
 .register-modal-form input{
-    background-color: var(--l-colorGrisSoft);
+    background-color: #2c323c;
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    color: var(--colorWhite);
-}
-
-.register-modal-form button{
-    background-color: var(--colorWhite);
-    padding: 0.4rem ;
-    margin: 1.5rem 0px 1rem 0px;
+    color: var(--text-color);
 }
 .register-modal-signup{
     text-align: center;
-    background-color: var(--l-colorMain);
+    background-color: var(--background-color);
     padding: 1rem 0px 0.5rem 0px;
 }
 .register-modal-parrafo{
     font-size: 0.9rem;
-    color: var(--l-colorGrisSoft2);
+    color: var(--gray-medium);
+    margin: 0.5rem;
 }  
 .register-modal-parrafo span{
-    color: var(--colorWhite);
+    color: var(--text-color);
     text-decoration: solid underline;
 }
 .modal-backdrop2{
@@ -81,6 +74,18 @@
     z-index: 10;
     top: 0;
     position: fixed;
+}
+
+.btn-login{
+    margin: 1rem 0;
+}
+.register-modal-form-fields{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+.terms-text{
+    font-size: 14px;
 }
 
 @media(min-width: 768px){

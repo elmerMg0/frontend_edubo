@@ -7,9 +7,9 @@ interface Props {
 }
 export function Classes({ classes, subscribed, progress }: Props) {
   return (
-    <section className="course-classes">
+    <section className="course-classes container-content">
       <div className="course-classes-content">
-        <h2 className="course-classes-title">Temario del curso</h2>
+        <h4 className="course-classes-title">Temario del curso</h4>
         <div className="d-flex align-items-center gap-3">
           <progress
             className="progressBar progressBar-course"

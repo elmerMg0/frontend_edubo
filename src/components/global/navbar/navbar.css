@@ -1,6 +1,6 @@
 .navigation{
     position: fixed;
-    background-color:var(--l-colorMain);
+    background-color:var(--gray-darker);
     transition: 0.3s;
     visibility: hidden;
     height: 0;

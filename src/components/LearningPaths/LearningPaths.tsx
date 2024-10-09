@@ -45,25 +45,26 @@ export function LearningPaths() {
   return (
     <div className="home">
       <Header />
-      <section className="home-welcome-ld">
+      <section className="home-welcome-ld container-content">
         <div>
           <h2 className="home-welcome-title">
             Explora Nuestras Facultades y Cursos Disponibles
           </h2>
-          <p className="home-welcome-parrafo">
+          <p>
             Explora tu camino hacia el éxito académico con rutas de aprendizaje
             personalizadas. Prepárate para ingresar a la universidad,
             <span>¡Inicia tu viaje educativo hoy mismo!</span>
           </p>
 
-          <button className="f-btn btn--l-white px-3 py-2 btn-watch-fac" onClick={handleScrollSmooth}>
+          <button className="btn btn--primary" onClick={handleScrollSmooth}>
             Ver facultades
           </button>
         </div>
-        <div className="home-welcome-img" style={{ aspectRatio: "16/9" }}>
+        <div className="home-welcome-img">
           <img src={img} alt="" />
         </div>
       </section>
+
       <RecentClass />
 
       {loading ? (

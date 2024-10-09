@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { Toaster } from 'react-hot-toast';
 import { SkeletonTheme } from 'react-loading-skeleton';
+import './styles/global.css'
+import './styles/btns.css'
 
 AxiosInterceptor();
 

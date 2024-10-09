@@ -149,7 +149,7 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions, isLoadi
                                   : "pointer",
                               }}
                             >
-                              <p style={{ backgroundColor:  answerSelect?.id === response.id  ? "#3f7f35" : ""}}>{response.slug}</p>
+                              <p style={{ backgroundColor:  answerSelect?.id === response.id  ? "#02487d" : ""}}>{response.slug}</p>
                               <div className="response-card-content">
                                 <p>{response.description}</p>
                                 {response?.url_image &&

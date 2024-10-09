@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import {
   Comment,
   Course,
+  FileI,
   Professsor,
   Resource,
   Subject,
@@ -26,7 +27,10 @@ import { AppStore } from "../../redux/store";
 import Suscribe from "./Suscribe";
 import { updateSettings } from "../../redux/states/settings.state";
 import { useDispatch } from "react-redux";
-import { BiSolidSkipNextCircle, BiSolidSkipPreviousCircle } from "react-icons/bi";
+import {
+  BiSolidSkipNextCircle,
+  BiSolidSkipPreviousCircle,
+} from "react-icons/bi";
 const APIURLIMG = import.meta.env.VITE_REACT_APP_API_URL_IMG;
 export interface CommentsFull extends Comment {
   name: string;
@@ -42,6 +46,7 @@ interface AppState {
   professor: Professsor | null;
   resources: Resource[];
   contribution: CommentsFull[];
+  files: FileI[];
 }
 export enum TypeBtns {
   SYLLABUS = "syllabus",
@@ -72,16 +77,28 @@ export default function SubjectComponent() {
   const viewRef = useRef(0);
   const likesRef = useRef(0);
   const professorRef = useRef<AppState["professor"]>(null);
-  const [subscribed, setSubscribed] = useState(false); 
+  const [subscribed, setSubscribed] = useState(false);
+  const files = useRef<AppState["files"]>([]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store: AppStore) => store.user);
-  const settings = useSelector((store: AppStore) => store.settings);  
+  const settings = useSelector((store: AppStore) => store.settings);
 
   const views: TypesBtns = {
-    resource: <ResourceComponent resources={resourceRef.current} />,
-    syllabus: <ClassesMain classes={classes} progress={progress} suscribed={subscribed}/>,
+    resource: (
+      <ResourceComponent
+        resources={resourceRef.current}
+        files={files.current}
+      />
+    ),
+    syllabus: (
+      <ClassesMain
+        classes={classes}
+        progress={progress}
+        suscribed={subscribed}
+      />
+    ),
     contribution: <Contribution btnSelected={btnSelected} />,
   };
 
@@ -131,12 +148,14 @@ export default function SubjectComponent() {
         setClasses(res[0].data.classes);
         professorRef.current = res[0].data.professor;
         setSubscribed(res[0].data.subscribed);
-        
+
         setInfoSubject(res[1].data.subject);
         viewRef.current = res[1].data.views;
         likesRef.current = res[1].data.likes;
+        files.current = res[1].data.files;
         resourceRef.current = res[1].data.resources;
-        if(res[1].data.subject?.video_url !== null) updateProgres(res[1].data.subject.id);
+        if (res[1].data.subject?.video_url !== null)
+          updateProgres(res[1].data.subject.id);
 
         setProgress(res[2].data.progress);
         setIsLiked(res[2].data.isLiked);
@@ -259,7 +278,7 @@ export default function SubjectComponent() {
             <Skeleton height={"30px"} />
           </div>
           <Skeleton height={200} />
-         {/*  <Skeleton height={200} /> */}
+          {/*  <Skeleton height={200} /> */}
         </div>
       </section>
     );
@@ -271,28 +290,26 @@ export default function SubjectComponent() {
   };
   return (
     <div className="subject-container">
-      <Header/>
+      <Header />
       <div className="subject">
         <section className="xlp1">
-          {
-            infoSubject?.video_url ? 
+          {infoSubject?.video_url ? (
             <div className="player-wrapper">
-            <ReactPlayer
-              className="react-player"
-              url={infoSubject?.video_url}
-              width="100%"
-              height="100%"
-              playing={settings.repAutomatic}
-              onEnded={handleNext}
-              controls={true}
-            />
-          </div>
-            :
-            <div className="player-wrapper">
-               <Suscribe/>
+              <ReactPlayer
+                className="react-player"
+                url={infoSubject?.video_url}
+                width="100%"
+                height="100%"
+                playing={settings.repAutomatic}
+                onEnded={handleNext}
+                controls={true}
+              />
             </div>
-          }
-      
+          ) : (
+            <div className="player-wrapper">
+              <Suscribe />
+            </div>
+          )}
 
           <div className="controls-player">
             <button className="f-btn" onClick={handleLike}>
@@ -301,23 +318,29 @@ export default function SubjectComponent() {
             </button>
             <button className="f-btn">
               <div className="wrap-toggle">
-                <input type="checkbox" id='toggle' className="offscreen" onChange={handleToggle} checked={settings.repAutomatic}/>
+                <input
+                  type="checkbox"
+                  id="toggle"
+                  className="offscreen"
+                  onChange={handleToggle}
+                  checked={settings.repAutomatic}
+                />
                 <label htmlFor="toggle" className="switch"></label>
               </div>
               <span>Rep. Automatica</span>
             </button>
             <button className="f-btn" onClick={handlePrevius}>
-            <BiSolidSkipPreviousCircle size={19} />
+              <BiSolidSkipPreviousCircle size={19} />
               <span>Anterior</span>
             </button>
             <button className="f-btn" onClick={handleNext}>
-            <BiSolidSkipNextCircle size={19} />
+              <BiSolidSkipNextCircle size={19} />
               Siguiente
             </button>
           </div>
 
           <div className="subject-info">
-            <h2>{infoSubject?.title}</h2>
+            <h5>{infoSubject?.title}</h5>
             <div className="subject-info-sub">
               <BsEye style={{ width: "0.8rem", height: "0.8rem" }} />
               <p>{viewRef.current} Vistas</p>
@@ -330,20 +353,15 @@ export default function SubjectComponent() {
             </div>
             <div className="subject-info-teacher">
               <div className="subject-info-teacher-content">
-               {
-                professorRef.current?.url_image ?
-                <img
-                className=""
-                src={`${APIURLIMG + professorRef.current?.url_image}` }
-                alt=""
-                />
-                :
-                <img
-                className=""
-                src={`https://picsum.photos/200` }
-                alt=""
-              />
-               }
+                {professorRef.current?.url_image ? (
+                  <img
+                    className=""
+                    src={`${APIURLIMG + professorRef.current?.url_image}`}
+                    alt=""
+                  />
+                ) : (
+                  <img className="" src={`https://picsum.photos/200`} alt="" />
+                )}
                 <p className="my-0 mr-2">
                   {professorRef.current?.firstname}{" "}
                   {professorRef.current?.lastname}
@@ -353,8 +371,6 @@ export default function SubjectComponent() {
             </div>
           </div>
 
-
-        <div className="xlp2">
           <div className="subject-btns-line">
             <button
               className={` ${btnSelected === TypeBtns.RESOURCE ? "flag" : ""} `}
@@ -379,20 +395,16 @@ export default function SubjectComponent() {
             </button>
           </div>
           {CurrentView}
-        </div>
-
         </section>
 
-
-
-        <div style={{ display: width > 1028 ? "block" : "none"}} className={`${width > 1028 ? "siderbar-comments" : "none" }`}>
+        <div
+          style={{ display: width > 1028 ? "block" : "none" }}
+          className={`${width > 1028 ? "siderbar-comments" : "none"}`}
+        >
           <Contribution btnSelected={btnSelected} />
         </div>
-
       </div>
-      {
-        width < 1028 ? <Footer /> : null
-      }
+      {width < 1028 ? <Footer /> : null}
     </div>
   );
 }

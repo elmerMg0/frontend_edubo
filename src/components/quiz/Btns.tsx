@@ -13,13 +13,13 @@ function Btns({classname1,classname2, txtBtn2, txtBtn1, handleSkip, changeView, 
    
     <section className="quiz-footer" style={{justifyContent: `${juscont}`}}>
       <button
-        className={`f-btn ${classname1}`}
+        className={`btn ${classname1}`}
         onClick={handleSkip}
       >
         {txtBtn1}
       </button>
       <button
-        className={`f-btn ${classname2}`}
+        className={`btn ${classname2}`}
         onClick={changeView}
         style={{minWidth: '100px'}}
       >

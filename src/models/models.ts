@@ -126,3 +126,14 @@ export interface Answer{
     url_image?: string,
     pregunta_id?: number
 }
+
+export interface FileI{
+    id?: number,
+    name: string,
+    active: boolean,
+    file_url: string,
+    size: string,
+    subject_id: number,
+    type?: string,
+    extension: string
+}

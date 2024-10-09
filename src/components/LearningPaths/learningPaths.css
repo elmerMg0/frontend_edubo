@@ -1,3 +1,4 @@
+/* Learning paths */
 .home{
     background-color: var(--l-colorMain);
 }
@@ -5,45 +6,52 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
-    padding: 1rem;
+    gap: 1rem;
+    padding: 3rem 0;
 }
 .home-welcome-title{
-    color: var(--colorWhite);
-    margin-bottom: 1rem;
+    font-weight: 600;
 }
 .home-welcome-parrafo{
     color: var(--colorGris);
     font-size: 1rem;
     margin-bottom: 2rem;
 }
+.home-welcome-img{
+    aspect-ratio: 16/9;
+}
 .home-welcome-img img{
     width: 100%;
     height: 100%;
+    border-radius: 0.5rem;
 }
-/* Road Card */
 
+/* Road Card */
 .roads-ld{
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 0rem 1rem 1rem 1rem;
 }
 .road-card{
-    border: solid #666c68;
-    border-color: var(--l-colorGrisSoft);
+    background-color: var(--gray-darker);
     border-radius: .5rem;
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem;
     border-width: 1px 1px 2px;
 }
 .road-card-info{
     margin: 0rem 0px 1rem 0px;
+    background-color: var(--accent-color);
+    padding: 0.25rem 0.75rem;
+    display: inline-block;
+    font-weight: 700;
+    border-radius: 3px;
 }
 .road-card-info span{
     color: var(--colorWhite);
     font-size: 0.75rem;
     background-color: var(--l-colorGrisSoft);
     padding: 0.25rem;
-    border-radius: 0.3rem;
+    border-radius: 0.4rem;
 }
 .road-card-title{
     color: var(--colorWhite);
@@ -56,7 +64,7 @@
 .road-card-courses{
     display: flex;
     flex-direction: column;
-    color: var(--colorGris);
+    color: var(--gray-light);
     width: 100%;
     gap: 0.5rem;
     overflow: hidden;
@@ -81,7 +89,6 @@
 .course-card p {
     margin: 0;
     white-space: nowrap;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .user-menu{
@@ -109,51 +116,32 @@
     margin: 0;
 }
 /* Carousel */
-
-
-/* Carousel */
 .carousel-lp-container{
     width: 100%;
     height: auto; /* Altura del contenedor */
     overflow-x: scroll; /*ar el retorno de línea */
-    color: var(--colorWhite);
     scrollbar-width: none;
 }
 .carousel-lp{
     display: flex;
     gap: 1rem;
-    padding: 0px;
     list-style: none;
+    margin-bottom: 2rem;
 }
-.carousel-lp a {
-    text-decoration: none;
-}
+
 .carousel-lp-container::-webkit-scrollbar {
     display: none;
 }
+
 .recent-class-header{
-    color: var(--colorWhite);
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
-.recent-classes{
-    padding: 1rem 1rem;    
-}
-.recent-class-header h4{
-    font-size: 1rem;
-    margin: 0px;
-}
-.recent-class-header a{
-    color: var(--colorWhite);
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-decoration: none;
-}
+
 .card-recent-class{
-    background-color: var(--l-colorGrisSoft);
-    color: var(--colorWhite);
+    background-color: var(--gray-dark);
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
@@ -179,14 +167,12 @@
     padding: 0.5rem;
     max-width: 290px;
 }
-.card-recent-class-info h4{
-    margin: 0;
+.card-recent-class-info h6{
     font-size: .85rem;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: .1rem;
     width: calc(100% - 2.5rem);
 }
 .card-recent-class-info h4 span{
@@ -196,8 +182,6 @@
 .card-recent-class-info p{
     margin: 0;
     font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: -0.008rem;
 }
 
 .card-recent-class-info-img{
@@ -212,20 +196,9 @@
     border-radius: 50%;
 }
 
-.home-welcome-ld, .roads-ld, .recent-classes{
-    max-width: 1000px;
-    margin: 0 auto;
-}
 @media(max-width: 768px){
     .home-welcome-ld{
         grid-template-columns: repeat(1, 1fr);
-        text-align: center;
+        padding: 1.5rem 0;
     }   
-    .btn-watch-fac{
-        width: 100%;
-        margin-bottom: 1.5rem;
-    }
-    .home-welcome-parrafo{
-        margin-bottom: .5rem;
-    }
 }

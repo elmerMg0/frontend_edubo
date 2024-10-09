@@ -8,8 +8,8 @@ interface Props {
 }
 export function ClassesMain({ classes, progress, suscribed }: Props) {
     return (
-        <section className="course-classes">
-            <h2 className="course-classes-title">Temario del curso</h2>
+        <section className="course-classes course-classes-pd">
+            <h4 className="course-classes-title">Temario del curso</h4>
             <div className="course-classesmain-container">
                 {
                     classes?.length > 0 ? classes.map((clase: ClassWithSubject) => (

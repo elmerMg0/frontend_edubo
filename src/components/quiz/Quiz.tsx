@@ -144,7 +144,7 @@ function Quiz() {
         nextClass={nextClass}
         error={error}
         > 
-        f
+          {" "}
         </QuizFinished>,
   };
 

@@ -1,37 +1,24 @@
-.simulation, .pathCourse, .quizzes{
-    background-color: var(--l-colorMain);
-    color: var(--colorWhite);
-}
 /* paths */
+
+
+.simulation-title{
+    padding: 2rem 0;
+}
 .simulation-roads{
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
-    max-width: 1200px;
-    width: 90%;
-    margin: auto;
     padding: 0px;
     list-style: none;
 }
 
 .simulation-road{
-    background: rgb(78,93,103);
-    background: radial-gradient(circle, rgba(78,93,103,1) 27%, rgba(44,50,60,1) 100%);
-    color: var(--colorWhite);
+    background: var(--gray-darker);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.simulation-road h4{
-    color: var(--colorWhite);
-    font-size: 1rem;
-    margin: 0px;
-}
-.simulation-road p{
-    color: var(--colorGris);
-    font-size: 0.75rem;
-    margin: 0;
-}
+
 .simulation-road-img{
     object-fit: contain;
 }
@@ -41,14 +28,6 @@
     width: 100%;
     aspect-ratio: 16/9;
 }
-.simulation-road-btn{
-    background-color: var(--colorMain);
-    color: var(--colorWhite);
-    border: none;
-    padding: 0.3rem 1rem;
-    border-radius: 0.3rem;
-    width: 100%;
-}
 .simulation-road-info{
     display: flex;
     flex-direction: column;
@@ -57,13 +36,6 @@
 }
 
 /*quizzes  */
-.quizzes{
-}
-.quizzes-container{
-    width: 90%;
-    margin: 0 auto;
-    max-width: 1200px;
-}
 .quizzes-list{
     list-style : none;
     padding: 0;
