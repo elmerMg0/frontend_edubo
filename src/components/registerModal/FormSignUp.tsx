@@ -26,7 +26,7 @@ function FormSignUp() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const handleSend = handleSubmit( async (values) => {
+  const handleSend = handleSubmit(async (values) => {
     setError("");
     setLoading(true);
     try {
@@ -56,16 +56,14 @@ function FormSignUp() {
     } finally {
       setLoading(false);
     }
-  
   });
 
   return (
-    <div>
-      <p>Crea tu cuenta</p>
-
+    <section>
+      <h5>Crea tu cuenta</h5>
       <form className="register-modal-form" onSubmit={handleSend}>
-        <div className="d-flex gap-3 align-items-start">
-          <div className="mb-3 w-100">
+        <div className="register-modal-form-fields">
+          <div>
             <FormField
               label="Nombre"
               name="firstName"
@@ -74,11 +72,9 @@ function FormSignUp() {
               register={register}
               errors={errors}
               validations={{ required: requiredMessage }}
-
             />
-    
           </div>
-          <div className="mb-3 w-100">
+          <div>
             <FormField
               label="Apellido"
               register={register}
@@ -91,7 +87,7 @@ function FormSignUp() {
             />
           </div>
         </div>
-        <div className="mb-3">
+        <div>
           <FormField
             label="Correo Electrónico"
             register={register}
@@ -103,7 +99,7 @@ function FormSignUp() {
             validations={{ required: requiredMessage }}
           />
         </div>
-        <div className="mb-3">
+        <div>
           <FormField
             label="Contraseña"
             register={register}
@@ -115,34 +111,24 @@ function FormSignUp() {
             placeholder="Contraseña"
           />
         </div>
-        <p
-          style={{
-            fontSize: "13px",
-            textAlign: "center",
-            margin: "0",
-            color: "gray",
-          }}
-        >
+
+        <span className="terms-text text-center">
           Al registrarte aceptas{" "}
           <a style={{ textDecoration: "underline", color: "white" }}>
             Términos de Servicio y Políticas de privacidad
           </a>
-        </p>
+        </span>
 
-        <button className="f-btn" type="submit">
+        <button className="btn btn--white btn-login" type="submit">
           {loading ? (
             <Spinner animation="border" variant="dark" size="sm" />
           ) : (
             "Registrarte ahora"
           )}
         </button>
-        {error !== "" && (
-          <p style={{ textAlign: "center" }} className="f-error">
-            {error}
-          </p>
-        )}
+        {error !== "" && <p className="f-error">{error}</p>}
       </form>
-    </div>
+    </section>
   );
 }
 

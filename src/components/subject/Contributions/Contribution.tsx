@@ -93,7 +93,7 @@ function Contribution({ btnSelected }: Props) {
   };
   return (
     <div className="contribution">
-      <h2 className="title-section-subject">Comentarios</h2>
+      <h4 className="title-section-subject">Comentarios</h4>
 
       <button
         className={`btn-comment ${isOpenEdit ? "active" : ""}`}

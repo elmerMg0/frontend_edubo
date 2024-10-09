@@ -9,11 +9,11 @@ function QuizIntro({ changeView, questionsNumber }: Props) {
   return (
     <div className="quiz-intro">
       <div className="quiz-intro-img">
-        <img style={{ width: "100%" }} src={image} alt="quiz image" />
+        <img src={image} alt="quiz image" />
       </div>
       <div>
 
-      <h4 className="mb-3">Por favor completa el Quiz</h4>
+      <h3>Por favor completa el Quiz</h3>
       <ul className="quiz-intro-list">
         <li>
           Siéntete libre de realizar el quiz tantas veces como lo necesites para

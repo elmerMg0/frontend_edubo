@@ -49,11 +49,8 @@ function RecentClass() {
   }
 
   return (
-    <section className="recent-classes">
-        <div className="recent-class-header">
-            <h4>{user.name}, continua aprendiendo </h4>
-           {/*  <Link to={"/mis-cursos"}>Ir a mis cursos</Link> */}
-        </div>
+    <section className="recent-classes container-content">
+        <h6>{user.name}, continua aprendiendo </h6>
         <div className="carousel-lp-container">
           <ul className="carousel-lp">
             {recentClasses?.length > 0
@@ -71,8 +68,7 @@ function RecentClass() {
                         <img src={`${APIURLIMG}${road?.url_image}`} />
                     </div>
                       <div className="w-100">
-                       {/*  <h4>Clase {road.classCurrently} <span> de {road.totalClasses} </span></h4> */}
-                        <h4 className="card-recent-class-info-title">{road.title}</h4>
+                        <h6>{road.title}</h6>
                         <p>Curso de {road.name}</p>
                     </div>
                   </div>

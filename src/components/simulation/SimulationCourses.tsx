@@ -68,7 +68,7 @@ function SimulationCourses() {
               <Skeleton height={250} count={4} className="mb-2" />
             </div>
           ) : (
-            <p className="path-welcome-parrafo text-center">
+            <p className="text-center">
               Estamos en proceso de preparar de nuevos cursos.
             </p>
           )}

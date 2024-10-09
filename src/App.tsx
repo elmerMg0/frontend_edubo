@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import './styles/global.css'
 import { PrivateRoutes } from './models/routes';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { LearningPaths } from './components/LearningPaths/LearningPaths';

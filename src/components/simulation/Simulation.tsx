@@ -35,9 +35,11 @@ function Simulation() {
   return (
     <div className="simulation">
       <Header />
-      <h4 className="text-center mt-3">Simuladores actualizados 2024</h4>
-      <p className="text-center mb-4">Descubre los mejores simuladores</p>
-      <ul className="simulation-roads mb-5">
+      <div className="simulation-title">
+        <h2 className="text-center">Simuladores actualizados 2024</h2>
+       <p className="text-center">Descubre los mejores simuladores</p>
+      </div>
+      <ul className="simulation-roads container-content">
         {roads?.length > 0
           ? roads.map((road: Road) => {
               return (
@@ -48,7 +50,7 @@ function Simulation() {
                   <div className="simulation-road-info">
                     <h4>{road.nombre}</h4>
                     <p className="mb-2">{road.descripcion}</p>
-                    <button className="simulation-road-btn" onClick={() => {navigate(`/simulacros/${road.id}`)}}>Ver mas</button>
+                    <button className="btn btn--primary" onClick={() => {navigate(`/simulacros/${road.id}`)}}>Ver mas</button>
                   </div>
                 </li>
               );

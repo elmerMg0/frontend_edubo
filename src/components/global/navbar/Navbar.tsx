@@ -36,7 +36,7 @@ function Navbar({showNavbar, closeNav}: {showNavbar: boolean, closeNav: () => vo
                 </li>
                 <li>
                     {
-                        autenticated ? <button className='f-btn' onClick={handleLogOut}>Logout</button> : 
+                        autenticated ? <button className='f-btn' onClick={handleLogOut}>Cerrar sesión</button> : 
                         <button className='f-btn' onClick={() => handleLogin()}>Login</button>
                     }
                 </li>

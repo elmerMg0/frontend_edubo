@@ -54,28 +54,19 @@ export default function Faculty() {
       <>
       {isEnrollment ? (
         <>
-          <p className="path-welcome-parrafo mb-2 mt-2">
+          <p className="btn btn--primary">
             Tienes un plan activo.
           </p>
         </>
       ) : (
         <>
           <Link
-            style={{ maxWidth: "250px"}}
             to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}
           >
-            <button className="f-btn btn-plan">
+            <button className="btn btn--primary">
               Ver plan
             </button>
           </Link>
-
-   {/*        <p className="path-welcome-parrafo mb-4">
-            Suscríbete a un plan y accede al curso completo.
-          </p>
-
-          <h4 className="path-welcome-parrafo">
-            Nuestra oferta académica incluye:
-          </h4> */} 
         </>
       )}
       </>
@@ -95,18 +86,18 @@ export default function Faculty() {
           <div className="home-welcome-bg">
            <div className="home-welcome-content">
             <h2 className="home-welcome-title">{road?.nombre}</h2>
-            <p className="path-welcome-parrafo">{road?.subtitle}</p>
+            <p>{road?.subtitle}</p>
             <IsEnrollment />
            </div>
           </div>
         </section>
       )}
 
-      <h4 className="text-our-offer content-width">Nuestra oferta académica incluye</h4>
+      <h4 className="container-content our-offer-text ">Nuestra oferta académica incluye</h4>
 
       {courses?.length > 0 ? (
-        <div className="path-courses">
-          <ul>
+        <div className=" container-content">
+          <ul className="course-list">
             {courses.map((course: Course) => {
               return (
                 <PathCourse
@@ -114,8 +105,9 @@ export default function Faculty() {
                   url={`/${PrivateRoutes.RUTAS}/${path}/${
                     course.id + "-" + course.slug
                   }`}
+                  key={course?.id}
                 >
-                  <h4>{course.name}</h4>
+                  <h6>{course.name}</h6>
                   <p>{course.subtitle}</p>
                 </PathCourse>
               );
@@ -129,14 +121,14 @@ export default function Faculty() {
               <Skeleton height={250} count={4} className="mb-2" />
             </div>
           ) : (
-            <p className="path-welcome-parrafo text-center">
+            <p className="text-center">
               Estamos en proceso de preparar de nuevos cursos.
             </p>
           )}
         </>
       )}
 
-      <section className="path-info content-width mt-3">
+      <section className="path-info container-content">
         {road?.carrers && (
           <div>
             <h4>Carreras: </h4>
@@ -155,8 +147,7 @@ export default function Faculty() {
 
           <Link to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}>
             <button
-              style={{ width: "230px" }}
-              className="f-btn btn--get-start mb-2 mt-3"
+              className="btn btn--primary"
             >
               Ver plan
             </button>

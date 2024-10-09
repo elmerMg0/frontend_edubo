@@ -1,6 +1,6 @@
 .player-wrapper {
     position: relative;
-    padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+    padding-top: 56.25%; 
   }
   
 .react-player {
@@ -8,15 +8,9 @@
     top: 0;
     left: 0;
 }
-.subject-container{
-    background-color: var(--l-colorMain);
-}
-.subject{
-    background-color: var(--l-colorMain);
-    position: relative;
-}
+
 .subject-loading{
-    background-color: var(--l-colorGris);
+    background-color: var(--gray-light);
     height: calc(100vh + 4rem);
     margin: 0 auto;
 }
@@ -25,20 +19,18 @@
     display: flex;
     justify-content: space-around;
     margin-top: 0.5rem;
-    border-bottom: 1px solid var(--l-colorGrisSoft);
+    border-bottom: 1px solid var(--gray-dark);
+    background-color: var(--gray-darker);
 }
 .controls-player, .controls-player button{
-    color: var(--colorGris);
-}
-
-.wrap-toggle{
+    color: var(--gray-light);
 }
 .switch{
     position: relative;
     display: inline-block;
     width: 2rem;
     height: .8rem;
-    background-color: var(--colorGris);
+    background-color: var(--gray-light);
     border-radius: 40px;
     cursor: pointer;
 }
@@ -47,7 +39,7 @@
     position: absolute;
     width: 1rem;
     height: 1rem;
-    background-color: var(--colorWhite);
+    background-color: var(--text-color);
     left: 0;
     top: -1px;
     border-radius: 50%;
@@ -55,10 +47,10 @@
 }
 input[type="checkbox"]:checked + .switch::after {
     transform: translate(1.0rem);
-    background-color: var(--colorWhite);
+    background-color: var(--text-color);
 }
 input[type="checkbox"]:checked + .switch{
-    background-color: var(--l-colorGreen);
+    background-color: var(--primary-color);
 }
 .offscreen{
     display: none;
@@ -73,20 +65,20 @@ input[type="checkbox"]:checked + .switch{
     gap: 0.25rem;
 }
 .subject-info{
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 1rem;
     gap: 0.5rem;
     display: flex;
     flex-direction: column;
+    background-color: var(--gray-darker);
 }
 .subject-info h2{
-    font-size: 1rem;
-    color: var(--colorWhite);
-    margin: 0;
+    color: var(--text-color);
+    font-weight: 600;
 }
 .subject-info-sub{
     display: flex;
     gap: 0.3rem;
-    color: var(--colorGris);
+    color: var(--gray-light);
     align-items: center;
 }
 .subject-info-sub p{
@@ -102,7 +94,7 @@ input[type="checkbox"]:checked + .switch{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--colorWhite);
+    color: var(--text-color);
     font-size: 0.785rem;
 }
 .subject-info-teacher img{
@@ -123,21 +115,20 @@ input[type="checkbox"]:checked + .switch{
     justify-content: space-around;
     background-color: var(--colorBlack);
     padding-top: 0.5rem;
-    
 }
 .subject-btns-line button{
-    color: var(--colorGris);
+    color: var(--gray-light);
     background-color: transparent;
     border: none;
     width: 100%;
 }
 .subject-btns-line button.flag{
-    color: var(--l-colorGreen);
-    border-bottom: 1px solid var(--l-colorGreen);
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
 }
 .classmain-card{
-    border: solid var(--colorGris);
-    background-color: var(--l-colorGris);
+    border: solid var(--gray-light);
+    background-color: var(--gray-light);
     border-width: 1px 1px 2px;
     padding: 1rem;
     text-align: left;
@@ -146,6 +137,9 @@ input[type="checkbox"]:checked + .switch{
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+.course-classes-pd{
+    padding: 0 1rem;
 }
 /* Subject List Vertical */
 .subject-list-item{
@@ -161,12 +155,12 @@ input[type="checkbox"]:checked + .switch{
     flex: none;
     width: 0.75rem;
     height: 0.75rem;
-    background-color: var(--colorGris);
+    background-color: var(--gray-light);
     border-radius: 50%;
     z-index: 1;
 }
 .subject-list-item.active::before{
-    background-color: var(--l-colorGreenSecundary);
+    background-color: var(--primary-color);
 }
 .subject-list-item::after{
     content: "";
@@ -176,51 +170,64 @@ input[type="checkbox"]:checked + .switch{
     width: 2px;
     height: 120%;
     text-align: start;
-    background-color: var(--colorGris);
+    background-color: var(--gray-light);
 }
 .subject-list-item.active::after{
-    background-color: var(--l-colorGreenSecundary);
+    background-color: var(--primary-color);
 }
 .subject-list-item:last-child::after{
     display: none;
 }
 .subject-btn.active span{
-    color: var(--l-colorGreenSecundary);
+    color: var(--primary-color);
 }
 
 /* Resource */
 .subject-resource{
-    background-color: var(--colorBlack);
     padding: 2rem 1rem;
-    color: var(--colorWhite);
+    color: var(--text-color);
 }
 .subject-resource-content{
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    color: var(--colorGris);
+    color: var(--gray-light);
 }
 .subject-resource-card{
     padding: 1rem;
-    color: var(--colorGris);
+    color: var(--gray-light);
     border-radius: 10px;
-    background-color: var(--l-colorGris);
+    background-color: var(--gray-darker);
 }
 
-.subject-resource-card p{
-    font-size: 14px;
-}
-
-.subject-resource-card h3{
+.subject-resource-card h5{
     font-weight: 600;
-    font-size: 16px;
+}
+.files-list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
+.titleMain{
+    color: var(--text-color);
+}
+.subject-resource__item{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.subject-resource__item a{
+    text-decoration: none;
+    color: var(--text-color);
+}
 /* Comments */
 .contribution{
-    background-color: var(--colorBlack);
     padding: 2rem 1rem;
-    color: var(--colorWhite);
+    color: var(--text-color);
 }
 .card_comment-list {
     padding: 0;
@@ -234,15 +241,6 @@ input[type="checkbox"]:checked + .switch{
     position: relative;
     margin-bottom: 0.75rem;
 }
-/* .card_comment::after{
-    content: "";
-    width: 2px;
-    height: calc(100% - 114px);
-    background-color: #2d323a;
-    position: absolute;
-    top: 90px;
-    left: 12px;
-} */
 .comment-replies{
     grid-column: 2/3;
     padding: 0;
@@ -258,10 +256,6 @@ input[type="checkbox"]:checked + .switch{
     grid-template-columns: 24px 1fr;
 }
 
-.card-comment p{
-    margin: 0;
-}
-
 .card_comment-img{
     width: 24px;
     border-radius: 50%;
@@ -275,7 +269,7 @@ input[type="checkbox"]:checked + .switch{
 .card_comment-content{
     grid-row: 1/3;
     grid-column: 2/3;
-    background-color: var(--l-colorGris);
+    background-color: var(--gray-darker);
     border-radius: 0.7rem;
     display: flex;
     flex-direction: column;
@@ -291,7 +285,7 @@ input[type="checkbox"]:checked + .switch{
     letter-spacing: 0.019rem;
 }   
 .card_comment-content-text{
-    color: var(--colorGris);
+    color: var(--gray-light);
 }
 
 .card_comment-likes{
@@ -312,7 +306,7 @@ input[type="checkbox"]:checked + .switch{
     gap: .2rem;
     background-color: transparent;
     border: none;
-    color: var(--colorWhite);
+    color: var(--text-color);
     height: 100%;
 }
 .card_comment-reply button p {
@@ -322,7 +316,7 @@ input[type="checkbox"]:checked + .switch{
 
 .btn-comment{
     width: 100%;
-    background-color: var(--colorBlack);
+    background-color: var(--gray-darker);
     border: 1px solid #404650;
     border-radius: 0.3rem;
     color: #87909d;
@@ -371,7 +365,7 @@ input[type="checkbox"]:checked + .switch{
 
 .input_comment-btnclose{
     background-color: transparent;
-    color: var(--colorWhite);   
+    color: var(--text-color);   
     border: none;
     position: absolute;
     top: 0;
@@ -379,7 +373,7 @@ input[type="checkbox"]:checked + .switch{
 }
 .btn-send-comment{
     background-color: transparent;
-    color: var(--colorWhite);   
+    color: var(--text-color);   
     border: none;
     position: absolute;
     bottom: 4px;
@@ -398,11 +392,11 @@ input[type="checkbox"]:checked + .switch{
     }
     
 .input_comment::-webkit-scrollbar-track {
-      background-color: var(--l-colorMain);
+      background-color: var(--gray-darker);
 }
 
 .input-comment:hover::-webkit-scrollbar-thumb {
-    background-color: var(--colorWhite); /* Nuevo color del thumb al pasar el mouse */
+    background-color: var(--text-color); /* Nuevo color del thumb al pasar el mouse */
 }
 .btn-view_more{
     grid-column: 2/3;
@@ -421,7 +415,7 @@ input[type="checkbox"]:checked + .switch{
 }
 .btn-view_more button{
     background-color: transparent;
-    color: var(--colorGris);
+    color: var(--gray-light);
     border: none;
     font-size: 0.785rem;
 }
@@ -433,7 +427,6 @@ input[type="checkbox"]:checked + .switch{
     min-height: calc(100vh - 48px - 1rem);
     max-height: calc(100vh - 48px - 1rem);
     overflow-y: scroll;
-    background-color:var(--colorBlack);
 }
 
 /* Estilos por defecto del scrollbar */
@@ -448,11 +441,11 @@ input[type="checkbox"]:checked + .switch{
     }
     
 .siderbar-comments::-webkit-scrollbar-track {
-      background-color: var(--l-colorMain);
+      background-color: var(--gray-dark);
 }
 
 .input-commen:hover::-webkit-scrollbar-thumb {
-    background-color: var(--colorWhite); /* Nuevo color del thumb al pasar el mouse */
+    background-color: var(--text-color); /* Nuevo color del thumb al pasar el mouse */
 }
 
 
@@ -461,6 +454,7 @@ input[type="checkbox"]:checked + .switch{
         display: grid;
         grid-template-columns: 1fr 400px;
         grid-template-rows: calc(56.25vw - 300px) 1fr;
+        background-color: var(--background-color);
     }
     .subject-contributions{
         min-width: 400px;
@@ -488,7 +482,7 @@ input[type="checkbox"]:checked + .switch{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--l-colorMain);
-    color: var(--colorWhite);
+    background-color: var(--gray-darker);
+    color: var(--text-color);
     gap: .5rem;
 }

@@ -72,7 +72,7 @@ function FormLogin() {
           errors={errors}
           label="Contraseña"
         />
-        <button className="f-btn" type="submit">
+        <button className="btn btn--white btn-login" type="submit">
           {loading ? (
             <Spinner animation="border" variant="dark" size="sm" />
           ) : (
@@ -80,7 +80,7 @@ function FormLogin() {
           )}
         </button>
         {error !== "" && (
-          <p style={{ textAlign: "center" }} className="f-error">
+          <p className="f-error text-center">
             {error}
           </p>
         )}

@@ -37,7 +37,7 @@ function Quizzes() {
   return (
     <div className="quizzes">
         <Header />
-        <div className='quizzes-container'>
+        <div className='container-content'>
             <h2>Simulaciones</h2>
             <ul className='quizzes-list'>
             {
@@ -45,7 +45,7 @@ function Quizzes() {
                     return (
                         <li key={quiz.id} className='quizzes-item'>
                             <p className=''>{quiz.descripcion}</p>
-                            <button className='f-btn btn--l-white' onClick={() => navigate(`${quiz.id}`)}>Empezar</button>
+                            <button className='btn btn--primary' onClick={() => navigate(`${quiz.id}`)}>Empezar</button>
                         </li>
                     )
                 }):
