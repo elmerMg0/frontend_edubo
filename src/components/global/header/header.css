@@ -7,7 +7,7 @@
     z-index: 30;
     justify-content: space-between;
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 0;
 }
 .header h5{
     color: var(--colorGris);
@@ -34,14 +34,6 @@
 .l-btn--green{
     background-color: var(colorMain);
 }
-.header__content{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 0.4rem;
-    padding: 1rem 1rem 1rem 1rem;
-}
-
 .header-sign{
     display: flex;
     align-items: center;

@@ -18,7 +18,7 @@ interface AppState {
     questions: QuestionWithReponses[];
     answerState: AnswerState; 
     results: {
-      id: number;
+      id: number | undefined;
       answer: Answer | null;
       correct: boolean;
     }[]
@@ -47,13 +47,12 @@ function QuizQuestions({questions, changeView, resultsRef, setQuestions, isLoadi
     const handleSkip = ()=>{
       if(answerSelect)return;
       const cloneQuestions = [...questions];
-      const numberQuestionsAnswered = resultsRef.current.filter((question: { answer: Answer | null, id: number}) => question.answer !== null).length;
+      const numberQuestionsAnswered = resultsRef.current.filter((question: { answer: Answer | null, id: number | undefined }) => question.answer !== null).length;
       const questionResults = [...cloneQuestions].slice(numberQuestionsAnswered, questions.length );
       questionResults.unshift(questionResults.pop() as QuestionWithReponses);
       cloneQuestions.splice(numberQuestionsAnswered, questions.length, ...questionResults);
       setQuestions(Object.values(cloneQuestions));  
     }
-
     const handleCheck = async () => {
       if(!answerSelect)return;
 

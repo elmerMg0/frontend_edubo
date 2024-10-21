@@ -148,9 +148,9 @@ function SimulationQuestions() {
   } */
 
   return (
-    <div className="quiz-container">
+    <div>
     <Header />
-      <div className="quiz-simulation">
+      <div className="quiz-simulation container-content">
         <main className="quiz">
           <div className="quiz-header-container">
             <div className="quiz-header">

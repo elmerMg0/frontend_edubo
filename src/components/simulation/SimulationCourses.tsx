@@ -54,7 +54,7 @@ function SimulationCourses() {
                 >
                   <div className="">
                     <h4>Simulacros de {course.name}</h4>
-                    <p>Simulacros: {course.num_quizzes}</p>
+                    <p className="num-quizzes">Simulacros: {course.num_quizzes}</p>
                   </div>
                 </PathCourse>
               );
@@ -64,8 +64,29 @@ function SimulationCourses() {
       ) : (
         <>
           {loading ? (
-            <div className="skeleton-paths" style={{ padding: "1rem" }}>
-              <Skeleton height={250} count={4} className="mb-2" />
+            <div className="path-courses">
+              <ul>
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
+                  </div>
+                </li>
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
+                  </div>
+                </li>
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
+                  </div>
+                </li>
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
+                  </div>
+                </li>
+              </ul>
             </div>
           ) : (
             <p className="text-center">
@@ -74,7 +95,7 @@ function SimulationCourses() {
           )}
         </>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

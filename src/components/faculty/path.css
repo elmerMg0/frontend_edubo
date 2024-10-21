@@ -48,7 +48,9 @@
     gap: 1rem;
     margin: 1rem auto;
 }
-
+.course-list p{
+    color: var(--gray-light);
+}
 
 /* Information */
 

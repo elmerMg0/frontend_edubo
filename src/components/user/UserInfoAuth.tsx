@@ -69,10 +69,8 @@ function UserInfoAuth({ userInfo }: Props) {
     if (imagePreview) {
       formData.append("image", image as File);
     }
-    console.log(data, image);
     const response: any = await APISERVICE.posWithImage(formData, "usuario/update",'');
     if (response.success) {
-      console.log(response)
       const tokenEncrypt = encryptString(JSON.stringify(response.data), APIKEY);
       setCookie("token", tokenEncrypt, 7);  
       setToken(response.accessToken);

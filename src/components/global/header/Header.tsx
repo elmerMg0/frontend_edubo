@@ -30,8 +30,8 @@ export function Header({ children }: Props) {
   if (getCookie("token")) autenticated = true;
 
   return (
-    <div className="header-container">
-      <header className="header">
+    <div>
+      <header className="header container-content">
         <Link to={"/"} className="header-logo">
           <div className="header__img">
             <img src={image} alt="" />

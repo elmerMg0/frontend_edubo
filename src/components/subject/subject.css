@@ -10,8 +10,7 @@
 }
 
 .subject-loading{
-    background-color: var(--gray-light);
-    height: calc(100vh + 4rem);
+    height: calc(100lvh);
     margin: 0 auto;
 }
 
@@ -70,6 +69,9 @@ input[type="checkbox"]:checked + .switch{
     display: flex;
     flex-direction: column;
     background-color: var(--gray-darker);
+}
+.subject-info-loading{
+    background-color: var(--background-color);
 }
 .subject-info h2{
     color: var(--text-color);
