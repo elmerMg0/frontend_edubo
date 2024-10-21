@@ -19,7 +19,7 @@ interface AppState {
   questions: QuestionWithReponses[];
   answerState: AnswerState;
   results: {
-    id: number;
+    id: number | undefined;
     correct: boolean;
     answer: Answer | null;
   }[];
@@ -86,8 +86,14 @@ function Quiz() {
   };
 
   const restartQuiz = () => {
-    setError('')
-    resultsRef.current = [];
+    setError('');
+    resultsRef.current = questions.map((question: QuestionWithReponses) => {
+      return {
+        id: question.id,
+        answer: null,
+        correct: false
+      }
+    })
     setView(0);
   }
 
@@ -104,7 +110,7 @@ function Quiz() {
     }else{
       /* Terminado el curso */
       /* Validar que hay respondido mas del 80% correcto */
-      const asnwerSuccess = resultsRef.current.reduce((acc: number, val: { id: number; correct: boolean }) => {
+      const asnwerSuccess = resultsRef.current.reduce((acc: number, val: { id: number | undefined; correct: boolean, answer: Answer | null }) => {
         if (val.correct) {
           return acc + 1
         }
@@ -149,7 +155,7 @@ function Quiz() {
   };
 
   return (
-    <div className="quiz-container">
+    <div>
       <Header/>
       <main className="quiz">
         <div className="quiz-header-container">

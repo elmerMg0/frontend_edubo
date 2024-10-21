@@ -138,7 +138,7 @@ function Payment() {
           <FaCircleCheck size={70}/>
         </span>
         <p>Su pago se ha realizado con exito</p>
-        <button className="f-btn btn--padding btn--l-white w-100" onClick={handleGoClass}>
+        <button className="btn btn--primary " onClick={handleGoClass}>
           Ir{" "}
           {type === typePlans.course ? "al curso" : "a la ruta de aprendizaje"}
         </button>
@@ -194,7 +194,7 @@ function Payment() {
         </table>
         <p className="text-cupon">Tienes un cupon?</p>
         <button
-          className="f-btn btn--padding btn--l-white w-100"
+          className="btn btn--primary w-100"
           onClick={handleGetQr}
         >
           {

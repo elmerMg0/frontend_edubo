@@ -251,7 +251,7 @@ export default function SubjectComponent() {
   if (loading) {
     return (
       <section className="subject subject-loading">
-        <div className="subject-info">
+        <div className="subject-info subject-info-loading">
           <Skeleton height={"250px"} />
 
           <Skeleton height={"28px"} width={"70%"} />

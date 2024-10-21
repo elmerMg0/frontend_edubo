@@ -37,31 +37,65 @@ function Simulation() {
       <Header />
       <div className="simulation-title">
         <h2 className="text-center">Simuladores actualizados 2024</h2>
-       <p className="text-center">Descubre los mejores simuladores</p>
+        <p className="text-center">Descubre los mejores simuladores</p>
       </div>
       <ul className="simulation-roads container-content">
-        {roads?.length > 0
-          ? roads.map((road: Road) => {
-              return (
-                <li key={road.id} className="simulation-road">
-                  <div className="simulation-road-img">
-                    <img src={APIURLIMG + road.url_image} />
-                  </div>
-                  <div className="simulation-road-info">
-                    <h4>{road.nombre}</h4>
-                    <p className="mb-2">{road.descripcion}</p>
-                    <button className="btn btn--primary" onClick={() => {navigate(`/simulacros/${road.id}`)}}>Ver mas</button>
+        {roads?.length > 0 ? (
+          roads.map((road: Road) => {
+            return (
+              <li key={road.id} className="simulation-road">
+                <div className="simulation-road-img">
+                  <img src={APIURLIMG + road.url_image} />
+                </div>
+                <div className="simulation-road-info">
+                  <h4>{road.nombre}</h4>
+                  <p className="simulation-road-description">
+                    {road.descripcion}
+                  </p>
+                  <button
+                    className="btn btn--primary"
+                    onClick={() => {
+                      navigate(`/simulacros/${road.id}`);
+                    }}
+                  >
+                    Ver mas
+                  </button>
+                </div>
+              </li>
+            );
+          })
+        ) : (
+          <>
+            {loading ? (
+              <>
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
                   </div>
                 </li>
-              );
-            })
-          : 
-          <>
-            { loading ? <Skeleton count={5} height={300}/> : <p>Se esta trabajando en esta seccion</p> }
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
+                  </div>
+                </li>
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
+                  </div>
+                </li>
+                <li>
+                  <div className="w-100">
+                    <Skeleton count={1} height={300} />
+                  </div>
+                </li>
+              </>
+            ) : (
+              <p>Se esta trabajando en esta seccion</p>
+            )}
           </>
-          }
+        )}
       </ul>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

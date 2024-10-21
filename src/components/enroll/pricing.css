@@ -13,14 +13,14 @@
 .pricing-description{   
     font-size: .85rem;
     text-align: center;
-    color: var(--colorGris);
+    color: var(--gray-light);
 }
 
 /* Card Pricing */
 .card-pricing{
     color: var(--colorWhite);
     padding: 1rem;
-    background-color: var(--l-colorGris);
+    background-color: var(--gray-darker);
     border-radius: .3rem;
     border-top: 2px solid;
 }
@@ -61,7 +61,7 @@
     font-weight: bold;
     display: inline-block;
     width: 1em;
-    color: yellow;
+    color: var(--success-color);
 }
 .btn-enroll{
     border: 1px solid;

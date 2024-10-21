@@ -5,7 +5,7 @@ import { QuestionWithReponses } from "./Quiz";
 interface Props {
   questions: QuestionWithReponses[];
   resultsRef: {
-    id: number;
+    id: number | undefined;
     answer: Answer | null;
     correct: boolean;
   }[];

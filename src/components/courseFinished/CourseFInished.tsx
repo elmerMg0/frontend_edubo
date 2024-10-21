@@ -41,9 +41,9 @@ function CourseFInished() {
     <Header/>
     <div className='course-finished'>
       <div>
-        <h2>Felicidades</h2>
+        <h2 className='course-finished-title'>Felicidades</h2>
         <h2>Has finalizado el curso</h2>
-        <p>Que aprendiste:</p>
+        <h5>Que aprendiste:</h5>
         <main className='course-finished-content'>
             <div className='course-finished-you_learn' dangerouslySetInnerHTML={{ __html: course?.you_learn ?? '' }} />
             <div>
@@ -51,9 +51,9 @@ function CourseFInished() {
             </div>
         </main>
 
-        <p>Gracias por tu apoyo</p>
+        <p className='mt-2'>Gracias por tu apoyo</p>
         <Link to={"/rutas"}>
-          <button className='f-btn btn--padding btn--l-white' >Ir al inicio</button>
+          <button className='btn btn--primary' >Ir al inicio</button>
         </Link>
         </div>
      </div>

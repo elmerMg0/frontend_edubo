@@ -78,8 +78,8 @@ export default function Faculty() {
       {loading ? (
         <div className="p-3 skeleton-header-path">
           <Skeleton height={40} className="mb-3" />
-          <Skeleton height={20} className="mb-2" />
-          <Skeleton height={150} className="mb-1" />
+          <Skeleton height={30} className="mb-2" />
+          <Skeleton height={200} className="mb-1" />
         </div>
       ) : (
         <section className="home-welcome" style={styles}>
@@ -117,7 +117,7 @@ export default function Faculty() {
       ) : (
         <>
           {loading ? (
-            <div className="skeleton-paths" style={{ padding: "1rem" }}>
+            <div className="skeleton-paths container-content" style={{ padding: "1rem" }}>
               <Skeleton height={250} count={4} className="mb-2" />
             </div>
           ) : (
@@ -145,13 +145,7 @@ export default function Faculty() {
           <h4>Carrera</h4>
           <p>{road?.period}</p>
 
-          <Link to={`/${PrivateRoutes.PLANES}/${typePlans.road}/${road?.id}`}>
-            <button
-              className="btn btn--primary"
-            >
-              Ver plan
-            </button>
-          </Link>
+          <IsEnrollment />
         </div>
       </section>
 

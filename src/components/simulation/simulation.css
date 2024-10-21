@@ -1,6 +1,4 @@
 /* paths */
-
-
 .simulation-title{
     padding: 2rem 0;
 }
@@ -48,8 +46,9 @@
     flex-direction: column;
     gap: 0.5rem;
 }
-.quizzes-item p{
-    margin: 0;
+
+.simulation-road-description, .num-quizzes{
+    color: var(--gray-light);
 }
 @media(min-width: 1028px){
     .quizzes-list{
