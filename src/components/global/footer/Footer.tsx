@@ -8,10 +8,16 @@ export function Footer() {
   return (
     <footer className="footer">
       <section className="footer-social my-3">
-        <BsFacebook size={22} />
-        <BsInstagram size={22} />
-        <BsYoutube size={22} />
-        <BsTiktok size={22} />
+        <a href="https://www.facebook.com/profile.php?id=61567754424794&mibextid=ZbWKwL" target="_blank">
+         <BsFacebook size={22} />
+        </a>
+        <a href="https://www.instagram.com/esniun?igsh=MTQxYWVhZDkyZjlrZA==" target="_blank">
+          <BsInstagram size={22} />
+        </a>
+          <BsYoutube size={22} />
+        <a href="https://www.tiktok.com/@esniun_preu?_t=8qlPgh7HqqL&_r=1" target="_blank">
+          <BsTiktok size={22} />
+        </a>
       </section>
 
       <div className="footer-container">
@@ -19,10 +25,10 @@ export function Footer() {
           <h4>Enlaces</h4>
           <ul>
             <li>
-              <Link to={"/rutas"}>Cursos</Link>
+              <Link to={"/rutas"}>Facultades</Link>
             </li>
             <li>
-              <Link to={"/shop-cart"}>Contacto</Link>
+              <Link to={"https://wa.me/59163021573?text=Mas%20informacion%20por%20favor"} target="_blank">Contacto</Link>
             </li>
 
             <li>
@@ -33,16 +39,12 @@ export function Footer() {
         <section className="footer-contact">
           <h4>Contacto</h4>
           <div>
-            <BiHome />
-            <p>Av. San Martín 123, Lima 123</p>
-          </div>
-          <div>
             <MdEmail />
             <p>esniun@gmail.com</p>
           </div>
           <div>
             <PiPhone />
-            <p>+51 999 999 999</p>
+            <p>+591 63021573</p>
           </div>
         </section>
       </div>
