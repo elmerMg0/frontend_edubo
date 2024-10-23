@@ -1,5 +1,4 @@
 import "./footer.css";
-import { BiHome } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import { PiPhone } from "react-icons/pi";
 import { Link } from "react-router-dom";
