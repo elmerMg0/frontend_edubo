@@ -34,7 +34,8 @@
   --font-size-h4: clamp(1rem, 2.5vw, 1.2rem);
   --font-size-h5: clamp(0.9rem, 2vw, 1.1rem); 
   --font-size-h6: clamp(0.8rem, 1.75vw, 0.9rem);
-  --font-size-p: clamp(0.75rem, 1.5vw, 0.9rem); 
+
+  --font-size-p: clamp(0.85rem, 1.5vw, 0.9rem); 
 }
 
 *,
